@@ -1,1 +1,1 @@
-# Bulk-RNA-seq_workshop_Part-1_July2020
+# Bulk RNA-seq data analysis workshop Part-1 July2020
