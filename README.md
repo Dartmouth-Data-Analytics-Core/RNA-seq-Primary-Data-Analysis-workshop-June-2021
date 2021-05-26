@@ -1,3 +1,12 @@
+TO DO: 
+- add examples of prokaryotic alignment 
+- other workflow deviations? 
+- add more content on reference genomes to alignment section
+- split lectures up by day to fit 3 day format 
+- add normalization section to day 3
+- update schedule 
+
+
 # Bulk RNA-seq data analysis workshop Part-1 July2021
 
 This workshop will be delivered on June Xth-Xth 2021 by the Data Analytics Core (DAC) of the [Center for Quantitative Biology at Dartmouth](https://sites.dartmouth.edu/cqb/).

@@ -1,8 +1,8 @@
-# Schedule 
+# Schedule
 
-We will try our best to stick to this schedule, although it is a best guess. We may (likely) deviate from this dependning on how we are doing for time as we progress. We understand that you may have other commitments and may not be able to be present 100% of the time. 
+We will try our best to stick to this schedule, although it is a best guess. We may (likely) deviate from this dependning on how we are doing for time as we progress. We understand that you may have other commitments and may not be able to be present 100% of the time.
 
-Please let us know if you expect to be absent from any sessions, so that we know to move forward without you. 
+Please let us know if you expect to be absent from any sessions, so that we know to move forward without you.
 
 We have designed the schedule so that breaks are essentially built into the break out rooms, so you should feel free to take time during those sessions to stretch your legs and take a break.
 
@@ -30,8 +30,5 @@ We have designed the schedule so that breaks are essentially built into the brea
 - **12:00-12:10 - Day 2 recap & questions**
 - **12:10-1:15 - 01: Quantification**
 - **1:15-2:00 - 02: Count normalization** - NEED TO ADD THIS SECTION
-- **2:00-3:00 - 03: Putting it all together** - INCORPORATE HPC/DISCOVERY USAGE? 
+- **2:00-3:00 - 03: Putting it all together** - INCORPORATE HPC/DISCOVERY USAGE?
 - **3:00-5:00 - Wrap-up & closing remarks**
-
-
-
