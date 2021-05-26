@@ -1,4 +1,4 @@
-# Part 1 - Working with FASTQ files & basic quality control
+# Working with FASTQ files & basic quality control
 
 ### Learning objectives:
 - Understand the FASTQ file format and the formatting sequence information it stores
@@ -12,7 +12,7 @@ cp /scratch/rnaseq1/data/trimmed-fastq/* results/trim/
 
 ## FASTQ file format
 
-FASTQ files are arguably the workhorse format of bioinformatics. FASTQs are used to store sequence reads generated in next-generatoon sequencing (NGS) experiments. Similarly to FASTA files, FASTQ files contain a herder line, followed by the sequence read, however individual quality of base calls from the sequencer are included for each record in a FASTQ file.
+FASTQ files are arguably the workhorse format of bioinformatics. FASTQs are used to store sequence reads generated in next-generation sequencing (NGS) experiments. Similarly to FASTA files, FASTQ files contain a herder line, followed by the sequence read, however individual quality of base calls from the sequencer are included for each record in a FASTQ file.
 
 Here is what a the first record of an example FASTQ file looks like
 ```
@@ -43,7 +43,7 @@ However, we can clearly see that these are not probabilities. Instead, quality s
 
 For example, the first base call in our sequence example above, the `C` has a quality score encoded by an `H`, which corresponds to a Q-score of 39, meaning this is a good quality base call.
 
-Generally, you can see this would be a good quality read if not for the strech of `#`s indicating a Q-score of 2. Looking at the FASTQ record, you can see these correspond to a string of `N` calls, which are bases that the sequencer was not able to make a base call for. Streches of Ns' are generally not useful for your analysis.
+Generally, you can see this would be a good quality read if not for the stretch of `#`s indicating a Q-score of 2. Looking at the FASTQ record, you can see these correspond to a string of `N` calls, which are bases that the sequencer was not able to make a base call for. Stretches of Ns' are generally not useful for your analysis.
 
 **Paired-end reads:**  
 
