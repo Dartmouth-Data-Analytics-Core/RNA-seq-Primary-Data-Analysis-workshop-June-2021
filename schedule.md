@@ -13,11 +13,11 @@ We have designed the schedule so that breaks are essentially built into the brea
 - **12:00-12:30 - Welcome & introduction**
   - Intro to workshop, the Data Analytics Core, and personal intros.
 
-00 - Data management & setup (hands-on)
-Recap of UNIX shell/Bash
-Intro. to NGS (Dr. Fred Kolling)
-Intro. to RNA-seq (Lecture)
-1 - FASTQ files & basic QC (hands on)
+- 00 - Data management & setup (hands-on)
+- Recap of UNIX shell/Bash
+- Intro. to NGS (Dr. Fred Kolling)( this will be ~ 30-40 minutes)
+- Intro. to RNA-seq (Lecture)
+- 01 - FASTQ files & basic QC (hands on)
 
 
 ---
@@ -26,9 +26,9 @@ Intro. to RNA-seq (Lecture)
 
 - **12:00-12:10 - Day 1 recap & questions**
 
-02 - Alignment (hands on)
-03 - Alignment QC (hands on)
-04 - Quantification (hands on) - incorporate discussion of non-reference based approach 
+- 02 - Alignment (hands on)
+- 03 - Alignment QC (hands on)
+- 04 - Quantification (hands on) - incorporate discussion of non-reference based approach 
 
 
 
@@ -38,8 +38,8 @@ Intro. to RNA-seq (Lecture)
 
 - **12:00-12:10 - Day 2 recap & questions**
 
-05 - Count normalization - TPM, FPKM, RPKM 
-06 - putting it all together (hands on)
+- 05 - Count normalization - TPM, FPKM, RPKM 
+- 06 - putting it all together (hands on)
 
 
 - **4:40-5:00 - Wrap-up & closing remarks**
