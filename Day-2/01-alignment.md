@@ -12,7 +12,7 @@ Make a new directory to work in:
 # go to our home dir for the wrkshop
 rnaw
 
-# make the directroy and cd into it
+# make the directory and cd into it
 mkdir results/alignment
 cd results/alignment
 ```
