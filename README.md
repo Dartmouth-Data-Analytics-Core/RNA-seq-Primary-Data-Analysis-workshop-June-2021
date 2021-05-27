@@ -3,10 +3,9 @@ TO DO:
 - other workflow deviations?
 - add more content on reference genomes to alignment section
 - add normalization section to day 3
-- convert igv example to use desktop version
 - add details for short rna expts
 - clean up closing remarks
-- finalize schedule and speakers 
+- finalize schedule and speakers
 
 
 # Bulk RNA-seq data analysis workshop Part-1 July2021

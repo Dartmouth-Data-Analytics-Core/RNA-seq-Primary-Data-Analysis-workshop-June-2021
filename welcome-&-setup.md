@@ -8,13 +8,39 @@ For those of you that indicated you did not have an account on *discovery* you s
 
 For this workshop we will be using a dataset downloaded from the short read archive (SRA), a public repository of genomic data. This dataset comes from [this paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0099625), and was collected from human airway smooth muscle cells to test gene pathways effected by exposure to Glucocorticoid drugs, which have been historically used for their anti-inflammatory effects to treat asthma. Four cell lines were treated with either a control vehicle (untreated), dexamethasone (dex), albuterol (alb), or both dexamethasone and albuterol (co-treated) for 18 hours before transcriptomes were extracted.
 
-The commands that you will be following can be found in markdown `(.md)` files where there is a brief description of the command and how it is applied to the data and what it does followed by an example command that you can copy and paste into the terminal window. The majority of analysis will be performed using the terminal window on your local machine, with an open `ssh` connection to discovery7.
+The commands that you will be following can be found in markdown `(.md)` files where there is a brief description of the command and how it is applied to the data and what it does followed by an example command that you can copy and paste into the terminal window. The majority of analysis will be performed using a terminal application or emulator, with an open `ssh` connection to discovery7.
 
-In your terminal window navigate to where you want to download the files needed for this workshop onto your local machine. Then execute the following command:
+The terminal application you use will depend on the operating system you are using. Below are some recommendations.
+
+Operating system| Terminal emulators
+---|---
+Mac| Terminal (comes pre-installed)
+Windows| [MobaXterm](https://mobaxterm.mobatek.net/download.html) <br> [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+Linux| Konsole, Terminal, etc. (should be pre-installed but depends on the desktop environment you are running)
+
+To download the workshop materials, in your terminal window navigate to where you want to download the files onto your local machine. Then execute the following command:
 
 ```bash
 git clone https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq_workshop_July2020/
 ```
+
+---
+
+## Install the Integrative Genomics Viewer (IGV)
+
+We will be using the [Integrative Genomics Viewer (IGV)](http://software.broadinstitute.org/software/igv/), a genome browser produced by researchers at the Broad Institute, to explore and visualize RNA-seq data.
+
+<img src="figures/igv.png" height="100" width="100"/>
+
+You will need to download and install the IGV desktop application for your operating system before the workshop begins. The latest versions of IGV can be found at their [downloads page](http://software.broadinstitute.org/software/igv/download). After installing IGV, try opening the application on your computer to confirm the installation was successful.
+
+---
+## Installing an SFTP client ##
+
+This is optional but for those of you that are new to the command line this might be an easier way to move files between the HPC environment and your local machine. An SFTP client stands for secure file transfer protocol and will enable you to drag and drop files as you might in a finder window between your local machine and a remote location. I use FileZilla, which I believe works on Mac, Windows, and linux operating systems. You can download [FileZilla](https://filezilla-project.org/download.php?show_all=1) by following the link and selecting the version that is correct for your OS, then open the program to ensure that you have downloaded it successfully.
+
+---
+
 
 ## Setting up a Conda Environment ##
 
@@ -57,4 +83,4 @@ When you are finished using a conda environment, it is good practice to deactiva
 conda deactivate
 ```
 
-Thats it! This conda environment contains all the software you will need during the workshop. If you run into issues with the setup, please reach out to us at *DataAnalyticsCore@groups.dartmouth.edu* and someone will be in touch to assist you. 
+Thats it! This conda environment contains all the software you will need during the workshop. If you run into issues with the setup, please reach out to us at *DataAnalyticsCore@groups.dartmouth.edu* and someone will be in touch to assist you.

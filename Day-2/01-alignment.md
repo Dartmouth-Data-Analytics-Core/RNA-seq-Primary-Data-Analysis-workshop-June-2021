@@ -25,7 +25,7 @@ cp /scratch/rnaseq1/data/bam/*	results/alignment/
 ## Principles of read alignment for RNA-seq
 The goal of aliginging reads to a reference genome is to find the ***most likely location in that reference genome where the read originated from***. In the context of RNA-seq, this means we try to find the most likely gene in the reference genome that transcribed the RNA fragment which ultimately ended up in our cDNA library. Doing this for millions of reads allows us to quantify how many RNA fragments were transcribed from a given gene, so we are using the read alignment to measure gene expression.
 
-Although we won't go into the theory here, alignming reads to reference genomes involves ***mapping*** to identify the most likely position of the read in the reference genome, followed by the ***alignment***, which describes the base-by-base relationship between the read and the reference. Alignments are often imperfect, and are associated with quality scores (***MAPQ scores***) that describe the quality of the alignment.
+Although we won't go into the theory here, aligning reads to reference genomes involves ***mapping*** to identify the most likely position of the read in the reference genome, followed by the ***alignment***, which describes the base-by-base relationship between the read and the reference. Alignments are often imperfect, and are associated with quality scores (***MAPQ scores***) that describe the quality of the alignment.
 
 **Challenges of aligning millions of short reads to a reference genome involve:**
 - Mismatches introduced by **genetic variation** and **sequencing errors**
@@ -235,42 +235,77 @@ You might just want to go straight to counting how many reads have a particular 
 samtools view -c -F 256 SRR1039508.Aligned.out.sorted.REV.bam
 ```
 
-## Viewing Alignments in IGV
+---
+## The Integrative Genomics Viewer (IGV)
 
-The Integrative Genomics Viewer (IGV) from the Broad Institute is an extremely useful tool for visualization of alignment files (as well as other genomic file formats). Viewing your alignments in this way can be used to explore your data, troubleshoot issues you are having downstream of alignment, and inspect coverage and quality of reads in specific regions of interest (e.g. in variant calling). I strongly encourage you to download the IGV for your computer from their [website](http://software.broadinstitute.org/software/igv/) and play around with a BAM file to get familar with all its various features.
+The Integrative Genomics Viewer (IGV) is a very powerful piece of genomics software produced and distributed by researchers from the Broad Institute at MIT. IGV provides a fast and easy way to explore and visualize genomics data stored in various formats. In particular, IGV provides an effective way to review read alignments.
 
-Here, we will download our BAM onto our local machines, and view it using the IGV web app (for speed). You can open the IGV web app in your browser [here](https://igv.org/app/).
+<img src="../figures/igv.png" height="100" width="100"/>
 
-Now download the files onto your local machine, so that you can load them into the IGV web app.
+Below we will briefly introduce IGV, before loading in the BAM file we created above, and exploring how we can use IGV to explore RNA-seq read alignments,
+
+## The IGV user interface (UI) and basic navigation
+
+The layout of the IGV desktop application is relatively simple and easy to use after you familiarize yourself with the layout of the user interface.
+
+Some of the main UI features include:
+* **Currently loaded genome** - Shown in top left. Drop down menu allows you to toggle between pre-packaged genomes or access those available from the IGV server. Genomes can also be loaded using the `File` tab.
+
+* **Current chromosome/contig** - Name of the chromosome, contig, or other sequence type currently being shown. Can be changed using drop down menu.  
+
+* **Current region of chromosome/contig** - Coordinates in the form *chr:start-end* can be copied and pasted here directly to navigate to a region. Gene names can also be used (dependent upon the loaded annotation).
+
+* **Zoom bar** - Zoom in and out of the currently shown region
+
+* **Schematic of currently loaded chromosome or contig** - Red box indcates location of the region you are currently viewing. Full width of current region is shown below, with a scale bar indicating specific coordinates. Both can be used to navigate directly.
+
+* **Gene track** - Shows gene included in currently loaded annotation (Refseq genes in example). Right click track for additional formatting options. Features included in annotation are indicated by thickness (introns, exons, UTRs). Gene orientation is shown with arrows pointing right for FWD/+, left for REV/- strand.
+
+
+![](../figures/igv-01.png)
+
+
+---
+## Viewing RNA-seq alignments with IGV
+
+Alignments generated from different types of genomics data will look unique in IGV. For example, alignments from an RNA-seq experiment will look different from those generated in a ChIP-seq experiment.
+
+As RNA-seq involves profiling the transcriptome, read alignments in RNA-seq data should only appear at the coordinates of exons. If you see many reads located in introns or intergenic regions, you libraries may have been contaminated with genomic DNA. The number of alignments found at the exons of each gene tells us about the expression level of that gene: more alignments means greater expression. This is shown in the example below.
+
+![IGV](../figures/igv-rnaseq.png)
+
+We will now download a BAM onto our local machines, and view it using the IGV. You should have all installed IGV onto your local machine.
 ```bash
 # make a directory and go into it (ON YOUR LOCAL MACHINE)
-mkdir rnaseq_wrksp/
+mkdir rnaseq_wrksp/˘
 cd rnaseq_wrksp/
 
 # download the file using secure copy (scp)
 ##### modify this for your discovery ID, AND the directory your in
-scp d41294d@discovery7.dartmouth.edu:/scratch/omw/results/alignment/chr20.bam* .
+scp d41294d@discovery7.dartmouth.edu:scratch/omw/results/alignment/SRR1039508.Aligned.sortedByCoord.out.bam* .
 ##### you will be promoted for your password for discovery
 
 # you may also need to modify the permissions
 chmod a+rwx chr20*
 ```
 
-Now navigate to the IGV web app, and follow the below steps:  
-1. Under *'Genomes'* in the top right, select *'GRCh38/hg38'*
-2. Under *'Tracks'* select *'Local file'*, then highlight both the .bam and .bai
+Open IGV, and follow the below steps:  
+1. Using the drop down menu in the top left of the pane, make sure *'Human (hg38)'* is selected.
+2. Under *'File'* select *'Load from file'*, then navigate to your .bam file and select it
 3. Navigate to chromosome 20, and zoom in to see genes and individual alignments
-4. Use the setting at the right side of the track to set colors by *read strand*
+4. Right click in the alignments track and under *'Color alignments by'* select *read strand*
 5. In the search bar, type in gene `SAMHD1`
 
-![IGV](../figures/igv_webapp.png)
-
+Discussion points:
 - What do you notice about the orientation of the aligning reads?
 - Do you think this gene is expressed in this sample? What about relative to nearby genes?
 - Is there potentially going to be any ambiguity in read quantification for `SAMHD1`, given that our library was generared using a **unstranded** protocol?
 - How does `IGV` know where to put these reads, set their orientations, show if they are in a pair, etc.
 
 ## Run the alignment for all samples
+
+Now run the mapping workflow to generate alignments for all of the samples together.
+
 ```bash
 ls ../trim/*_1.trim.chr20.fastq.gz | while read x; do
 
