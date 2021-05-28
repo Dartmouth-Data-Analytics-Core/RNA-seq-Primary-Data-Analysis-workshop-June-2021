@@ -4,6 +4,7 @@ TO DO:
 - add more content on reference genomes to alignment section
 - add normalization section to day 3
 - add details for short rna expts
+- add section about RSEM and transcript quant/identification?
 - clean up closing remarks
 - finalize schedule and speakers
 
