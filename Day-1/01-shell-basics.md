@@ -11,16 +11,16 @@ Interacting with a system through the Shell has many advantages over a GUI. The 
 Importantly, the Shell allows us to do each of these in the context of Bioinformatics, and Bioinformatics softwares.
 
 ## Why learn Shell?  
-Shell can be challenging to learn, however is an absolutely key skill in bioinformatics, as it is used to primary way in which we interface with a lot of bioinformatics software and file types.
+Shell can be challenging to learn, however is an absolutely key skill in bioinformatics, as it is the primary way in which we interface with a lot of bioinformatics software and file types.
 
-Some bioinformatics softwares provide GUIs that enable execute tasks with programs that you would otherwise execute using the Shell. Whuile such softwares can be powerful in the right context, they can also make it very easy to perform tasks in bioinformatics incorrectly, therefore they should be treated with caution.
+Some bioinformatics softwares provide GUIs that enable users to execute tasks with programs that you would otherwise execute using the Shell. While such softwares can be powerful in the right context, they can also make it very easy to perform tasks in bioinformatics incorrectly, therefore they should be treated with caution.
 
 
 ## The Bash shell
 
 ### The absolute basics
 
-There are different different types of Unix shells, however the most popular is Bash (the *Bourne Again Shell*) and is also now the most common. Since the majority of participants will be using the Bash shell, and this is the default shell used on Dartmouth's high performance computing system (which we will be using), this lesson will be introduce the Shell through using the Bash shell, however most, if not all, content should be transferable to other Unix shells.
+There are different types of Unix shells, however the most common is Bash (the *Bourne Again Shell*). Since the majority of participants will be using the Bash shell, and this is the default shell used on Dartmouth's high performance computing system (which we will be using), this lesson will introduce the Shell through using the Bash shell, however most, if not all, content should be transferable to other Unix shells.
 
 > Use the Cheat Sheet in the GitHub repo to help you learn commands and available options.
 
@@ -32,7 +32,7 @@ Accessing the (bash) shell:
   <img src="../figures/shell.png" height="80%" width="80%"/>
 </p>
 
-When you open your terminal application you will be presented with the command prompt `$` when you are able to input commands. If the terminal is busy and cannot currently accept new commands, you will not be presented with the prompt.
+When you open your terminal application you will be presented with the command prompt `$` where you are able to input commands. If the terminal is busy and cannot currently accept new commands, you will not be presented with the prompt.
 
 When the prompt is shown, you can enter commands by typing them in after the prompt. Commands are typically composed of three components:  
 - the command itself  
@@ -48,7 +48,7 @@ man mkdir
 
 The shell provides us with a number of commands that allow us to list files in our current working directory, as well as change the current working directory to another location. For example:
 ```bash
-# 'ls' command lists files in our current wopkring directory
+# 'ls' command lists files in our current working directory
 ls
 
 # run ls with the '-a' option to include hidden files
@@ -71,9 +71,11 @@ cd OwenW/
 pwd
 ```
 
-To go back down the directory structure, we specified a directory that was in our current working directory (cd). This is called a **relative path**, since it is relative to our cd and will only work provided our cd is relative to the directory we are trying to reach in the way written in the command.  
+To go back down the directory structure, we specified a directory that was in our current working directory (cd). This is called a **relative path**, since it is relative to the directory we are currently in and will only work provided our cd is relative to the directory we are trying to reach in the way written in the command.  
 
-Relative paths are contrasted to **absolute paths** which always starts with a '/' and will start at the root (highest level) of the directory tree, and work from wherever you are in the directory substructure. For example:
+You can think of directory structures as a tree, the root is at the bottom and contains several directories which also contain subdirectories. The entire path through the branches of the tree is listed when you use the command **pwd**. In this case the root is **/Users/**, the next branch is **OwenW/**, and so on. On your local machine you probably have direcotries that came preinstalled named Documents, Desktop, Downloads, etc. and have gone on to create your own directories and file organization inside of these directories. You can interact with these directories using the commands above to list the contents of the directories or create new directories. 
+
+Relative paths are contrasted to **absolute paths** which always starts with a '/' and will start at the root (highest level) of the directory tree (when you use the **pwd** command the absolute path of your cd prints to the screen), and work from wherever you are in the directory substructure. For example:
 ```bash
 ls /Users/OwenW/
 ```
@@ -127,9 +129,11 @@ It is a good idea when working on projects on an HPC to stay organized so lets s
 cd /scratch/
 
 # make the directory 
+# DO NOT USE omw - use your own initials 
 mkdir -p omw/fundamentals_of_bioinformatics
 
 # go into it
+# replace omw with your initials
 cd omw/fundamentals_of_bioinformatics
 
 # set an alias so we can get here quicly 
@@ -148,6 +152,7 @@ As expected the new directory that you created is empty there are no files. Lets
 ```bash
 
 # copy the file from the scratch drive to the fundamentals_of_bioinformatics directory you just created
+# remember the ./ is shorthand for the directory that you are currently in it might be prudent to run the 'pwd' command before running the 'cp' command so you know where your files will be copied to
 cp /scratch/fund_of_bioinfo/counts/all_counts.txt ./
 
 ```
@@ -193,17 +198,17 @@ mv ~/all_counts.txt ~/all_counts.copy.txt
 You can also use the `mv` command to move a file to a new location. Let's move the all_counts.copy.txt from your home directory into your fundamentals_of_bioinformatics directory.
 ```bash
 # Move the all_counts.copy.txt into your fundamentals_of_bioinformatics directory
-mv ~/all_counts.copy.txt fundamentals_of_bioinformatics
+mv ~/all_counts.copy.txt ~/fundamentals_of_bioinformatics
 
 #check the contents of your fundamentals_of_bioinformatics directory
-ls
+ls ~/fundamentals_of_bioinformatics
 ```
 
 Copying the all_counts.copy.txt file was just an exercise to show you how the tools works, in practice you will want to keep your directories as neat as possible as you accumulate a lot of files. Let's remove the all_counts.copy.txt file with the `rm` command.
 
 ```bash
 # Remove the all_counts.copy.txt file
-rm all_counts.copy.txt
+rm ~/fundamentals_of_bioinformatics/all_counts.copy.txt
 ```
 
 You will notice that before the file was deleted you were asked if you were sure you wanted this file deleted. You want to be careful not to remove files that you did not create if you are working in shared directories. If you want to bypass this checkpoint, you can use the `-f` flag with `rm -f` to force the removal of a file, but be careful with this, as there is no *Trash* equivalent in the shell.
@@ -389,7 +394,7 @@ We will create an executable file and add it to our $PATH in another lesson, how
 export PATH="~/location/of/new/executables:$PATH"
 ```
 
-A command for finding where a program lives in the $PATH is the `which` command. This can be useful for debugging environment issues as they arise when trying to use or instal new software. Check where the executable for the `echo` command is located:
+A command for finding where a program lives in the $PATH is the `which` command. This can be useful for debugging environment issues as they arise when trying to use or install new software. Check where the executable for the `echo` command is located:
 ```r
 which echo
 ```
