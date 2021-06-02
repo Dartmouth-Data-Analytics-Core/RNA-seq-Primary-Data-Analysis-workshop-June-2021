@@ -215,8 +215,8 @@ Lets have a look at some example QC reports from the FastQC documentation:
 
 Lets run FASTQC on our data and move the results to a new directory.
 ```bash
-# specify the -t option for 4 threads to make it run faster
-fastqc -t 4 *.fastq.gz
+# specify the -t option for mulit threading to make it run faster, here we are using one because our files are small
+fastqc -t 1 *.fastq.gz
 
 # move results to a new folder
 mkdir fastqc_results
@@ -296,7 +296,7 @@ cutadapt \
    -o SRR1039508_1.trim.chr20.fastq.gz \
    -p SRR1039508_2.trim.chr20.fastq.gz \
    ../../raw_data/SRR1039508_1.chr20.fastq.gz ../../raw_data/SRR1039508_2.chr20.fastq.gz \
-   -m 1 -q 20 -j 4 > SRR1039508.cutadapt.report
+   -m 1 -q 20 -j 1 > SRR1039508.cutadapt.report
 ```
 
 - `-m` removes reads that are samller than the minimum threshold
@@ -318,7 +318,7 @@ ls ../../raw_data/*.chr20.fastq.gz | while read x; do \
       -o ${sample}_1.trim.chr20.fastq.gz \
       -p ${sample}_2.trim.chr20.fastq.gz \
       ../../raw_data/${sample}_1.chr20.fastq.gz ../../raw_data/${sample}_2.chr20.fastq.gz \
-      -m 1 -q 20 -j 4 > $sample.cutadapt.report
+      -m 1 -q 20 -j 1 > $sample.cutadapt.report
 done
 ```
 
