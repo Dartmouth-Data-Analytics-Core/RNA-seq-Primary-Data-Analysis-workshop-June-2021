@@ -50,25 +50,22 @@ You can find two *.csv* files (`SraRunInfo.csv` and `sra_result.csv`) in the Git
 
 ## Analysis overview
 
-Over the three days, we will pre-process the raw sequence data, assess its quality, and reduce it to a matrix of raw read counts that can be used for downstream analysis, such as differential expression.
+Over the three days, we will pre-process the raw sequence data, assess its quality, and reduce it to a matrix of raw read counts that can be used for downstream analyses, such as differential expression.
 
 ![](../figures/analysis_overview.png)
 
-As we move through day 1, we will be generating intermediate files for each of these steps. You will all create your own directory in `/scratch/` where you will run your analyses and store you results. Go ahead and initalize a directory for yourself now.
+As we move through day 1, we will be generating intermediate files for each of these steps. You will use the directory you created in `/scratch/` to run your analyses and store you results. Navigate to that directory from wherever you are now.
 
 ```bash
 # navigate to scratch
 cd /scratch/
 
-# make the directory
-mkdir omw
-
 # go into it
+# remember to use yuor own initals - this is Owen's directory
 cd omw
 
 # set an alias so we can get here quicly
 alias rnaw='cd /scratch/omw/'
-# NOTE: you can add this line to your .bashrc so it get run everytime you log in
 ```
 
 We need to set up some sub-directories where we will conduct each step. The desired directory structure for the workshop looks like this:
@@ -91,11 +88,11 @@ Look in `/scratch/rnaseq1/data/raw-fastq`
 ls -lah /scratch/rnaseq1/data/raw-fastq
 ```
 
-You can see that the raw data for all samples is there, although, as we mentioned, it is very large, and each step in processing individual files can take a long time, so we will only use a subset of these data during the pre-processing of the data on day 1. Specifically, we will be using eight FASTQs from four samples (2 controls, 2 Dex) that only contain reads aligning to chromosome 20. These files are loicated in `/scratch/rnaseq1/data/raw-fastq/subset` and are much smaller and we will be able to complete time consuming steps like read alignment to the reference genome, in a practical time period.
+You can see that the raw data for all samples is there, although, as we mentioned, it is very large, and each step in processing individual files can take a long time, so we will only use a subset of these data during the pre-processing of the data on day 1. Specifically, we will be using eight FASTQs from four samples (2 controls, 2 Dex) that only contain reads aligning to chromosome 20. These files are loicated in `/scratch/rnaseq1/data/raw-fastq/subset` and are much smaller so that we will be able to complete time consuming steps like read alignment to the reference genome, in a practical time period.
 
 Set up sym links to the raw FASTQs:
 ```bash
-# have a look for the files
+# have a look at the files
 ls -lah /scratch/rnaseq1/data/raw-fastq/subset/
 
 # set up the sym link in your raw_data directory
@@ -108,12 +105,12 @@ ls -lah
 
 For each step of the analysis in day 1, you can see we have included all of the files generated at each step for each sample in `/scratch/rnaseq1/data/`. While we will only use some of this data during day 1 of the workshop, we've made the entire processed dataset available if you want to practice with it, or try to replicate it yourself. We will leave this on `scratch` for about 1 month before removing it.
 
-You should have also created a `conda` environment called `rnaseq1` by following the guidance in the workshop setup. `conda` is an excellent way to manage software versions, especially on high performance computing systems. It is critical you **know AND track** which version of software you use for an analysis. Not only do you need to report this when you move to publish your work, but is also important for anyone trying to reproduce your work.
+You should have also created a `conda` environment called `rnaseq1` by following the guidance in the workshop setup. `conda` is an excellent way to manage software versions, especially on high performance computing systems. It is critical you **know AND track** which version of software you use for an analysis. Not only do you need to report this when you publish your work, but is also important for anyone trying to reproduce your work.
 
 Activate the conda environment:
 ```bash
 conda activate rnaseq1
 ```
-If you don't know what is rnaseq1, please visit [here](https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq_workshop_July2020/blob/master/welcome-%26-setup.md).
+If you don't know what rnaseq1 is, please visit [here](https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq_workshop_July2020/blob/master/welcome-%26-setup.md).
 
 We are now ready to start working with the data and processing the raw FASTQ files.
