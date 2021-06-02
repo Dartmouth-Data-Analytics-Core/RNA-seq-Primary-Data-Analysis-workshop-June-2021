@@ -61,7 +61,7 @@ It is critical that the R1 and R2 files have **the same number of records in bot
 
 While you don't normally need to go looking within an individual FASTQ file, it is very important to be able to manipulate FASTQ files if you are going to be doing more involved bioinformatics. There are a lot of operations we can do with a FASTQ file to gain more information about our experiment, and being able to interact with FASTQ files can be useful for troubleshooting problems that might come up in your analyses.
 
-Due to their large size, we often perform gzip copmpression of FASTQ files so that they take up less space, however this means we have to unzip them if we want to look inside them and perform operations on them. We can do this with the `zcat` command and a pipe (|). The pipe command is a way of linking commands, the pipe sends the output from the first command to the second command. `zcat` lists the contents of a zipped file to your screen, and head limits the output to the first ten lines.
+Due to their large size, we often perform gzip copmpression of FASTQ files so that they take up less space, however this means we have to unzip them if we want to look inside them and perform operations on them. We can do this with the `zcat` command and a pipe (|). Remember, the pipe command is a way of linking commands, the pipe sends the output from the first command to the second command. `zcat` lists the contents of a zipped file to your screen, and head limits the output to the first ten lines.
 
 Lets use `zcat` and `head` to have a look at the first few records in our FASTQ file.
 ```bash
@@ -86,7 +86,7 @@ zcat SRR1039508_1.chr20.fastq.gz | sed -n '1~4p' | head -10
 
 Using this same approach, we can print the second line for the first 10000 entires of the FASTQ file, and use the ***grep*** command to search for regular expressions in the output. Using the `-o` option for grep, we tell the command that we want it to print lines that match the character string.
 ```bash
-# print the first 10 lines to confirm we are getting bthe sequence lines
+# print the first 10 lines to confirm we are getting the sequence lines
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '2~4p' | head -10
 
 # pipe the sequence line from the first 10000 FASTQ records to grep to search for our (pretend) adapter sequence
@@ -103,7 +103,7 @@ Using a similar approach, we could count up all of the instances of individual D
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '2~4p' | head -10000 | grep -o . | sort | grep 'C\|G' | uniq -c
 ```
 
-Now we have the number of each nuleotide across the reads from the first 10000 records. A quick and easy program to get GC content. GC content is used in basic quality control of sequence from FASTQs to check for potential contamination of the sequencing library. We just used this code to check 1 sample, but what if we want to know for our 4 samples?
+Now we have the number of Gs and Cs across the reads from the first 10000 records. A quick and easy program to get GC content. GC content is used in basic quality control of sequence from FASTQs to check for potential contamination of the sequencing library. We just used this code to check 1 sample, but what if we want to know for our 4 samples?
 
 ## For & while loops
 
@@ -285,7 +285,7 @@ If we wanted to trim polyA sequences and save the output to a report called cuta
 ```bash
 cutadapt -a 'A{76}' -o out.trimmed.fastq.gz input.fastq.gz > cutadapt.logout;
 ```
-`-a A{75}` tells cutadapt to search for streches of A bases at the end of reads, with a maximum length of the read length (75bp).
+`-a A{76}` tells cutadapt to search for streches of A bases at the end of reads, with a maximum length of the read length (76bp).
 
 Since the polyA and adapter sequence contamination is relatively low for this dataset, we won't trim any specific sequences, although we will perform basic quality and length processing of the raw reads. Lets make a new directory and do this for do this for one sample.
 ```bash
@@ -300,7 +300,7 @@ cutadapt \
 ```
 
 - `-m` removes reads that are samller than the minimum threshold
-- `-q` qulaity threshold for trimming bases
+- `-q` quality threshold for trimming bases - remember a score of 20 means 1 in 100 chance the base call is incorrect
 - `-j` number of cores/threads to use
 
 Now lets run this on all of our samples:
