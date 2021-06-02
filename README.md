@@ -5,6 +5,7 @@ TO DO:
 - add normalization section to day 3
 - add details for short rna expts
 - add section about RSEM and transcript quant/identification?
+- replace yes com
 - clean up closing remarks
 - finalize schedule and speakers
 

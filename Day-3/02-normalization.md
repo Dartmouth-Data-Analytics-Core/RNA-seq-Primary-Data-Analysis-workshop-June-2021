@@ -1,4 +1,10 @@
 
+
+# change script to use complete raw counts matrix
+
+
+
+
 # Part 4 - Data normalization in RNA-seq
 
 ### Learning objectives:
@@ -70,4 +76,129 @@ The presence of truly differentially expressed genes (in particular, DEGs with v
 
 
 
+Note on why comparisons between group and within-/between-samples
+
+## Normalization methods
+
+Several normalization methods exist for RNA-seq data. Which method you use depends on the comparison you are trying to make (e.g. between or within samples), therefore it is important to understand how each is calculated and when to use it.
+
+### Counts per million (CPM)
+
+CPM is a simple normalization method that involves scaling the number of reads mapped to a feature by the total number of reads in a sample. This fraction is multiplied by 1 million in order to provide the number of reads per million mapped in the sample.
+
+<p align="center">
+<img src="../figures/cpm.png" alt="lib-composition"
+	title="" width="65%" height="65%" />
+</p>
+
+We will briefly use R to calculate CPM values for our dataset. If you are not familiar with R don't worry, this is not complex R code and many software packages will calculate normalized counts for you.
+```r
+# read in raw counts matrix
+all_counts <- read.table("all_counts.txt", sep="\t", stringsAsFactors=F, header=T)
+
+# look at the counts object
+head(all_counts)
+
+# write a function that will calculate TPM
+cpm <- function(counts, lengths) {
+	cpm <- c()
+	for(i in 1:length(counts)){
+		cpm[i] <- counts[i] / sum(counts) * 1e6
+	}
+	cpm
+}
+
+# apply function to the columns of raw counts data
+all_counts_cpm <- apply(all_counts, 2, cpm)
+
+# write to file
+write.csv(all_counts_cpm, file="all_counts_CPM.csv")
+```
+
+**NOTE:** CPM does **NOT** normalize for gene length, therefore cannot be used to compare expression between different genes in the same sample.
+
+### Transcripts per million
+
+<p align="center">
+<img src="../figures/tpm.png" alt="lib-composition"
+	title="" width="50%" height="50%" />
+</p>
+
+Calculate TPM from our raw read counts:
+```r
+# read in raw counts matrix
+all_counts <- read.table("all_counts.txt", sep="\t", stringsAsFactors=F, header=T)
+gene_lengths <- read.table("lengths.txt", sep="\t", stringsAsFactors=F, header=T)
+
+# look at the lengths object
+head(lengths)
+
+# write a function that will calculate TPM
+cpm <- function(counts, lengths) {
+	rate <- counts / lengths
+	tpm <- c()
+	for(i in 1:length(counts)){
+		tpm[i] <- rate[i] / sum(rate) * 1e6
+	}
+	tpm
+}
+
+# apply function to the columns of raw counts data
+all_counts_tpm <- apply(all_counts, 2, tpm, gene_lengths)
+
+# write to file
+write.csv(all_counts_tpm, file="all_counts_TPM.csv")
+```
+
+### Plot expression of example gene
+
+
+
+### Reads/fragments per kilobase of exon per million
+
+<p align="center">
+<img src="../figures/rpkm-fpkm.png" alt="lib-composition"
+	title="" width="90%" height="85%" />
+</p>
+
+
+Since our dataset is paired-end and we counted the number of fragments in the quantification step, we are calculating FPKM. Calculate FPKM from our raw read counts:
+```r
+# write a function that will calculate TPM
+cpm <- function(counts, lengths) {
+	rate <- counts / lengths
+	fpkm <- c()
+	for(i in 1:length(counts)){
+		fpkm[i] <- rate[i] / sum(counts) * 1e9
+	}
+	fpkm
+}
+
+# apply function to the columns of raw counts data
+all_counts_fpkm <- apply(all_counts, 2, fpkm, gene_lengths)
+
+# write to file
+write.csv(all_counts_fpkm, file="all_counts_FPKM.csv")
+```
+
+
+
+
+**Normalization method comparison**
+
+**Method** | **Name** | **Accounts for** | **Appropriate comparisons**
+-------|-------|-------|-------
+CPM | Counts per million | Depth	 | - Between-sample<br>- Within experimental group
+TPM | Transcripts per million | Depth & feature length | - Between- and within-sample<br>- Within experimental group
+RPKM/FPKM | Reads/fragments per kilobase<br>of exon per million | Depth & feature length | - Within-sample<br>
+
+
+
+
 ## add in example of why RPKM is difficult to compare between samples
+
+
+
+## Normalization methods for differential expression
+
+size factor based normalization

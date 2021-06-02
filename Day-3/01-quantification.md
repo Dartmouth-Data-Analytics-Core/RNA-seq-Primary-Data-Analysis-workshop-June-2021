@@ -1,4 +1,8 @@
 
+ADD SECTION ON ANNOTATION W/ GENE NAMES to quantification section
+
+
+
 # Part 4 - Read count quantification
 
 ### Learning objectives:
@@ -68,6 +72,7 @@ htseq-count \
 	-f bam \
 	-s no \
 	-r pos \
+	--additional-attr "gene_name" \
 	../alignment/SRR1039508.Aligned.sortedByCoord.out.bam \
 	/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > SRR1039508.htseq-counts
 ```
@@ -107,6 +112,7 @@ ls ../alignment/*.Aligned.sortedByCoord.out.bam | while read x; do
 	-f bam \
 	-s no \
 	-r pos \
+	--additional-attr "gene_name" \
 	../alignment/${sample}.Aligned.sortedByCoord.out.bam \
 	/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > ${sample}.htseq-counts
 done
