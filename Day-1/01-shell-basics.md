@@ -130,13 +130,14 @@ cd /scratch/
 
 # make the directory 
 # DO NOT USE omw - use your own initials 
-mkdir -p omw/fundamentals_of_bioinformatics
+mkdir -p omw/fundamentals_of_bioinformatics/
 
 # go into it
 # replace omw with your initials
-cd omw/fundamentals_of_bioinformatics
+cd omw/fundamentals_of_bioinformatics/
 
 # set an alias so we can get here quicly 
+# replace omw with your initials
 alias biow='cd /scratch/omw/fundamentals_of_bioinformatics'
 # NOTE: you can add this line to your .bashrc so it get run everytime you log in, we will cover this below 
 
@@ -198,17 +199,18 @@ mv ~/all_counts.txt ~/all_counts.copy.txt
 You can also use the `mv` command to move a file to a new location. Let's move the all_counts.copy.txt from your home directory into your fundamentals_of_bioinformatics directory.
 ```bash
 # Move the all_counts.copy.txt into your fundamentals_of_bioinformatics directory
-mv ~/all_counts.copy.txt ~/fundamentals_of_bioinformatics
+# use pwd to check that you are in the fundamentals_of_bioinformaitcs directory first 
+mv ~/all_counts.copy.txt ./
 
 #check the contents of your fundamentals_of_bioinformatics directory
-ls ~/fundamentals_of_bioinformatics
+ls 
 ```
 
 Copying the all_counts.copy.txt file was just an exercise to show you how the tools works, in practice you will want to keep your directories as neat as possible as you accumulate a lot of files. Let's remove the all_counts.copy.txt file with the `rm` command.
 
 ```bash
 # Remove the all_counts.copy.txt file
-rm ~/fundamentals_of_bioinformatics/all_counts.copy.txt
+rm all_counts.copy.txt
 ```
 
 You will notice that before the file was deleted you were asked if you were sure you wanted this file deleted. You want to be careful not to remove files that you did not create if you are working in shared directories. If you want to bypass this checkpoint, you can use the `-f` flag with `rm -f` to force the removal of a file, but be careful with this, as there is no *Trash* equivalent in the shell.
@@ -409,12 +411,12 @@ ls *.txt
 
 You will notice the prompt in your terminal when you are logged onto discovery starts with the term `(base)` what this is indicating is that the environments loaded in your .bash_profile are the tools that are available for you to use. For this workshop (and for most NGS data processing) you will need to extend the software packages that are available to you.
 
-We will do this now by loading a new environment with the tool `conda`. We have pre-built this `conda` environment for you such that all of the tools you will need have been loaded into this environment, you should have created this environment with the commands included in the welcome and setup email. Tomorrow we will talk more about how to create your own custom `conda` environment.
+We will do this now by loading a new environment with the tool `conda`. We have pre-built this `conda` environment for you such that all of the tools you will need have been loaded into this environment, you should have created this environment with the commands included in the welcome and setup email. In our Fundamentals of Bioinformatics workshop we discuss more about how to create your own custom `conda` environments.
 
 ```bash
 
 # Load conda environment
-conda activate bioinfo
+conda activate rnaseq1
 ```
 This should change the word at the beginning of your prompt from `(base)` to the name of the conda environment that you just loaded `(bioinfo)`.
 
