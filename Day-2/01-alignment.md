@@ -32,7 +32,7 @@ Although we won't go into the theory here, aligning reads to reference genomes i
 - **Repetitive sequences** in genomes (e.g. start and end of chromosomes)
 - Presence of **intron** in reference genomes, meaning aligners must be able to consider **splice-junctions**
 
-It is important when selecting an aligner to use for your dataset that it is appropriate for your experiment, as numerous aligners exist and make different assumptions and have different strengths/weaknesses. Importantly, some aligners are ***splice-aware*** while others are not. ***Splice-aware*** aligners can generate alignments to a reference genome that span the intronic regions and therefore account for splicing, e.g. `STAR` and `HISAT2`. If your dataset is prokaryotic (non-splicosomal) you would **not** want to use a splice-aware aligner, and instead using an aligner that is not designed to map across intronic regions such as `bwa-mem` or `bowtie2`.
+It is important when selecting an aligner to use for your dataset that it is appropriate for your experiment, as numerous aligners exist and make different assumptions and have different strengths/weaknesses. Importantly, some aligners are ***splice-aware*** while others are not. ***Splice-aware*** aligners can generate alignments to a reference genome that span the intronic regions and therefore account for splicing, e.g. `STAR` and `HISAT2`. If your dataset is prokaryotic (non-splicosomal) you would **not** want to use a splice-aware aligner, and instead using an aligner that is not designed to map across intronic regions such as `bwa-mem` or `bowtie2` (more on this later).
 
 It is also worth noting here that generating alignments is the most time consuming step of the analytical pipeline for most NGS analyses, and for RNA-seq, the field is moving toward quantification of gene expression using novel *'lightweight'* alignment tools, that are **extremely fast**, e.g. [Kallisto](https://pachterlab.github.io/kallisto/about), [Salfish](https://www.nature.com/articles/nbt.2862), and [Salmon](https://combine-lab.github.io/salmon/). These algorithms avoid generation of typical base-by-base alignments, and instead generate ***psuedo-alignments***, which have been shown to produce very accurate estimates of transcript abundances in RNA-seq data.
 
@@ -53,7 +53,7 @@ Such clipping is commonly used by aligners to get rid of sequence contamination,
 Clipping can be very advantageous, but also can potentially cause some issues, read more [here](https://sequencing.qcfail.com/articles/soft-clipping-of-reads-may-add-potentially-unwanted-alignments-to-repetitive-regions/).
 
 **Splicing**  
-As discussed above, numerous aligners exist, consisting of both ***splie-aware*** and ***splice-unaware*** aligners. Splice-aware aligners, such as `STAR` and `HISAT2` will produce alignments spanning splice junctions, which is obviously an important characteristic of RNA-seq data that the aligner needs to be able to account for. Furthermore, if you provide coordinates of splice-junctions to aligners like `STAR`, it can improve the mapping over spliced regions and improve detection of novel splice-functions.
+As discussed above, numerous aligners exist, consisting of both ***splice-aware*** and ***splice-unaware*** aligners. Splice-aware aligners, such as `STAR` and `HISAT2` will produce alignments spanning splice junctions, which is obviously an important characteristic that the aligner needs to be able to account for in the human RNA-seq dataset that we are working with today. Furthermore, if you provide coordinates of splice-junctions to aligners like `STAR`, it can improve the mapping over spliced regions and improve detection of novel splice-functions.
 
 **Genome vs transcriptome mapping?**  
 While there are times when one may want to map to a transcriptome, there are issues with this approach.  
@@ -94,7 +94,7 @@ samtools flags
 The values shown here relate the the [hexadecimal system](https://www.electronics-tutorials.ws/binary/bin_3.html)
 
 **MAPQ**:   
-Corresponds to the quality of the mapping. These are calculated in the same way as the Phred scores `Q = -10 x log10(P)`, although are generally considered to be a best guess form the aligner. A MAPQ of 255 is used where mapping quality is not available. Some aligners also use specific values to represent certain types of alignments, which may affect use of downstream tools, so it is worth understanding those that are specific to your aligner.
+Corresponds to the quality of the mapping. These are calculated in the same way as the Phred scores `Q = -10 x log10(P)`, although are generally considered to be a best guess from the aligner. A MAPQ of 255 is used where mapping quality is not available. Some aligners also use specific values to represent certain types of alignments, which may affect use of downstream tools, so it is worth understanding those that are specific to your aligner.
 
 **CIGAR**  
 An alphanumerical string that tells you information about the alignment. For relatively short reads, these are nice, but for long reads, they are a headache. Numbers correspond to number of bases, and letters correspond to features of those bases.  
@@ -147,7 +147,7 @@ STAR --genomeDir /scratch/rnaseq1/refs/hg38_chr20_index \
   --readFilesIn ../trim/SRR1039508_1.trim.chr20.fastq.gz ../trim/SRR1039508_2.trim.chr20.fastq.gz \
   --readFilesCommand zcat \
   --sjdbGTFfile /scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf \
-  --runThreadN 4 \
+  --runThreadN 1 \
   --outSAMtype SAM \
   --outFilterType BySJout \
   --outFileNamePrefix SRR1039508.
@@ -186,9 +186,9 @@ cat SRR1039508.Log.final.out
 ```
 
 **Working with SAM/BAM files**  
-We can also have a look around our SAM file to get to know it a bit better. Several tools exist that enable you to perform operations on SAM/BAM files. `Samtools` is perhaps the most widely used of these. You can find the documentation [here](http://www.htslib.org/doc/samtools.html).
+We can also have a look around our SAM file to get to know it a bit better. Several tools exist that enable you to perform operations on SAM/BAM files. `samtools` is perhaps the most widely used of these. You can find the documentation [here](http://www.htslib.org/doc/samtools.html).
 
-Lets use `Samtools` to have a look at the header for our SAM file
+Lets use `samtools` to have a look at the header for our SAM file
 ```bash
 samtools view -H SRR1039508.Aligned.out.sam  | head
 ```
@@ -322,7 +322,7 @@ ls ../trim/*_1.trim.chr20.fastq.gz | while read x; do
     --readFilesIn ../trim/${sample}_1.trim.chr20.fastq.gz ../trim/${sample}_2.trim.chr20.fastq.gz \
     --readFilesCommand zcat \
     --sjdbGTFfile /scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf \
-    --runThreadN 4 \
+    --runThreadN 1 \
     --outSAMtype BAM SortedByCoordinate \
     --outFilterType BySJout \
     --outFileNamePrefix ${sample}.
