@@ -1,8 +1,4 @@
 
-ADD SECTION ON ANNOTATION W/ GENE NAMES to quantification section
-# update code to handle gene_name column 
-
-
 # Part 4 - Read count quantification
 
 ### Learning objectives:
@@ -136,7 +132,7 @@ while read x;  do
 	sname=`echo "$sname" | cut -d"-" -f1`
 	# extract second column of file to get read counts only
 	echo counts for "$sname" being extracted
-	cut -f2 $x > "$sname".tmp.counts
+	cut -f3 $x > "$sname".tmp.counts
 	# save shorthand sample names into an array  
 	sname2="$sname"
 	myarray+=($sname2)
@@ -145,11 +141,11 @@ done < <(ls -1 *.htseq-counts | sort)
 
 Paste all gene IDs into a file with each to make the gene expression matrix
 ```bash
-# extract ENSG gene IDs from one of the files
-cut -f1 SRR1039508.htseq-counts > gene_IDs.txt
+# extract ENSG gene IDs and gene names from one of the files
+cut -f1-2 SRR1039508.htseq-counts > genes.txt
 
 # use the paste command to put geneIDs and raw counts for all files in 1 file
-paste gene_IDs.txt *.tmp.counts > tmp_all_counts.txt
+paste genes.txt *.tmp.counts > tmp_all_counts.txt
 
 # check it looks good
 head tmp_all_counts.txt
@@ -161,8 +157,12 @@ Save sample names in the array into text file
 echo ${myarray[@]}
 
 # print contents of array into text file with each element on a new line
-printf "%s\n" "${myarray[@]}" > names.txt
-cat names.txt
+printf "%s\n" "${myarray[@]}" > col_names.txt
+cat col_names.txt
+
+# add 'gene_name' to colnames
+cat <(echo "ENSEMBL_ID") <(echo "gene_name") col_names.txt > col_names_full.txt
+cat col_names_full.txt
 ```
 
 Put sample names in the file with counts to form row headers and complete the gene expression matrix
@@ -171,13 +171,18 @@ Put sample names in the file with counts to form row headers and complete the ge
 touch all_counts.txt
 
 # use the 'cat' command (concatenate) to put all tmp.counts.txt files into all_counts.txt
-cat <(cat names.txt | sort | paste -s) tmp_all_counts.txt > all_counts.txt
+cat <(cat col_names_full.txt | sort | paste -s) tmp_all_counts.txt > all_counts.txt
 
 # view head of file
 head all_counts.txt
+tail all_counts.txt
 
 # how many lines
 wc -l all_counts.txt
+
+# remove last five lines containing the extra quant info
+head -n-5 all_counts.txt > all_counts_f.txt
+wc -l all_counts_f.txt
 ```
 
 Remove all the tmp files
@@ -196,4 +201,7 @@ cat /scratch/rnaseq1/data/htseq-count/all_counts.txt | wc -l
 
 # add it to our quant directory
 cp /scratch/rnaseq1/data/htseq-count/all_counts.txt all_counts_full.txt
+
+# also copy the below file as we will need it in the next lesson
+cp /scratch/rnaseq1/data/htseq-count/gene-length-grch38.csv gene-length-grch38.csv
 ```
