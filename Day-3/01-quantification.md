@@ -1,6 +1,6 @@
 
 ADD SECTION ON ANNOTATION W/ GENE NAMES to quantification section
-
+# update code to handle gene_name column 
 
 
 # Part 4 - Read count quantification
@@ -193,4 +193,7 @@ head /scratch/rnaseq1/data/htseq-count/all_counts.txt
 
 # how many lines
 cat /scratch/rnaseq1/data/htseq-count/all_counts.txt | wc -l
+
+# add it to our quant directory
+cp /scratch/rnaseq1/data/htseq-count/all_counts.txt all_counts_full.txt
 ```

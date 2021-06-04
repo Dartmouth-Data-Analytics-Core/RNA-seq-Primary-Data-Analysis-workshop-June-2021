@@ -94,13 +94,13 @@ CPM is a simple normalization method that involves scaling the number of reads m
 We will briefly use R to calculate CPM values for our dataset. If you are not familiar with R don't worry, this is not complex R code and many software packages will calculate normalized counts for you.
 ```r
 # read in raw counts matrix
-all_counts <- read.table("all_counts.txt", sep="\t", stringsAsFactors=F, header=T)
+all_counts <- read.table("all_counts_full.txt", sep="\t", stringsAsFactors=F, header=T)
 
 # look at the counts object
 head(all_counts)
 
 # write a function that will calculate TPM
-cpm <- function(counts, lengths) {
+cpm <- function(counts) {
 	cpm <- c()
 	for(i in 1:length(counts)){
 		cpm[i] <- counts[i] / sum(counts) * 1e6
@@ -109,7 +109,7 @@ cpm <- function(counts, lengths) {
 }
 
 # apply function to the columns of raw counts data
-all_counts_cpm <- apply(all_counts, 2, cpm)
+all_counts_cpm <- apply(all_counts[2:ncol(all_counts)], 2, cpm)
 
 # write to file
 write.csv(all_counts_cpm, file="all_counts_CPM.csv")
@@ -127,8 +127,8 @@ write.csv(all_counts_cpm, file="all_counts_CPM.csv")
 Calculate TPM from our raw read counts:
 ```r
 # read in raw counts matrix
-all_counts <- read.table("all_counts.txt", sep="\t", stringsAsFactors=F, header=T)
-gene_lengths <- read.table("lengths.txt", sep="\t", stringsAsFactors=F, header=T)
+all_counts <- read.table("all_counts.txt", sep="\t", stringsAsFactors=FALSE, header=TRUE)
+gene_lengths <- read.csv("lengths-grch38.csv", header=FALSE)
 
 # look at the lengths object
 head(lengths)
@@ -144,7 +144,7 @@ cpm <- function(counts, lengths) {
 }
 
 # apply function to the columns of raw counts data
-all_counts_tpm <- apply(all_counts, 2, tpm, gene_lengths)
+all_counts_tpm <- apply(all_counts[2:ncol(all_counts)], 2, tpm, gene_lengths)
 
 # write to file
 write.csv(all_counts_tpm, file="all_counts_TPM.csv")
@@ -175,7 +175,7 @@ cpm <- function(counts, lengths) {
 }
 
 # apply function to the columns of raw counts data
-all_counts_fpkm <- apply(all_counts, 2, fpkm, gene_lengths)
+all_counts_fpkm <- apply(all_counts[2:ncol(all_counts)], 2, fpkm, gene_lengths)
 
 # write to file
 write.csv(all_counts_fpkm, file="all_counts_FPKM.csv")
