@@ -2,24 +2,24 @@
 
 Earlier today we used STAR to align human genomes to the hg38 reference genome using a splice aware aligner. In some cases a splice aware aligner is not approprate for the dataset. One example of this are prokaryotic datasets. In these cases you will want to use an aligner like *Bowtie* or *BWA*. 
 
-To practice with non-splice aware aligners we will use transcriptome data from *Staphylococcus aureus* MRSA 1369 exposed to human urine. 
+To practice with non-splice aware aligners we will use transcriptome data from six replicates of *Staphylococcus aureus* MRSA 1369 exposed to human urine. 
 
-**Experimental Design**
+**Experimental Design**<br>
 Total RNA was extracted from bacteria grown in TS broth using RibopureTM bacteria RNA extraction kit (Invitrogen). 
 Library construction included DNase treatment (TURBO DNase, ThermoFisher Scientific) and rDNA depletion (QIAseq FastSelect, Qiagen) followed by RNA fragmentation and random priming. 
 cDNA synthesis (NEBNext Ultra II, New England Biolabs) was followed by end repair, 5 phosphorylation and dA-tailing before. 
 Libraries were sequenced on a partial lane of Illumina HiSeq 400 with 150bp PE sequencing.
+**Though the data is paired end the pairs of reads have been merged and these files should be treated as unpaired reads.** 
 
-The SRA accesssion numbers for this data are:
+SRA Accession Number | Experimental condition
+---|---
+*SRR14057225*| Control Rep1
+*SRR14061515*| Control Rep2
+*SRR14069283*| Control Rep3
+*SRR14069797*| Urine Rep1
+*SRR14072892*| Urine Rep2
+*SRR14078369*| Urine Rep3
 
--SRR14057225
--SRR14061515
--SRR14069283
--SRR14069797
--SRR14072892
--SRR14078369
-
-Though the data is paired end the pairs of reads have been joined and these files should be treated as unpaired reads. 
 
 ## Bowtie
 
