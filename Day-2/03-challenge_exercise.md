@@ -28,7 +28,7 @@ There are two main ways that bowtie can align a transcriptome to a reference gen
 
 ### Bowtie Index 
 
-A reference sequence was downloaded for *S. aureus* from the NCBI refseq data base using the ftp site [here](https://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Staphylococcus_aureus/reference/GCF_000013425.1_ASM1342v1/). If the strain of interest is not available in the refseq database another good resource for prokaryotic genomes is the IMG database hosted by the [Joint Genome Institute](https://img.jgi.doe.gov). 
+A reference sequence was downloaded for *S. aureus* from the NCBI refseq data base using the [ftp site](https://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Staphylococcus_aureus/reference/GCF_000013425.1_ASM1342v1/). If the strain of interest is not available in the refseq database another good resource for prokaryotic genomes is the IMG database hosted by the [Joint Genome Institute](https://img.jgi.doe.gov). 
 
 The reference genome must be indexed in the same way that we indexed the reference before running *STAR*. This is done with the *bowtie2-build* command. This command takes two arguments the reference genome file to be indexed and the prefix to be used for the indexed file. The output of this command is a set of indexed genome files with the suffix `.bt2`.
 
@@ -42,23 +42,23 @@ The reference genome in this case has already been indexed for you and can be ac
 
 The basic flags to be used with `bowtie2` command for aligning reads to a reference genome.
 
-**-x** prefix for indexed reference genome
-**-1** a fastq file with forward (R1) reads
-**-2** a fastq file with reverse (R2) reads
-**-U** a fastq file with unpaired reads
-**-S** SAM file to write aligned reads to
+**-x** prefix for indexed reference genome<br>
+**-1** a fastq file with forward (R1) reads<br>
+**-2** a fastq file with reverse (R2) reads<br>
+**-U** a fastq file with unpaired reads<br>
+**-S** SAM file to write aligned reads to<br>
 
 Optional flags that may enhance your analysis:
 
-**--interleaved** a fastq file with interleaved paired reads (R1, R2, R1, R2, etc.)
-**--sra-acc** SRA accession number, bowtie can access the SRA directly using only the accession number
-**-b** unaligned reads to be aligned from a BAM file (rather than a fastq file)
-**-N** number of mismatches allowed per alignment
-**-L** length of seed substring, smaller values make the alignment more sensitive but are slower
-**--end-to-end** *default setting* use end to end alignment method
-**--local** use local alignment
-**--no-unal** don't print unaligned reads to SAM output file
-**-p** number of threads to use during the alignment 
+**--interleaved** a fastq file with interleaved paired reads (R1, R2, R1, R2, etc.)<br>
+**--sra-acc** SRA accession number, bowtie can access the SRA directly using only the accession number<br>
+**-b** unaligned reads to be aligned from a BAM file (rather than a fastq file)<br>
+**-N** number of mismatches allowed per alignment<br>
+**-L** length of seed substring, smaller values make the alignment more sensitive but are slower<br>
+**--end-to-end** *default setting* use end to end alignment method<br>
+**--local** use local alignment<br>
+**--no-unal** don't print unaligned reads to SAM output file<br>
+**-p** number of threads to use during the alignment<br>
 
 These are just a few of the enhanced options available there are many more available that you can (and should) read about [here](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#the-bowtie2-aligner).
 
