@@ -40,6 +40,8 @@ bowtie2-build <reference_genome.fasta> <bt2-base>
 
 The reference genome in this case has already been indexed for you and can be accessed at `/scratch/data/prok_data/indexed_ref/S_aureus`.
 
+### Bowtie Alignment 
+
 The basic flags to be used with `bowtie2` command for aligning reads to a reference genome.
 
 **-x** prefix for indexed reference genome<br>
