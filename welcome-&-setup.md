@@ -21,7 +21,7 @@ Linux| Konsole, Terminal, etc. (should be pre-installed but depends on the deskt
 To download the workshop materials, in your terminal window navigate to where you want to download the files onto your local machine. Then execute the following command:
 
 ```bash
-git clone https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq_workshop_July2020/
+git clone https://github.com/Dartmouth-Data-Analytics-Core/Bulk-RNA-seq_workshop_Part-1_June-2021/
 ```
 
 ---
