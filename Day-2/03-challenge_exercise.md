@@ -45,13 +45,14 @@ The reference genome in this case has already been indexed for you and can be ac
 The basic flags to be used with `bowtie2` command for aligning reads to a reference genome.
 
 **-x** prefix for indexed reference genome<br>
-**-1** a fastq file with forward (R1) reads<br>
-**-2** a fastq file with reverse (R2) reads<br>
-**-U** a fastq file with unpaired reads<br>
+**-q** fastq file with reads to map<br>
 **-S** SAM file to write aligned reads to<br>
 
 Optional flags that may enhance your analysis:
 
+**-1** a fastq file with forward (R1) reads<br>
+**-2** a fastq file with reverse (R2) reads<br>
+**-U** a fastq file with unpaired reads<br>
 **--interleaved** a fastq file with interleaved paired reads (R1, R2, R1, R2, etc.)<br>
 **--sra-acc** SRA accession number, bowtie can access the SRA directly using only the accession number<br>
 **-b** unaligned reads to be aligned from a BAM file (rather than a fastq file)<br>
@@ -67,5 +68,6 @@ These are just a few of the enhanced options available there are many more avail
 ### Challenge exercises
 
 1. Write your own code to align the reads in SRR14057225 to the reference genome (remember that the paired ends here have been merged and these files should be treated as unpaired reads).
-2. Write a loop that aligns each of the samples to the reference genome and writes each sample to its own SAM output file. 
-3. Write a script that runs bowtie alignments on samples that are handed to the script.
+2. You will notice that with the end-to-end alignment there are no reads mapped, but with the --local alignment most of the reads map to the reference. Why do you think this is?  (hint what step did we leave out?)
+3. Write a loop that aligns each of the samples to the reference genome and writes each sample to its own SAM output file. 
+4. Write a script that runs bowtie alignments on samples that are handed to the script.
