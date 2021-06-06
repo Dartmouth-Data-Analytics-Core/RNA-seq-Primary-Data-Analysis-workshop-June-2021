@@ -53,9 +53,17 @@ We will be using Conda to make sure everyone has the required software to perfor
 source /optnfs/common/miniconda3/etc/profile.d/conda.sh
 ```
 
-We recommend that you add the above line of code to your `.bashrc` file in your home directory, otherwise you will need to run this command each time you start a new session on discovery. You can follow the [tutorial](https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=72888) on the *Research Computing* teams website.
+We recommend that you add the above line of code to your `.bashrc` file in your home directory, otherwise you will need to run this command each time you start a new session on discovery. To do this use the following code:
 
-Now run the following command to create a .conda/ directory in your home drive to store all of your personal conda environments. You only have to run this command once to make this directory, so it does not need to be added to your .bashrc file.
+```bash
+# navigate to your home directory
+cd ~
+# open the .bashrc file that is there 
+nano .bashrc
+```
+This will open the existing `.bashrc` file use the down arrow to move the cursor to the bottom of the file and paste `source /optnfs/common/miniconda3/etc/profile.d/conda.sh`. Then use the `ctrl + x` keys to exit the nano text editor, type `Y` to save the changes you made, and hit `return` to save the file to the same name (`.bashrc`).
+
+Now run the following command to create a .conda/ directory in your home drive to store all of your personal conda environments. You only have to run this command once to make this directory, so it does not need to be added to your `.bashrc` file.
 
 ```bash
 cd ~
