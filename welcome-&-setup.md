@@ -4,13 +4,17 @@ Before you attend the workshop there are a couple of things we would like you to
 
 For those of you that indicated you did not have an account on the [Dartmouth Discovery cluster](https://rc.dartmouth.edu/index.php/discovery-overview/) you should have received an email explaining how to set that up, please make sure this is done and you are able to log into your account **BEFORE** the workshop begins. **YOU WILL NEED A DISCOVERY ACCOUNT!**
 
-## Downloading the data ##
+## How the workshop will work.. ##
 
-For this workshop we will be using a dataset downloaded from the [Sequence Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra), a public repository of genomic data. This dataset comes from [this paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0099625), and was collected from human airway smooth muscle cells to test gene pathways effected by exposure to Glucocorticoid drugs, which have been historically used for their anti-inflammatory effects to treat asthma. Four cell lines were treated with either a control vehicle (untreated), dexamethasone (dex), albuterol (alb), or both dexamethasone and albuterol (co-treated) for 18 hours before transcriptomes were extracted.
+We will be using a dataset downloaded from the [Sequence Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra), a public repository of genomic data. This dataset comes from [this paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0099625), and was collected from human airway smooth muscle cells to test gene pathways effected by exposure to Glucocorticoid drugs, which have been historically used for their anti-inflammatory effects to treat asthma.
 
-The commands that you will be following can be found in markdown `(.md)` files where there is a brief description of the command and how it is applied to the data and what it does followed by an example command that you can copy and paste into the terminal window. The majority of analysis will be performed using a terminal application or emulator, with an open `ssh` connection to discovery.
+All the teaching materials are located within the [GitHub repository](https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq-Primary-Data-Analysis-workshop-June-2021). We suggest you bookmark this page so you can easily get back to this repository each day.
 
-The terminal application you use will depend on the operating system you are using. Below are some recommendations.
+Lessons are provided in Markdown format (files with extension  `(.md)`) and also contain *'code chunks'* that you will use to perform the analysis of this dataset. The majority of analysis will be performed using a terminal application or emulator, with an open `ssh` connection to the Discovery cluster. You may copy and paste the code chunks into your terminal window to perform analyses, or type them out by hand.  
+
+If you wish to edit, modify or save the code in its own file (as you would in a real analysis), this can be achieved using a Text Editor application. Numerous free text editors exist, such as [Sublime Text](https://www.sublimetext.com/), [BBEdit](https://www.barebones.com/products/bbedit/), and [Atom](https://atom.io/). Experimenting with your code in a text editor is an excellent way to learn, as well as document your work on a project.
+
+The terminal application you use will depend on the operating system you are using. If you do not already have a terminal emulator on your machine, please download one. Below are some recommendations for different operating systems.
 
 Operating system| Terminal emulators
 ---|---
@@ -18,11 +22,16 @@ Mac| Terminal (comes pre-installed)
 Windows| [MobaXterm](https://mobaxterm.mobatek.net/download.html) <br> [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 Linux| Konsole, Terminal, etc. (should be pre-installed but depends on the desktop environment you are running)
 
-To download the workshop materials, in your terminal window navigate to where you want to download the files onto your local machine. Then execute the following command:
+Although not required since the workshop materials will remain available on the [GitHub repository](https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq-Primary-Data-Analysis-workshop-June-2021), you may download the workshop materials to your local computer. In your terminal window, navigate to where you want to download the files on your local machine. Then execute the following command:
 
 ```bash
 git clone https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq-Primary-Data-Analysis-workshop-June-2021/
 ```
+
+If it is unclear how to do this, it should become more clear after our UNIX lesson on day 1.
+
+**NOTE:** We will be updating the materials in the week proceeding the workshop to get everything ready, therefore if you choose to download the workshop materials, please make sure to do this again after the workshop has started to get the most up-to-date version.
+
 
 ---
 
@@ -37,7 +46,9 @@ You will need to download and install the IGV desktop application for your opera
 ---
 ## Installing an SFTP client ##
 
-This is optional but for those of you that are new to the command line this might be an easier way to move files between the HPC environment and your local machine. An SFTP client stands for secure file transfer protocol and will enable you to drag and drop files as you might in a finder window between your local machine and a remote location. I use FileZilla, which I believe works on Mac, Windows, and linux operating systems. You can download [FileZilla](https://filezilla-project.org/download.php?show_all=1) by following the link and selecting the version that is correct for your OS, then open the program to ensure that you have downloaded it successfully.
+This is optional, but for those of you that are new to the command line, an SFTP client might be an easier way to move files between the HPC environment and your local machine. SFTP stands for Secure File Transfer Protocol and will enable you to drag and drop files as you might in a finder window between your local machine and a remote location, rather than using the command line.
+
+Several free SFTP clients exist, such as [FileZilla](https://filezilla-project.org/download.php?show_all=1) [WinSCP](https://winscp.net/eng/index.phpby), and [Cyberduck](https://cyberduck.io/), among others.
 
 ---
 
@@ -58,7 +69,7 @@ We recommend that you add the above line of code to your `.bashrc` file in your 
 ```bash
 # navigate to your home directory
 cd ~
-# open the .bashrc file that is there 
+# open the .bashrc file that is there
 nano .bashrc
 ```
 This will open the existing `.bashrc` file use the down arrow to move the cursor to the bottom of the file and paste `source /optnfs/common/miniconda3/etc/profile.d/conda.sh`. Then use the `ctrl + x` keys to exit the nano text editor, type `Y` to save the changes you made, and hit `return` to save the file to the same name (`.bashrc`).
