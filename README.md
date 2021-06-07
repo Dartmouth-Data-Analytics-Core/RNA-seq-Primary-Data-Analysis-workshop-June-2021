@@ -1,5 +1,5 @@
 
-# Bulk RNA-seq data analysis workshop Part-1 July2021
+# RNA-seq Primary Data Analysis Workshop - June 2021
 
 This workshop will be delivered on June 14th, 16th, and 18th 2021 by the Data Analytics Core (DAC) of the [Center for Quantitative Biology at Dartmouth](https://sites.dartmouth.edu/cqb/).
 
@@ -10,7 +10,7 @@ If you have questions about this workshop, or would like to discuss data analysi
 <img src="figures/logo.jpg" width="250" height="140" >
 
 ### Workshop goals:
-- Develop a working understanding of the analytical workflow for a modern RNA-seq experiments
+- Develop a working understanding of the analytical workflow for a modern bulk RNA-seq experiment
 - Build a working knowledge of sample preparation considerations for RNA-seq experiments
 - Learn how to process raw NGS data in FASTQ format to generate a gene expression matrix
 - Learn how to perform a detailed quality control analysis
