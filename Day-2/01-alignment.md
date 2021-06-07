@@ -336,9 +336,12 @@ Note that I change `--outSAMtype` to `BAM sortedByCoord` so that we dont have to
 View the reports quickly:
 ```bash
 ls *Log.final.out | while read x; do
-   yes '' | sed 4q
+  # print  empty line
+   echo ''
    echo Printing $x
-   yes '' | sed 1q
+   # print another empty line
+   echo ''
+   # print report
    cat $x
 done
 ```

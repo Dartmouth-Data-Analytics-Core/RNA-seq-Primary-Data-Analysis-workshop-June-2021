@@ -23,13 +23,15 @@ cp /scratch/rnaseq1/data/raw-fastq/htseq-count/* results/quant
 
 ## Count normalization in RNA-seq
 
-In order to compare expression levels between genes within a sample, or genes across multiple samples, it is critical the data is normalized to allow appropriate interpretation of the results. Which normalization strategy depends on several factors such as the library type, as well as the comparison you wish to make (e.g. within- vs between-sample).
+In order to compare expression levels between genes within a sample, or genes across multiple samples, it is critical the data is normalized to allow appropriate interpretation of the results. Which normalization strategy used depends on several factors such as library type, and type of comparison you wish to make (e.g. within- vs between-sample).
 
 Below we will discuss the major sources of variation that need to be accounted for during normalization in order to reach appropriate conclusions about your results. Subsequently, we will discuss the normalization approaches that account for these sources of variation and when to use them.
 
+## Sources of variation in RNA-seq data requiring normalization
+
 ### Gene length
 
-Genes length typically varies a great deal across the genome of virtually all organisms.
+Genes length typically varies a great deal across transcriptomes.
 In the below example, we see two genes, X and Y. If we were to simply compare the number of reads successfully mapped to gene X and gene Y, we would conclude gene X is expressed ~2x that of gene Y.
 
 However, since gene X is ~2x longer than gene Y, gene X contributed ~2x as many RNA fragments to the original sequencing library. Gene X therefore only has more reads mapped to it because it is longer, **NOT** because it is truly expressed at greater level than gene Y.  
@@ -43,34 +45,32 @@ To address gene length bias, we must normalize raw read counts in a way that acc
 
 Normalization for gene length is critical when comparing between genes **within the same sample**, however when comparing expression of the same gene **across different samples**, correction for gene length is not as important since we assume the gene is of the same length in all samples.
 
+NOTE: An exception to this rule is when comparing expression levels of different transcripts between samples, which may change in length.
+
 ### Library size/sequencing depth  
 
-Although samples are pooled together (each sample is tagged with a barcode and samples are combined) at similar concentrations in a sequencing run, some samples will end up being sequenced more than others, leading to slight differences in how many reads are produced for that sample, and therefore sequencing depth and size. Furthermore, if samples are sequenced on separate runs, their sequencing depths may be very different. If we don't account for this variation in sequencing depth, we might conclude some genes are expressed at greater levels in a sample that has simply been sequenced to a higher depth.  
+Although samples are pooled together at similar concentrations for sequencing, some samples end up being sequenced more than others, leading to slight differences in how many reads are produced for that sample, and therefore sequencing depth and size. Furthermore, if samples are sequenced on separate runs, their sequencing depths may be very different.
+
+If we don't account for variation in sequencing depth, we might conclude some genes are expressed at greater levels in a sample that has simply been sequenced to a greater depth.  
 
 <p align="center">
-<img src="../figures/library_composition.png" alt="lib-composition"
+<img src="../figures/library_size.png" alt="lib-composition"
 	title="" width="85%" height="85%" />
 </p>
 
-
-
-
-
-
+In the above example, sample 1 (left) is sequenced to twice the depth of sample 2 (right), with 30 million reads vs 15 million reads. None of the genes are truly differentially expressed between the samples, and all 3 genes have approximately twice as many reads as those in sample 1 simply due to the excess sequecing depth.
 
 ### Library composition
 
-The presence of truly differentially expressed genes (in particular, DEGs with very large fold changes) between samples will cause the number of reads for other genes in those samples to be skewed. For example, in the below example, gene C is differentially expressed between the two samples, with much higher expression in sample 1. This high number of reads causes fewer reads to be detected for other genes in this sample, making it appear that these other genes are expressed at lower levels than in sample 2, however this is simply an artifact of library composition differences between the samples.
+The presence of truly differentially expressed genes between samples causes the number of reads for other genes in those samples to be skewed. In the below example, gene Y is differentially expressed between the two samples, with much higher expression in sample 1. This means that less sequencing reagents are available in sample 1 for sequencing the other genes (X and Y) and they will achieve fewer reads than the same genes in sample 2, even if the samples are sequenced to the same depth.
 
 <p align="center">
-<img src="../figures/library_size.png" alt="lib-size"
+<img src="../figures/library_composition.png" alt="lib-size"
 	title="" width="85%" height="85%" />
 </p>
 
+Such library composition effects must also be accounted for during normalization to avoid falsely interpreting compositional effects as true differential expression findings. If samples you wish to compare are **very** distinct in their gene expression profiles, such as comparing drug-treated samples vs untreated samples, compositional effects may be large, therefore effectively correcting for these effects becomes critical for appropriate interpretation.
 
-
-
-Note on why comparisons between group and within-/between-samples
 
 ## Normalization methods
 
@@ -111,12 +111,16 @@ write.csv(all_counts_cpm, file="all_counts_CPM.csv")
 
 **NOTE:** CPM does **NOT** normalize for gene length, therefore cannot be used to compare expression between different genes in the same sample. An exception to this rule would be in the case of 3'-end RNA-seq datasets, which have no gene length bias, therefore CPM would be appropriate for comparing expression between genes in the same sample in such data.
 
-### Transcripts per million
+### Transcripts per million (TPM)
+
+TPM has become a common normalization approach for RNA-seq data. Reads mapped to a feature (gene) are first normalized by the length of the feature (in kilobases), then divided by the total number of length normalized reads in the sample. Like CPM, reads are scaled per million.
 
 <p align="center">
 <img src="../figures/tpm.png" alt="lib-composition"
 	title="" width="50%" height="50%" />
 </p>
+
+Since TPM normalizes for both gene length and sequencing depth, TPM values can be used to compare expression levels of genes within a sample, as well as between samples. TPM is recommended instead of RPKM/FPKM, for reasons we will discuss below.
 
 Calculate TPM from our raw read counts:
 ```r
@@ -184,13 +188,19 @@ dev.off()
 	title="" width="80%" height="80%" />
 </p>
 
-### Reads/fragments per kilobase of exon per million
+DUSP1 expression is clearly variable across the samples, suggesting differential expression across sample groups may exist (treated vs untreated). This can be tested statistically in a formal differential expression analysis (next workshop!).
+
+
+### Reads/fragments per kilobase of exon per million mapped reads (RPKM/FPKM)
+
+RPKM and FPKM have been used for many years as normalization strategies in RNA-seq experiments. RPKM/FPKM are calculated in a very similar way to TPM, however the order of operations is essentially reversed. For RPKM and FPKM, reads are first normalized for sequencing depth, then gene length.
 
 <p align="center">
 <img src="../figures/rpkm-fpkm.png" alt="lib-composition"
 	title="" width="90%" height="85%" />
 </p>
 
+The difference between RPKM and FPKM is very simple: RPKM is used for single-end experiments, whereas FPKM is used in paired-end experiments. This is because in single-end experiments we only measure one end of the DNA fragments in our library, however in paired-end experiments we measure the same DNA molecule 2x (once from each end), therefore we only need to count that fragment once during normaliation, despite having 2 reads for it.
 
 Since our dataset is paired-end and we counted the number of fragments in the quantification step, we are calculating FPKM. Calculate FPKM from our raw read counts:
 ```r
@@ -215,13 +225,48 @@ all_counts_fpkm <- cbind(all_counts[, c(1,2)], all_counts_fpkm)
 write.csv(all_counts_fpkm, file="all_counts_FPKM.csv")
 ```
 
-## add in example of why RPKM is difficult to compare between samples
+Although the measures are calculated in a very similar way, the reversed order of the calculations has a profound effect on how the values calculated by each method can be interpreted. Consider the example below:
 
 
+#### Raw counts:
+**Gene** | **Sample 1** | **Sample 2**
+-------|-------|-------
+X (4kb) | 65 | 73	 
+Y (3kb) | 20 | 25	 
+Z (1kb) | 15 | 12
+**Total** | **100** | **110**
 
+Raw counts for 2 samples with slightly different read depths (100 vs 110) therefore normalization is required to compare gene expression levels.
 
+#### RPKM:
+**Gene** | **Sample 1** | **Sample 2**
+-------|-------|-------
+X (4kb) | 1.625 | 1.659	 
+Y (3kb) | 0.667 | 0.758	 
+Z (1kb) | 1.500 | 1.091  
+**Total** | **3.792** | **3.508**
 
-### Normalization method comparison
+Note how the proportion of total RPKM values for any one given gene is different depending on the dataset, as the total RPKM values are not equal across all samples. Therefore, it is not straightforward to compare RPKM values for a single gene across samples.
+
+#### TPM:
+**Gene** | **Sample 1** | **Sample 2**
+-------|-------|-------
+X (4kb) | 4.286 | 4.730	 
+Y (3kb) | 1.758 | 2.160	 
+Z (1kb) | 3.956 | 3.110  
+**Total** | **10** | **10**
+
+Total TPM values across samples are equal, therefore the TPM values for each gene can be interpreted on the same scale between samples, making TPM values less susceptible to bias. TPM has now been suggested as a general replacement to RPKM and FPKM.  
+
+Despite the benefits of interpretability achieved by TPM, limitations still exist, and TPM values (like RPKM/FPKM) are susceptible to misuse some contexts, discussed further [in Zhao et al, 2020.](https://rnajournal.cshlp.org/content/early/2020/04/13/rna.074922.120). In particular, while TPM does normalize for library composition effects between samples, when composition effects become very large (such as when comparing between experimental groups in a differential expression experiment) TPM can suffer some biases.
+
+To address these issues, more complex normalization algorithms have been developed that more completely address library composition issues when very large differences in gene expression exist between samples. These methods are generally used to normalized RNA-seq data in the context of a differential expression analysis. For example:
+- *DESeq2's* median-of-ratios
+- *EdgeR's* TMM method (Trimmed Mean of M-values)
+
+Although we don't discuss these normalization approaches in this workshop, they will be discussed in the next RNA-seq workshop in this series (Differential Expression Analysis).
+
+### Summary: Normalization method comparison
 
 The below table summarizes the 3 normalization methods described above. It is important to learn when it is appropriate to apply each one to your dataset based on the comparisons you are trying to make.
 
@@ -230,7 +275,3 @@ The below table summarizes the 3 normalization methods described above. It is im
 CPM | Counts per million | Depth	 | - Between-sample<br>- Within experimental group
 TPM | Transcripts per million | Depth & feature length | - Between- and within-sample<br>- Within experimental group
 RPKM/FPKM | Reads/fragments per kilobase<br>of exon per million | Depth & feature length | - Within-sample<br>
-
-## Normalization methods for differential expression
-
-size factor based normalization
