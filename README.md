@@ -1,7 +1,7 @@
 
 # Bulk RNA-seq data analysis workshop Part-1 July2021
 
-This workshop will be delivered on June Xth-Xth 2021 by the Data Analytics Core (DAC) of the [Center for Quantitative Biology at Dartmouth](https://sites.dartmouth.edu/cqb/).
+This workshop will be delivered on June 14th, 16th, and 18th 2021 by the Data Analytics Core (DAC) of the [Center for Quantitative Biology at Dartmouth](https://sites.dartmouth.edu/cqb/).
 
 The DAC aims to facilitate advanced bioinformatic, computational, and statistical analysis of complex genomics data for the Dartmouth research community.
 
