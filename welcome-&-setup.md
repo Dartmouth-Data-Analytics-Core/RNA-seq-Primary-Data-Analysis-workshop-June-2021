@@ -2,13 +2,13 @@
 
 Before you attend the workshop there are a couple of things we would like you to do to get setup so you are able to participate in all sections of the workshop.  
 
-For those of you that indicated you did not have an account on *discovery* you should have received an email from me explaining how to set that up, please make sure this is done and you are able to log into your account **BEFORE** the workshop begins. YOU WILL NEED A DISCOVERY ACCOUNT!
+For those of you that indicated you did not have an account on the [Dartmouth Discovery cluster](https://rc.dartmouth.edu/index.php/discovery-overview/) you should have received an email explaining how to set that up, please make sure this is done and you are able to log into your account **BEFORE** the workshop begins. **YOU WILL NEED A DISCOVERY ACCOUNT!**
 
 ## Downloading the data ##
 
-For this workshop we will be using a dataset downloaded from the short read archive (SRA), a public repository of genomic data. This dataset comes from [this paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0099625), and was collected from human airway smooth muscle cells to test gene pathways effected by exposure to Glucocorticoid drugs, which have been historically used for their anti-inflammatory effects to treat asthma. Four cell lines were treated with either a control vehicle (untreated), dexamethasone (dex), albuterol (alb), or both dexamethasone and albuterol (co-treated) for 18 hours before transcriptomes were extracted.
+For this workshop we will be using a dataset downloaded from the [Sequence Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra), a public repository of genomic data. This dataset comes from [this paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0099625), and was collected from human airway smooth muscle cells to test gene pathways effected by exposure to Glucocorticoid drugs, which have been historically used for their anti-inflammatory effects to treat asthma. Four cell lines were treated with either a control vehicle (untreated), dexamethasone (dex), albuterol (alb), or both dexamethasone and albuterol (co-treated) for 18 hours before transcriptomes were extracted.
 
-The commands that you will be following can be found in markdown `(.md)` files where there is a brief description of the command and how it is applied to the data and what it does followed by an example command that you can copy and paste into the terminal window. The majority of analysis will be performed using a terminal application or emulator, with an open `ssh` connection to discovery7.
+The commands that you will be following can be found in markdown `(.md)` files where there is a brief description of the command and how it is applied to the data and what it does followed by an example command that you can copy and paste into the terminal window. The majority of analysis will be performed using a terminal application or emulator, with an open `ssh` connection to discovery.
 
 The terminal application you use will depend on the operating system you are using. Below are some recommendations.
 
@@ -21,7 +21,7 @@ Linux| Konsole, Terminal, etc. (should be pre-installed but depends on the deskt
 To download the workshop materials, in your terminal window navigate to where you want to download the files onto your local machine. Then execute the following command:
 
 ```bash
-git clone https://github.com/Dartmouth-Data-Analytics-Core/Bulk-RNA-seq_workshop_Part-1_June-2021/
+git clone https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq-Primary-Data-Analysis-workshop-June-2021/
 ```
 
 ---
