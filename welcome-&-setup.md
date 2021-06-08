@@ -4,7 +4,7 @@ Before you attend the workshop there are a couple of things we would like you to
 
 For those of you that indicated you did not have an account on the [Dartmouth Discovery cluster](https://rc.dartmouth.edu/index.php/discovery-overview/) you should have received an email explaining how to set that up, please make sure this is done and you are able to log into your account **BEFORE** the workshop begins. **YOU WILL NEED A DISCOVERY ACCOUNT!**
 
-## How the workshop will work.. ##
+## How to do this workshop ##
 
 We will be using a dataset downloaded from the [Sequence Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra), a public repository of genomic data. This dataset comes from [this paper](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0099625), and was collected from human airway smooth muscle cells to test gene pathways effected by exposure to Glucocorticoid drugs, which have been historically used for their anti-inflammatory effects to treat asthma.
 
@@ -21,16 +21,6 @@ Operating system| Terminal emulators
 Mac| Terminal (comes pre-installed)
 Windows| [MobaXterm](https://mobaxterm.mobatek.net/download.html) <br> [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 Linux| Konsole, Terminal, etc. (should be pre-installed but depends on the desktop environment you are running)
-
-Although not required since the workshop materials will remain available on the [GitHub repository](https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq-Primary-Data-Analysis-workshop-June-2021), you may download the workshop materials to your local computer. In your terminal window, navigate to where you want to download the files on your local machine. Then execute the following command:
-
-```bash
-git clone https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq-Primary-Data-Analysis-workshop-June-2021/
-```
-
-If it is unclear how to do this, it should become more clear after our UNIX lesson on day 1.
-
-**NOTE:** We will be updating the materials in the week proceeding the workshop to get everything ready, therefore if you choose to download the workshop materials, please make sure to do this again after the workshop has started to get the most up-to-date version.
 
 
 ---
