@@ -73,7 +73,7 @@ pwd
 
 To go back down the directory structure, we specified a directory that was in our current working directory (cd). This is called a **relative path**, since it is relative to the directory we are currently in and will only work provided our cd is relative to the directory we are trying to reach in the way written in the command.  
 
-You can think of directory structures as a tree, the root is at the bottom and contains several directories which also contain subdirectories. The entire path through the branches of the tree is listed when you use the command **pwd**. In this case the root is **/Users/**, the next branch is **OwenW/**, and so on. On your local machine you probably have direcotries that came preinstalled named Documents, Desktop, Downloads, etc. and have gone on to create your own directories and file organization inside of these directories. You can interact with these directories using the commands above to list the contents of the directories or create new directories. 
+You can think of directory structures as a tree, the root is at the bottom and contains several directories which also contain subdirectories. The entire path through the branches of the tree is listed when you use the command **pwd**. In this case the root is **/Users/**, the next branch is **OwenW/**, and so on. On your local machine you probably have direcotries that came preinstalled named Documents, Desktop, Downloads, etc. and have gone on to create your own directories and file organization inside of these directories. You can interact with these directories using the commands above to list the contents of the directories or create new directories.
 
 Relative paths are contrasted to **absolute paths** which always starts with a '/' and will start at the root (highest level) of the directory tree (when you use the **pwd** command the absolute path of your cd prints to the screen), and work from wherever you are in the directory substructure. For example:
 ```bash
@@ -97,7 +97,7 @@ echo 'bla bla bla' > mynotes.txt
 ## Log on to discovery cluster
 
 Many of the higher level commands for working with NGS data will require a lot of memory and computing power, more than most laptops can handle efficiently.
-The discovery cluster is a resource hosted by Dartmouth's Research Computing team. This cluster enables you to execute high level commands wihtout using the memory and computing power on your local machine (more about this tomorrow). Let's log onto the discovery cluster now. We will use a secure shell command `ssh` to log onto the discovery cluster.
+The discovery cluster is a resource hosted by Dartmouth's Research Computing team. This cluster enables you to execute high level commands without using the memory and computing power on your local machine (more about this tomorrow). Let's log onto the discovery cluster now. We will use a secure shell command `ssh` to log onto the discovery cluster.
 
 ```bash
 
@@ -125,21 +125,21 @@ You should see something like `/dartfs-hpc/rc/home/h/netID` displayed in respons
 It is a good idea when working on projects on an HPC to stay organized so lets start by making a folder, or directory to store all of the work you do today we will call it `fundamentals_of_bioinformatics`. You will notice that I chose a title that has no spaces in it, this is because the space is a special character, special characters need to be *escaped* with the `\` and so `funadmentals_of_bioinformatics` would look like `fundamentals\ of\ bioinformatics` with the escape characters. You can see that file names with spaces become unweildy to type out so most programmers will replace spaces with `_`, `.`, or `-` in their filenames to keep everything neat.
 
 ```bash
-# navigate to scratch so you can make your own directory there 
+# navigate to scratch so you can make your own directory there
 cd /scratch/
 
-# make the directory 
-# DO NOT USE omw - use your own initials 
+# make the directory
+# DO NOT USE omw - use your own initials
 mkdir -p omw/fundamentals_of_bioinformatics/
 
 # go into it
 # replace omw with your initials
 cd omw/fundamentals_of_bioinformatics/
 
-# set an alias so we can get here quicly 
+# set an alias so we can get here quicly
 # replace omw with your initials
 alias biow='cd /scratch/omw/fundamentals_of_bioinformatics'
-# NOTE: you can add this line to your .bashrc so it get run everytime you log in, we will cover this below 
+# NOTE: you can add this line to your .bashrc so it get run everytime you log in, we will cover this below
 
 # check your location on the cluster
 pwd
@@ -199,11 +199,11 @@ mv ~/all_counts.txt ~/all_counts.copy.txt
 You can also use the `mv` command to move a file to a new location. Let's move the all_counts.copy.txt from your home directory into your fundamentals_of_bioinformatics directory.
 ```bash
 # Move the all_counts.copy.txt into your fundamentals_of_bioinformatics directory
-# use pwd to check that you are in the fundamentals_of_bioinformaitcs directory first 
+# use pwd to check that you are in the fundamentals_of_bioinformaitcs directory first
 mv ~/all_counts.copy.txt ./
 
 #check the contents of your fundamentals_of_bioinformatics directory
-ls 
+ls
 ```
 
 Copying the all_counts.copy.txt file was just an exercise to show you how the tools works, in practice you will want to keep your directories as neat as possible as you accumulate a lot of files. Let's remove the all_counts.copy.txt file with the `rm` command.
@@ -424,5 +424,5 @@ This should change the word at the beginning of your prompt from `(base)` to the
 
 ### Breakout room activities
 
-- PRACTICE the bash commands - getting muscle memory for these commands and how to combine them and how they work are going free up your brain power to think about the analysis you want to perform rather than the commands you need to use. 
+- PRACTICE the bash commands - getting muscle memory for these commands and how to combine them and how they work are going free up your brain power to think about the analysis you want to perform rather than the commands you need to use.
 - Check out the cheat sheet links

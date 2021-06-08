@@ -47,8 +47,21 @@ Several free SFTP clients exist, such as [FileZilla](https://filezilla-project.o
 
 Conda is an open source package and environment manager that runs on Windows, MacOS and Linux. Conda allows you to install and update software packages as well as organize them efficiently into environments that you can switch between to manage software collections and versions.
 
-We will be using Conda to make sure everyone has the required software to perform the analyses included in the workshop. To start using conda on Discovery, open an ssh connection using your username & password, then run the following command:
+We will be using Conda to make sure everyone has the required software to perform the analyses included in the workshop. To start using Conda on Discovery, open your terminal application and start an ssh connection using your username & password:
 
+```bash
+# Establish the secure shell connection
+#### REPLACE 'netID' WITH THE ID ASSOCIATED WITH YOUR DISCOVERY ACCOUNT
+ssh netID@discovery7.dartmouth.edu
+
+# Enter your password at the prompt (when you type no characters will show up to preserve privacy)
+netID@discovery7.dartmouth.edu password:
+
+# You're in!
+(base) [netID@discovery7 ~]$
+```
+
+Then run the following command:
 
 ```bash
 source /optnfs/common/miniconda3/etc/profile.d/conda.sh
@@ -77,14 +90,13 @@ Now create the conda environment that we will be using for the workshop. This ta
 conda env create -f /scratch/rnaseq1/environment.yml
 ```
 
-When you are ready activate the conda environment, which you will need for the work we are doing for day 1 of the workshop you can use the following command.
+When you are ready activate the conda environment, use the following command:
 
 ```bash
-conda activate rnaseq1
+conda activate rnaseq_w
 ```
-You will see that the activate command has worked when it reads (rnaseq1) rather than (base) to the left of the prompt.
 
-There is one more conda environment you will need to create in order to run some of the QC metrics for our alignment. We will install the picard program (yes from Star Trek) using the bioconda channel.
+You will see that the activate command has worked when it reads `rnaseq_w` rather than `base` to the left of the prompt.
 
 When you are finished using a conda environment, it is good practice to deactivate your session with the following command.
 
@@ -93,3 +105,5 @@ conda deactivate
 ```
 
 Thats it! This conda environment contains all the software you will need during the workshop. If you run into issues with the setup, please reach out to us at *DataAnalyticsCore@groups.dartmouth.edu* and someone will be in touch to assist you.
+
+**NOTE:** Dartmouth's Research Computing team also provides instructions for getting started with Conda on discovery, which you can find [here](https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=72888).
