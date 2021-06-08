@@ -1,9 +1,9 @@
-# Unix/Linux Shell basics
+with# Unix/Linux Shell basics
 
-The Unix/Linux *'Shell'* describes a program that takes commands from a some input (essentially your keyboard) and passes them to an operating system that will execute them. In contrast to a *Graphical User Interface (GUI)* the Shell is both simulatenously a *command line interface (CLI)* and a programming language that allows you to perform tasks on your system.
+The Unix/Linux *'Shell'* describes a program that takes commands from some input (essentially your keyboard) and passes them to an operating system that will execute them. In contrast to a *Graphical User Interface (GUI)* the Shell is both simultaneously a *command line interface (CLI)* and a *programming language* that allows you to perform tasks on your system.
 
 <p align="center">
-  <img src="../figures/terminal.png" height="300" width="500"/>
+  <img src="../figures/terminal.png" height="75%" width="75%"/>
 </p>
 
 Interacting with a system through the Shell has many advantages over a GUI. The Shell allows you to quickly and easily navigate through directories on your computer, make, copy and search files in a systematic way, and construct pipelines that will execute complex tasks on big datasets.
@@ -18,7 +18,7 @@ Some bioinformatics softwares provide GUIs that enable users to execute tasks wi
 
 ## The Bash shell
 
-### The absolute basics
+### Absolute basics
 
 There are different types of Unix shells, however the most common is Bash (the *Bourne Again Shell*). Since the majority of participants will be using the Bash shell, and this is the default shell used on Dartmouth's high performance computing system (which we will be using), this lesson will introduce the Shell through using the Bash shell, however most, if not all, content should be transferable to other Unix shells.
 
@@ -73,7 +73,9 @@ pwd
 
 To go back down the directory structure, we specified a directory that was in our current working directory (cd). This is called a **relative path**, since it is relative to the directory we are currently in and will only work provided our cd is relative to the directory we are trying to reach in the way written in the command.  
 
-You can think of directory structures as a tree, the root is at the bottom and contains several directories which also contain subdirectories. The entire path through the branches of the tree is listed when you use the command **pwd**. In this case the root is **/Users/**, the next branch is **OwenW/**, and so on. On your local machine you probably have direcotries that came preinstalled named Documents, Desktop, Downloads, etc. and have gone on to create your own directories and file organization inside of these directories. You can interact with these directories using the commands above to list the contents of the directories or create new directories.
+You can think of directory structures as a tree, the root is at the bottom and contains several directories which also contain subdirectories. The entire path through the branches of the tree is listed when you use the command **pwd**. In this case the root is **/Users/**, the next branch is **OwenW/**, and so on.
+
+On your local machine you probably have directories that came preinstalled named *Documents*, *Desktop*, *Downloads*, etc. and have gone on to create your own directories and file organization inside of these directories. You can interact with these directories using the commands above to list the contents of the directories or create new directories.
 
 Relative paths are contrasted to **absolute paths** which always starts with a '/' and will start at the root (highest level) of the directory tree (when you use the **pwd** command the absolute path of your cd prints to the screen), and work from wherever you are in the directory substructure. For example:
 ```bash
@@ -96,11 +98,11 @@ echo 'bla bla bla' > mynotes.txt
 ```
 ## Log on to discovery cluster
 
-Many of the higher level commands for working with NGS data will require a lot of memory and computing power, more than most laptops can handle efficiently.
-The discovery cluster is a resource hosted by Dartmouth's Research Computing team. This cluster enables you to execute high level commands without using the memory and computing power on your local machine (more about this tomorrow). Let's log onto the discovery cluster now. We will use a secure shell command `ssh` to log onto the discovery cluster.
+Computational analysis involving NGS data generally require a lot of memory and processing power. The *Discovery cluster* is a resource hosted by **Dartmouth's Research Computing** team. This cluster enables you to execute commands without using the memory and computing power on your local machine.
+
+Log onto the discovery cluster now. We will use a secure shell command `ssh` to log onto the discovery cluster.
 
 ```bash
-
 # Establish the secure shell connection
 ssh netID@discovery7.dartmouth.edu
 
@@ -111,18 +113,20 @@ netID@discovery7.dartmouth.edu's password:
 (base) [netID@discovery7 ~]$
 
 ```
-All of the commands that you just executed locally in your terminal window work the same way when you are logged into discovery. It is always useful to orient yourself when you're working on an HPC so that you know where the output of all of the commands you run will end up. Lets run our first command to get your location.
+All of the commands you just executed locally in your terminal window work the same way when you are logged into discovery. It is always useful to orient yourself when you're working on an HPC so that you know where the output of all of the commands you run will end up. Let's run our first command to get your current directory.
 
 ```bash
-
 # Check your location on the cluster
 pwd
-
 ```
 
-You should see something like `/dartfs-hpc/rc/home/h/netID` displayed in response to your command. Initially when you log on you will always be directed to your home directory (the address or path listed above). Your home directory by default will have 50GB of storage space to begin with, if you are running something that requires more storage space it is possible to extend that limit temporarily with the `/scratch/ drive`. This is where we have stored all of the files you will be working with today. Directories and files hosted on the `/scratch/` drive will only be maintained for 45 days, you will receive a notification from research computing before the data is deleted, but it will be maintained longer than 45 days.
+When you log on you will always be directed to your home directory. Your home directory by default has 50GB of storage space. Research computing also provides directories where you can temporarily store larger files: `/scratch/`. All files for the workshop are located within `/scratch`. Note that directories and files hosted on the `/scratch/` drive will only be maintained for 45 days.
 
-It is a good idea when working on projects on an HPC to stay organized so lets start by making a folder, or directory to store all of the work you do today we will call it `fundamentals_of_bioinformatics`. You will notice that I chose a title that has no spaces in it, this is because the space is a special character, special characters need to be *escaped* with the `\` and so `funadmentals_of_bioinformatics` would look like `fundamentals\ of\ bioinformatics` with the escape characters. You can see that file names with spaces become unweildy to type out so most programmers will replace spaces with `_`, `.`, or `-` in their filenames to keep everything neat.
+## Start a new directory
+
+Let's start by making a folder, or directory, to store all of the work you do today. We will call it `rnaseq_workshp`. Notice I chose a title with no spaces. The 'space' is a *special character* in UNIX, and special characters need to be *escaped* with the `\` and so `rnaseq_workshp` would look like `rnaseq\ workshp` with escape characters.
+
+File names with spaces become unwieldy to type out so most programmers will replace spaces with `_`, `.`, or `-` in their filenames to keep everything neat.
 
 ```bash
 # navigate to scratch so you can make your own directory there
@@ -130,38 +134,38 @@ cd /scratch/
 
 # make the directory
 # DO NOT USE omw - use your own initials
-mkdir -p omw/fundamentals_of_bioinformatics/
+mkdir -p omw/rnaseq_workshp/
 
 # go into it
 # replace omw with your initials
-cd omw/fundamentals_of_bioinformatics/
+cd omw/rnaseq_workshp/
 
-# set an alias so we can get here quicly
+# set an alias so we can get here quickly
 # replace omw with your initials
-alias biow='cd /scratch/omw/fundamentals_of_bioinformatics'
-# NOTE: you can add this line to your .bashrc so it get run everytime you log in, we will cover this below
+alias biow='cd /scratch/omw/rnaseq_workshp'
+# NOTE: you can add this line to your .bashrc so it get run every time you log in, we will cover this below
 
 # check your location on the cluster
 pwd
 
 # list the contents of your directory
 ls
-
 ```
-As expected the new directory that you created is empty there are no files. Lets copy a file from the `/scratch/` directory we created for this workshop to the directory you just created. This file (`all_counts.txt`) provides raw read counts for an RNA-seq experiment, with genes in rows and samples in columns.
+As expected the new directory that you created is empty there are no files. Below we will copy a file to this directory that has been provided for you to use in this section of the workshop. This file (`all_counts.txt`) contains raw read counts for an RNA-seq experiment.
+
+WeBelow we will use `all_counts.txt` for a number of exercises to familiarize you with standard UNIX commands.
 
 ```bash
-
-# copy the file from the scratch drive to the fundamentals_of_bioinformatics directory you just created
+# copy the file from the scratch drive to the rnaseq_workshp directory you just created
 # remember the ./ is shorthand for the directory that you are currently in it might be prudent to run the 'pwd' command before running the 'cp' command so you know where your files will be copied to
-cp /scratch/fund_of_bioinfo/counts/all_counts.txt ./
-
+cp /scratch/rnaseq1/counts/all_counts.txt ./
 ```
 
 
 ### Viewing the contents of files
 
-The shell provides us with a number of commands to view the contents of files in define ways. The `cat` command for example (standing for concatenate) will print the entire contents of a file to the terminal. This can be useful for smaller files, but as you will see with larger files can be an unweildy way to look at the contents of a file.
+The shell provides us with a number of commands to view the contents of files. The `cat` command  (standing for concatenate) will print the entire contents of a file to the terminal. This is useful for smaller files, but with larger files can be an impractical way to look at the contents of a file.
+
 ```bash
 cat all_counts.txt
 ```
@@ -171,7 +175,6 @@ When working with larger files, which we are usually doing in bioinformatics, yo
 - `head` will print the first 10 lines by default, but this number can be controlled with the `-n` option
 - `tail` will print the final lines of a file, and can also be controlled with the `-n` option
 
-We will use a larger text file to show the utility of these commands, as well as other commands in the subsequent parts of this lesson.
 ```bash
 # Show the first 20 lines of the all_counts.txt file
 head -n 20 all_counts.txt
@@ -185,51 +188,53 @@ wc -l all_counts.txt
 
 ### Renaming and removing files
 
-Sometimes you will need to reorganize your directories or rename a file, which can be achieved wuith the `mv` command. Let's start by copying the all_counts.txt file from the fundamentals_of_bioinformatics directory to your home directory.
+Sometimes you will need to reorganize your directories or rename a file, which can be achieved wuith the `mv` command. Let's start by copying the all_counts.txt file from the `rnaseq_workshp` directory to your home directory.
 
 ```bash
 # Copy the all_counts.txt file to your home directory
 cp all_counts.txt ~/all_counts.txt
 ```
-Now let's rename the copy of the all_counts.txt file that we just created.
+Now let's rename the copy of the `all_counts.txt` file that we just created.
 ```bash
 # Rename the copied all_counts.txt file
 mv ~/all_counts.txt ~/all_counts.copy.txt
 ```
-You can also use the `mv` command to move a file to a new location. Let's move the all_counts.copy.txt from your home directory into your fundamentals_of_bioinformatics directory.
+
+You can also use the `mv` command to move a file to a new location. Let's move the all_counts.copy.txt from your home directory into your rnaseq_workshp directory.
+
 ```bash
-# Move the all_counts.copy.txt into your fundamentals_of_bioinformatics directory
+# Move the all_counts.copy.txt into your rnaseq_workshp directory
 # use pwd to check that you are in the fundamentals_of_bioinformaitcs directory first
 mv ~/all_counts.copy.txt ./
 
-#check the contents of your fundamentals_of_bioinformatics directory
+#check the contents of your rnaseq_workshp directory
 ls
 ```
 
-Copying the all_counts.copy.txt file was just an exercise to show you how the tools works, in practice you will want to keep your directories as neat as possible as you accumulate a lot of files. Let's remove the all_counts.copy.txt file with the `rm` command.
+Copying the `all_counts.copy.txt` file was just an exercise to show you how the tools works, in practice you will want to keep your directories as neat as possible as you accumulate a lot of files. Let's remove the `all_counts.copy.txt` file with the `rm` command.
 
 ```bash
 # Remove the all_counts.copy.txt file
 rm all_counts.copy.txt
 ```
 
-You will notice that before the file was deleted you were asked if you were sure you wanted this file deleted. You want to be careful not to remove files that you did not create if you are working in shared directories. If you want to bypass this checkpoint, you can use the `-f` flag with `rm -f` to force the removal of a file, but be careful with this, as there is no *Trash* equivalent in the shell.
+You will notice that before the file was deleted you were asked if you were sure you wanted this file deleted. You want to be careful not to remove files that you did not create if you are working in shared directories. If you want to bypass this checkpoint, you can use the `-f` flag with `rm -f` to force the removal of a file, but be careful with this, as **there is no 'Trash' equivalent in the shell.**
 
 ### Manipulating file contents
 
-Some commands enable you to maniuplate and subset files based on specific paramters. One useful example is the `cut` command, which allows you to 'cut' a file based on the options you select, such as the `f` option, which corresponds to fields (columns). We could use `cut` to obtain read counts for only the first 5 samples in `all_counts.txt`.
+Some commands enable you to maniuplate and subset files based on specific paramters. One useful example is the `cut` command, which allows you to 'cut' a file based on the options you select, such as the `-f` option, which corresponds to fields (columns). We could use `cut` to obtain read counts for only the first 5 samples in `all_counts.txt`.
 ```bash
 # Look at only the counts from the first four samples
 cut -f 1,2,3,4,5 all_counts.txt
 ```
 
-To prevent all rows being printed to our console, we could combine the `cut` command with the `head` command using a *'pipe'*, specified by a '|'. Pipes send the output from one command an inital command to a subsequent command, all in the same line, such that you do not need to include an argument for the last command.
+To prevent all rows being printed, we could combine the `cut` command with the `head` command using a *'pipe'*, specified by a '|'. Pipes send the output from one command to a subsequent command, all in the same line, such that you do not need to include the first argument for the last command.
 ```bash
 # List only the first 100 lines of only samples SRR1039508 (col 2) and SRR1039523 (col 17)
 cut -f 1,2,17 all_counts.txt | head -n 100
 ```
 
-Similarly to how we used the redirect command (>) above, we could redirect the output of the cut command to create a new counts file, that only contains the columns 1 (gene IDs), and samples in columns 2 and 17.
+Similarly to how we used the redirect command `>` above, we could redirect the output of the cut command to create a new counts file, that only contains the columns 1 (gene IDs), and samples in columns 2 and 17.
 ```bash
 # Print the counts from SRR1039508 and SRR1039523 to a new file
 cut -f 1,2,17 all_counts.txt > all_counts_sub.txt
@@ -240,7 +245,8 @@ head all_counts_sub.txt
 
 ### Pattern matching with *Grep*
 
-Often we will want to pull a specific piece of information from a large file, lets say that we were interested in the read counts for a specific gene, ALDH3B1 (Ensembl ID: ENSG00000006534). We can use the `grep` command to search for this ID, or any other character string we are interested in, in our counts matrix.
+Often we want to extract a specific piece of information from a large file. Say we are interested in the read counts for a specific gene, `ALDH3B1` (Ensembl ID: `ENSG00000006534`). We can use the `grep` command to search for this ID, or any other character string we are interested in.
+
 ```bash
 # Get the count data for ENSG00000006534 (ALDH3B1) from all_counts.txt
 grep "ENSG00000006534" all_counts.txt
@@ -261,7 +267,7 @@ $ | end of the line
 \s | any white space (tab, newline, space)
 \S | non-white space (the opposite of \s)
 
-These regular expressions can be used with any of the tools that you have learned thus far, so if we wanted to list all of the files in our directory that end in .txt we could use the following command.
+These *regular expressions* can be used with any of the tools that you have learned thus far, so if we wanted to list all of the files in our directory that end in .txt we could use the following command.
 
 ```bash
 # List all files that end in .txt
@@ -291,7 +297,7 @@ grep "^ENSG[0-9]*\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0$" all_counts.t
 
 ### Shell environment variables
 
-The command line *environment* essentially describes a collection of variables that have been set to provide context for the commands that you run. These variable are referred to as *environment variables*. A number of environment variables are set automatically everytime you log into the bash shell. The `env` command will show all environment variables available in the current shell. Try that now:
+The command line *environment* essentially describes a collection of variables that have been set to provide context for the commands that you run. These variable are referred to as *environment variables*. A number of environment variables are set automatically every time you log into the bash shell. The `env` command will show all environment variables available in the current shell. Try that now:
 ```bash
 env
 ```
@@ -301,7 +307,7 @@ One important environment variable is `$HOME`, which describes your home directo
 echo $HOME
 ```
 
-Environment variables can also be set on the fly and then called as needed. These can be virtually anything. For example, perhaps you want to save the name of the genome version you are working with in your current session, so it can be easily called multiple times in some bash code you are writing.
+Environment variables can also be set on the fly and called as needed. For example, perhaps you want to save the name of the genome version you are working with in your current session, so it can be easily called multiple times in some bash code you are writing.
 ```bash
 # set the variable
 genv='hg38.patch13'
@@ -310,7 +316,7 @@ genv='hg38.patch13'
 echo $genv
 ```
 
-You can also use environment variables to store commands that you want to run without having to type the entire command out each time. For example, we might run the `ls` command often with the flags `-lah` to show files in a list format, including all hidden files, and with file sizes in human readable format. The entire command would be `ls -lah`, however if we save the command to a variable, and then call the varaible directly, the command will be evaluated by the shell.
+You can also use environment variables to store commands that you want to run without having to type the entire command out each time. For example, we might run the `ls` command often with the flags `-lah` to show files in a list format, including all hidden files, and with file sizes in human readable format. The entire command would be `ls -lah`, however if we save the command to a variable, and then call the variable directly, the command will be evaluated by the shell.
 
 ```bash
 # save to variable
@@ -320,9 +326,9 @@ ll="ls -lah"
 $ll
 ```
 
-It is possible to make variables you add to your environment persistent, meaning those changes will define your environment each time you start a new bash session. This can be achieved by adding the variable assignment to one of the *environment files*, which are a set of files that are executed everytime you start a new bash session. These files are typically hidden, so we need to use `ls` wuth the `-a` flag to see them.
+It is possible to make variables you add to your environment persistent, meaning those changes will define your environment each time you start a new bash session. This can be achieved by adding the variable assignment to one of the *environment files*, which are a set of files that are executed every time you start a new bash session. These files are typically hidden, so we need to use `ls` with the `-a` flag to see them.
 
-List all files in your homoe directory and locate the `.bash_profile` environment file, and view its contents with the `cat` command.
+List all files in your home directory and locate the `.bash_profile` environment file, and view its contents with the `cat` command.
 ```bash
 # navigate to your home directory
 cd ../
@@ -334,7 +340,9 @@ ls -a
 cat .bash_profile
 ```
 
-The `.bash_profile` is run everytime you start a bash session and contains variables used to configure the bash environment in a way that is specific to the contents of the `.bash_profile` file. You can add lines to the `.bash_profile` to set environment variables that will be established each time you start a new session. Lets add the command we created above to our `.bash_profile`.
+The `.bash_profile` is run every time you start a bash session and contains variables used to configure the bash environment in a way that is specific to the contents of the `.bash_profile` file. You can add lines to the `.bash_profile` to set environment variables that will be established each time you start a new session.
+
+Lets add the command we created above to our `.bash_profile`.
 ```bash
 # use the nano text editor to add the line ' ll="ls -lah" ' to your bash_profile
 nano `.bash_profile`
@@ -355,7 +363,7 @@ alias ll="ls -lah"
 ll
 ```
 
-Another effective use of an alias is for accessing specific directories quickly. For example, if we had a project sub directory that we regularly want to access, such as `~/project/with/many/directories/`, we would need to write this out everytime to get there from our $HOME directory, using `cd /project/with/many/directories/`. Using an alias, we can save this command so that it is more easily callable.
+Another effective use of an alias is for accessing specific directories quickly. For example, if we had a project sub directory that we regularly want to access, such as `~/project/with/many/directories/`, we would need to write this out everytime to get there from our `$HOME` directory, using `cd /project/with/many/directories/`. Using an alias, we can save this command so that it is more easily callable.
 ```bash
 # make a long directory that you may want to get to quickly in the future
 mkdir -p ~/project/with/many/directories/
@@ -401,28 +409,20 @@ A command for finding where a program lives in the $PATH is the `which` command.
 which echo
 ```
 
-Many commands like `ls` will also accept wildcards, which are special character instances that allow you to do things like operate on multiple files at one time, or search for specific patterns (either in files or file names). We don't have time to review all the wildcard characters, however the most commonly used one is the asterisk, which can be used to represent any number of characters.
-```bash
-# list all files in my current directory with the file extension .txt
-ls *.txt
-```
-
 ### Customizing your environment
 
 You will notice the prompt in your terminal when you are logged onto discovery starts with the term `(base)` what this is indicating is that the environments loaded in your .bash_profile are the tools that are available for you to use. For this workshop (and for most NGS data processing) you will need to extend the software packages that are available to you.
 
-We will do this now by loading a new environment with the tool `conda`. We have pre-built this `conda` environment for you such that all of the tools you will need have been loaded into this environment, you should have created this environment with the commands included in the welcome and setup email. In our Fundamentals of Bioinformatics workshop we discuss more about how to create your own custom `conda` environments.
+We will do this now by loading a new environment with the tool `conda`. We have pre-built this `conda` environment for you such that all of the tools you will need have been loaded into this environment, you should have created this environment with the commands included in the welcome and setup email.
 
 ```bash
-
 # Load conda environment
-conda activate rnaseq1
+conda activate rnaseq_w
 ```
-This should change the word at the beginning of your prompt from `(base)` to the name of the conda environment that you just loaded `(bioinfo)`.
+This should change the word at the beginning of your prompt from `(base)` to the name of the conda environment that you just loaded `(rnaseq_w)`.
 
 > As we move through the subsequent lessons, we will introduce more complex bash commands in order to manipulate common bioinformatics file types. If you are ever confused about what a command does, remember you can always use `man` to check out the manual page (or google it). It you are confused about how commands are used in conjunction with each other, it can also be helpful to break them down and run parts individually, in order to understand what the constituent parts do.
 
 ### Breakout room activities
 
-- PRACTICE the bash commands - getting muscle memory for these commands and how to combine them and how they work are going free up your brain power to think about the analysis you want to perform rather than the commands you need to use.
-- Check out the cheat sheet links
+- Check out the Bash/Unix cheat sheet links in the GitHub directory, and try out a few other commands on the `all_counts.txt` file. Use the `man` command to learn more about these commands and how they should be used. 

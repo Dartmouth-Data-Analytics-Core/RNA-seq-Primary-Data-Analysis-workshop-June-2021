@@ -56,6 +56,11 @@ Over the three days, we will pre-process the raw sequence data, assess its quali
 
 As we move through day 1, we will be generating intermediate files for each of these steps. You will use the directory you created in `/scratch/` to run your analyses and store you results. Navigate to that directory from wherever you are now.
 
+
+
+
+
+
 ```bash
 # navigate to scratch
 cd /scratch/

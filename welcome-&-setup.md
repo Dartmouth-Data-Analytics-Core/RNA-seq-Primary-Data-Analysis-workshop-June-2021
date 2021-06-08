@@ -18,8 +18,8 @@ The terminal application you use will depend on the operating system you are usi
 
 Operating system| Terminal emulators
 ---|---
-Mac| Terminal (comes pre-installed)
-Windows| [MobaXterm](https://mobaxterm.mobatek.net/download.html) <br> [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+Mac| Terminal (comes pre-installed) <br> [iTerm2](https://iterm2.com/)
+Windows| [MobaXterm](https://mobaxterm.mobatek.net/download.html) <br> [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) <br> [iTerm2](https://iterm2.com/)
 Linux| Konsole, Terminal, etc. (should be pre-installed but depends on the desktop environment you are running)
 
 
