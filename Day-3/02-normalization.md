@@ -107,7 +107,11 @@ cpm <- function(counts) {
 
 # apply function to the columns of raw counts data 
 # we start at the third column because the first two columns have the ensemble IDs and gene names
-all_counts_cpm <- apply(all_counts[3:ncol(all_counts)], 2, cpm)
+all_counts_cpm <- apply(all_counts[3:5], 2, cpm)
+## NOTE: we are calculating cpm for first 3 samples only to save time..
+
+# add gene info columns back in
+all_counts_cpm <- cbind(all_counts[, c(1,2)], all_counts_cpm)
 
 # write to file
 write.csv(all_counts_cpm, file="all_counts_CPM.csv")
@@ -135,7 +139,7 @@ all_counts <- read.table("all_counts.txt", sep="\t", stringsAsFactors=FALSE, hea
 gene_lengths <- read.table("gene-lengths-grch38.tsv", sep="\t", stringsAsFactors=FALSE, header=TRUE)
 
 # look at the lengths object
-head(lengths)
+head(gene_lengths)
 
 # write a function that will calculate TPM
 tpm <- function(counts, lengths) {
@@ -262,7 +266,7 @@ Z (1kb) | 3.956 | 3.110
 
 Total TPM values across samples are equal, therefore the TPM values for each gene can be interpreted on the same scale between samples, making TPM values less susceptible to bias. TPM has now been suggested as a general replacement to RPKM and FPKM.  
 
-Despite the benefits of interpretability achieved by TPM, limitations still exist, and TPM values (like RPKM/FPKM) are susceptible to misuse some contexts, discussed further [in Zhao et al, 2020.](https://rnajournal.cshlp.org/content/early/2020/04/13/rna.074922.120). In particular, while TPM does normalize for library composition effects between samples, when composition effects become very large (such as when comparing between experimental groups in a differential expression experiment) TPM can suffer some biases.
+Despite the benefits of interpretability achieved by TPM, limitations still exist, and TPM values (like RPKM/FPKM) are susceptible to misuse in some contexts, discussed further [in Zhao et al, 2020.](https://rnajournal.cshlp.org/content/early/2020/04/13/rna.074922.120). In particular, while TPM does normalize for library composition effects between samples, when composition effects become very large (such as when comparing between experimental groups in a differential expression experiment) TPM can suffer some biases.
 
 To address these issues, more complex normalization algorithms have been developed that more completely address library composition issues when very large differences in gene expression exist between samples. These methods are generally used to normalized RNA-seq data in the context of a differential expression analysis. For example:
 - *DESeq2's* median-of-ratios
