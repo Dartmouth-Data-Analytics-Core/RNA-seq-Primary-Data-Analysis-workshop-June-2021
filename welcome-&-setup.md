@@ -87,7 +87,7 @@ mkdir -p .conda/pkgs/cache .conda/envs
 Now create the conda environment that we will be using for the workshop. This takes about 15 minutes to complete. As you will see, many packages are being installed or updated, all managed for you by conda.
 
 ```bash
-conda env create -f /scratch/rnaseq1/rnaseqw.yml
+conda env create -f /scratch/rnaseq1/environment.yml
 ```
 
 When you are ready activate the conda environment, use the following command:
