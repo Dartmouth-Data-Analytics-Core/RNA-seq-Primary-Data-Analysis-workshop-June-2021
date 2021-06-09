@@ -62,7 +62,7 @@ In the above example, sample 1 (left) is sequenced to twice the depth of sample 
 
 ### Library composition
 
-The presence of truly differentially expressed genes between samples causes the number of reads for other genes in those samples to be skewed. In the below example, gene Y is differentially expressed between the two samples, with much higher expression in sample 1. This means that less sequencing reagents are available in sample 1 for sequencing the other genes (X and Y) and they will achieve fewer reads than the same genes in sample 2, even if the samples are sequenced to the same depth.
+The presence of truly differentially expressed genes between samples causes the number of reads for other genes in those samples to be skewed. In the below example, gene Y is differentially expressed between the two samples, with much higher expression in sample 1. This means that fewer sequencing reagents are available in sample 1 for sequencing the other genes (X and Y) and they will achieve fewer reads than the same genes in sample 2, even if the samples are sequenced to the same depth.
 
 <p align="center">
 <img src="../figures/library_composition.png" alt="lib-size"
@@ -87,6 +87,9 @@ CPM is a simple normalization method that involves scaling the number of reads m
 
 We will briefly use R to calculate CPM values for our dataset. If you are not familiar with R don't worry, this is not complex R code and many software packages will calculate normalized counts for you.
 ```r
+# to begin an R session on discovery use the following command
+R
+
 # read in raw counts matrix
 all_counts <- read.table("all_counts_full.txt", sep="\t", stringsAsFactors=F, header=T)
 
@@ -102,8 +105,9 @@ cpm <- function(counts) {
 	cpm
 }
 
-# apply function to the columns of raw counts data
-all_counts_cpm <- apply(all_counts[2:ncol(all_counts)], 2, cpm)
+# apply function to the columns of raw counts data 
+# we start at the third column because the first two columns have the ensemble IDs and gene names
+all_counts_cpm <- apply(all_counts[3:ncol(all_counts)], 2, cpm)
 
 # write to file
 write.csv(all_counts_cpm, file="all_counts_CPM.csv")
