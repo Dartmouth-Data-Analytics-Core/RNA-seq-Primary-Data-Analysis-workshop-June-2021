@@ -10,7 +10,7 @@ Lets login to discovery7 and start and interactive session before we get started
 ssh d41294d@discovery7.dartmouth.edu
 
 # log onto the J node that you have been assigned
-srum q7
+srun --nodelist=q07 --cpus-per-task=1 --time=24:00:00 --pty /bin/bash
 ```
 
 ## Dataset for the workshop
