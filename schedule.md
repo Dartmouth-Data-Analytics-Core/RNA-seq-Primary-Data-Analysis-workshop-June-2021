@@ -21,7 +21,7 @@ We have designed the schedule so that breaks are essentially built into the brea
 ## Day2
 - **12:00-12:10 - Day 1 recap & questions**
 - **12:10-1:00 - Intro. to RNA-seq (Lecture) (Dr. Owen Wilkins)**
-- **1:00-2:30 - 01: Alignment**
+- **1:00-2:30 - 01: Read mapping**
 - **2:30-5:00 - 02: Alignment QC**
 
 ---
