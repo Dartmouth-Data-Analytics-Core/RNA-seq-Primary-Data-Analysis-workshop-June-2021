@@ -1,9 +1,11 @@
-## File manipulation
+## Challenge exercise: Read trimming
 
-Part of getting comfortable with bash is flexing your muscles and practicing using the skills you learned today. Here are a couple of exercises to encourage you to work with the bash tools that you learned to query the fastq files in `/scratch/rnaseq1/data/raw-fastq/subset`.
+We told you in the previous lesson that little adapter sequence contamination exists in this dataset. Use the skills you learn't in the last lesson to confirm this using `cutadapt`.
 
-1. Since this data was downloaded from the SRA write a code to determine if the adapter sequence has already been trimmed from these reads. You've forgotten if the kit was Nextera or Truseq, so to be on the safe side you should check for both.<br> <br>*Hint: you will need to count the sequences that contain this sequence, remember to use regular expressions to differentiate matches at the beginning of the read*.<br>
-<br>**Nextera adapter sequence:** CTGTCTCTTATA<br>
-**Truseq adapter sequence:** AGATCGGAAGAG
+The adapter sequences for the kit used to generate these libraries (Illumina TruSeq) are provided below. Adapter sequences are only expected at the 3' end of reads in this dataset.
 
-2. How many of the reads in each file start with a string of A's that could indicate a poly-A tail that needs trimming? 
+**TruSeq adapter sequences:**
+- Read 1: AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+- Read 2: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+You may need to refer to the [cutadapt documentation](https://cutadapt.readthedocs.io/en/stable/guide.html#) to assist you.
