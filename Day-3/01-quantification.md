@@ -203,5 +203,5 @@ cat /scratch/rnaseq1/data/htseq-count/all_counts.txt | wc -l
 cp /scratch/rnaseq1/data/htseq-count/all_counts.txt all_counts_full.txt
 
 # also copy the below file as we will need it in the next lesson
-cp /scratch/rnaseq1/data/htseq-count/gene-length-grch38.csv gene-length-grch38.csv
+cp /scratch/rnaseq1/data/htseq-count/gene-lengths-grch38.tsv gene-lengths-grch38.tsv
 ```

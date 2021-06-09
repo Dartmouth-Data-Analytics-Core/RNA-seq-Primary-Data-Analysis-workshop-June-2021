@@ -1,4 +1,4 @@
-# Welcome to the RNA-seq Parimary Data Analysis workshop #
+# Welcome to the RNA-seq Primary Data Analysis workshop #
 
 Before you attend the workshop there are a couple of things we would like you to do to get setup so you are able to participate in all sections of the workshop.  
 
@@ -104,6 +104,19 @@ When you are finished using a conda environment, it is good practice to deactiva
 conda deactivate
 ```
 
-Thats it! This conda environment contains all the software you will need during the workshop. If you run into issues with the setup, please reach out to us at *DataAnalyticsCore@groups.dartmouth.edu* and someone will be in touch to assist you.
+That's it! This conda environment contains all the software you will need during the workshop. If you run into issues with the setup, please reach out to us at *DataAnalyticsCore@groups.dartmouth.edu* and someone will be in touch to assist you.
 
-**NOTE:** Dartmouth's Research Computing team also provides instructions for getting started with Conda on discovery, which you can find [here](https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=72888).
+**NOTE:** Dartmouth's Research Computing team also provides instructions for getting started with Conda on discovery, which you can find [here](https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=72888).  
+
+
+---
+## Write a test file to the scratch space ##
+
+We've created a folder on the scratch space for this workshop where everyone can write 'Hello' once they've completed these welcome and setup instructions.  To write your own file, use the following code, replacing 'xyz' and 'your_name' with your own.  The quotation marks and spaces are important!  This will create a record of how many of us have successfully logged in to Discovery and finished the welcome and setup tasks:  
+```bash
+echo "Hello from xyz" > /scratch/rnaseq1/welcome/your_name.txt
+```
+So, for example, Tim would write:  
+```bash
+echo "Hello from Tim" > /scratch/rnaseq1/welcome/tim_sullivan.txt
+```
