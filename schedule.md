@@ -12,23 +12,25 @@ We have designed the schedule so that breaks are essentially built into the brea
 ## Day1
 - **12:00-12:30 - Welcome & introduction (Dr. Owen Wilkins)**
 - **12:30-1:25 - 01: The UNIX Shell**
-- **1:30-2:25 - Intro. to NGS (Dr. Fred Kolling)**
+- **1:30-2:25 - Intro. to NGS (Lecture - Dr. Fred Kolling)**
 - **2:30-3:15 - 02: Data management & setup**
 - **3:15-5:00 - 03: FASTQ files & basic QC**
 
 ---
 
 ## Day2
-- **12:00-12:10 - Day 1 recap & questions**
-- **12:10-1:00 - Intro. to RNA-seq (Lecture) (Dr. Owen Wilkins)**
-- **1:00-2:30 - 01: Read mapping**
-- **2:30-5:00 - 02: Alignment QC**
+- **12:00-12:30 - Help session**
+- **12:30-12:40 - Day 1 recap & questions**
+- **12:50-1:40 - Intro. to RNA-seq (Lecture - Dr. Owen Wilkins)**
+- **1:45-3:15 - 01: Read mapping**
+- **3:15-5:00 - 02: Alignment QC**
 
 ---
 
 ## Day3
-- **12:00-12:10 - Day 2 recap & questions**
-- **12:10-1:15 - 01: Quantification**
-- **1:15-2:00 - 02: Count normalization** 
-- **2:00-3:00 - 03: Putting it all together** 
-- **3:00-5:00 - Wrap-up & closing remarks**
+- **12:00-12:30 - Help session**
+- **12:30-12:40 - Day 2 recap & questions**
+- **12:40-1:45 - 01: Quantification**
+- **1:45-3:00 - 02: Count normalization**
+- **3:00-3:30 - 03: Putting it all together**
+- **3:30-4:00 - Wrap-up & closing remarks**
