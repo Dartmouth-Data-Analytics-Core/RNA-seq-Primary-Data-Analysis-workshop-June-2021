@@ -31,8 +31,8 @@ Below we will discuss the major sources of variation that need to be accounted f
 
 ### Gene length
 
-Genes length typically varies a great deal across transcriptomes.
-In the below example, we see two genes, X and Y. If we were to simply compare the number of reads successfully mapped to gene X and gene Y, we would conclude gene X is expressed ~2x that of gene Y.
+Gene length typically varies a great deal across transcriptomes.
+In the example below, we see two genes, X and Y. If we were to simply compare the number of reads successfully mapped to gene X and gene Y, we would conclude gene X is expressed ~2x that of gene Y.
 
 However, since gene X is ~2x longer than gene Y, gene X contributed ~2x as many RNA fragments to the original sequencing library. Gene X therefore only has more reads mapped to it because it is longer, **NOT** because it is truly expressed at greater level than gene Y.  
 
@@ -41,7 +41,7 @@ However, since gene X is ~2x longer than gene Y, gene X contributed ~2x as many 
 	title="" width="80%" height="80%" />
 </p>
 
-To address gene length bias, we must normalize raw read counts in a way that accounts for the size of each gene. If we did this for gene X & gene Y, we would conclude their gene expression levels are similar.
+To address gene length bias, we must normalize raw read counts in a way that accounts for the size of each gene. Once we do this for gene X & gene Y, we would conclude their gene expression levels are similar.
 
 Normalization for gene length is critical when comparing between genes **within the same sample**, however when comparing expression of the same gene **across different samples**, correction for gene length is not as important since we assume the gene is of the same length in all samples.
 
