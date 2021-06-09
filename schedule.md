@@ -29,6 +29,6 @@ We have designed the schedule so that breaks are essentially built into the brea
 ## Day3
 - **12:00-12:10 - Day 2 recap & questions**
 - **12:10-1:15 - 01: Quantification**
-- **1:15-2:00 - 02: Count normalization** - NEED TO ADD THIS SECTION
-- **2:00-3:00 - 03: Putting it all together** - INCORPORATE HPC/DISCOVERY USAGE?
+- **1:15-2:00 - 02: Count normalization** 
+- **2:00-3:00 - 03: Putting it all together** 
 - **3:00-5:00 - Wrap-up & closing remarks**
