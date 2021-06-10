@@ -130,7 +130,7 @@ File names with spaces become unwieldy to type out so most programmers will repl
 
 ```bash
 # navigate to scratch so you can make your own directory there
-cd /scratch/
+cd /dartfs-hpc/scratch/
 
 # make the directory
 # DO NOT USE omw - use your own initials
@@ -142,7 +142,7 @@ cd omw/rnaseq_workshp/
 
 # set an alias so we can get here quickly
 # replace omw with your initials
-alias biow='cd /scratch/omw/rnaseq_workshp'
+alias biow='cd /dartfs-hpc/scratch/omw/rnaseq_workshp'
 # NOTE: you can add this line to your .bashrc so it get run every time you log in, we will cover this below
 
 # check your location on the cluster
@@ -158,7 +158,7 @@ WeBelow we will use `all_counts.txt` for a number of exercises to familiarize yo
 ```bash
 # copy the file from the scratch drive to the rnaseq_workshp directory you just created
 # remember the ./ is shorthand for the directory that you are currently in it might be prudent to run the 'pwd' command before running the 'cp' command so you know where your files will be copied to
-cp /scratch/rnaseq1/counts/all_counts.txt ./
+cp /dartfs-hpc/scratch/rnaseq1/counts/all_counts.txt ./
 ```
 
 
