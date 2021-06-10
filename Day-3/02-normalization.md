@@ -18,7 +18,7 @@ cd results/quant
 If you get lost and need to catch up quickly you can copy the files needed for the next step with this command:
 
 ```bash
-cp /scratch/rnaseq1/data/raw-fastq/htseq-count/* results/quant
+cp /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/htseq-count/* results/quant
 ```
 
 ## Count normalization in RNA-seq
@@ -171,7 +171,7 @@ NOTE: Since we only calculated TPM for a subset of samples above (to save time) 
 Visualize *DUSP1* TPM expression levels:
 ```R
 # read in file containing all TPM counts (pre-made for you)
-all_counts_tpm_full <- read.csv("/scratch/rnaseq1/data/htseq-count/all_counts_TPM-full.csv")
+all_counts_tpm_full <- read.csv("/dartfs-hpc/scratch/rnaseq1/data/htseq-count/all_counts_TPM-full.csv")
 
 # get expression values for DUSP1 row
 DUSP1_tpm <- all_counts_tpm_full[all_counts_tpm_full$gene_name=="DUSP1",]
