@@ -19,7 +19,7 @@ cd results/alignment
 If you get lost, or do not have enough time to finish the commands before we move to the next session you can copy the files needed for the next step with the following command from the scratch directory you have created for yourself.
 
 ```bash
-cp /scratch/rnaseq1/data/bam/*	results/alignment/
+cp /dartfs-hpc/scratch/rnaseq1/data/bam/*	results/alignment/
 ```
 
 ## Principles of read alignment for RNA-seq
@@ -134,7 +134,7 @@ Option details:
 - `--sjdbGTFfile`: path to genome annotation in .gtf format
 - `--sjdbOverhang`: default is 100, usually set to the readlength -1
 
-You can find the pre-built index at `/scratch/rnaseq1/refs/hg38_chr20_index/`.
+You can find the pre-built index at `/dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index/`.
 
 Once you have generated an index, it is best not to do anything with it, except tell STAR where it is when you want to align reads.
 
@@ -143,10 +143,10 @@ Once you have generated an index, it is best not to do anything with it, except 
 We are ready to align our reads to the genome, using the subset of reads sequenced for sample `SRR1039508` that are known to align to chromosome 20 (files: `SRR1039508_1.trim.chr20.fastq.gz` and `SRR1039508_2.trim.chr20.fastq.gz`).
 
 ```bash
-STAR --genomeDir /scratch/rnaseq1/refs/hg38_chr20_index \
+STAR --genomeDir /dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index \
   --readFilesIn ../trim/SRR1039508_1.trim.chr20.fastq.gz ../trim/SRR1039508_2.trim.chr20.fastq.gz \
   --readFilesCommand zcat \
-  --sjdbGTFfile /scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf \
+  --sjdbGTFfile /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf \
   --runThreadN 1 \
   --outSAMtype SAM \
   --outFilterType BySJout \
@@ -318,10 +318,10 @@ ls ../trim/*_1.trim.chr20.fastq.gz | while read x; do
   echo processing "$sample"
 
   # run STAR for each sample
-  STAR --genomeDir /scratch/rnaseq1/refs/hg38_chr20_index \
+  STAR --genomeDir /dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index \
     --readFilesIn ../trim/${sample}_1.trim.chr20.fastq.gz ../trim/${sample}_2.trim.chr20.fastq.gz \
     --readFilesCommand zcat \
-    --sjdbGTFfile /scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf \
+    --sjdbGTFfile /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf \
     --runThreadN 1 \
     --outSAMtype BAM SortedByCoordinate \
     --outFilterType BySJout \
