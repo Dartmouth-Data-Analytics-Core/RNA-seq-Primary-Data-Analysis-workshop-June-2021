@@ -243,7 +243,7 @@ mkdir rnaseq_wrksp/
 cd rnaseq_wrksp/
 
 # use secure copy (scp) to download the files to your local machine
-scp d41294d@discovery7.dartmouth.edu:/scratch/omw/raw_data/fastqc_results/multiqc_report.html .
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/omw/raw_data/fastqc_results/multiqc_report.html .
 ```
 
 You can find the MultiQC report run on the complete dataset across all samples in the dataset in the github repository, under `QC-reports`. Lets open it and explore our QC data.
