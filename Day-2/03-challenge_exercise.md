@@ -1,6 +1,6 @@
 # Prokaryotic Alignment
 
-Earlier today we used STAR to align human genomes to the hg38 reference genome using a splice aware aligner. In some cases a splice aware aligner is not approprate for the dataset. One example of this are prokaryotic datasets. In these cases you will want to use an aligner like *Bowtie* or *BWA*.
+Earlier today we used STAR to align human genomes to the hg38 reference genome using a splice aware aligner. In some cases a splice aware aligner is not approprate for the dataset. One example of this are prokaryotic datasets. In these cases you will want to use an aligner like *Bowtie* or *BWA*. *Bowtie* is a gapped aligner so reads will map across small gaps that represent indels. *Bowtie* alone cannot map across larger gaps from introns but in combination with *Tophat* can be used to map to references that have introns. 
 
 To practice with non-splice aware aligners we will use transcriptome data from six replicates of *Staphylococcus aureus* MRSA 1369 exposed to human urine.
 
@@ -9,7 +9,7 @@ Total RNA was extracted from bacteria grown in TS broth using RibopureTM bacteri
 Library construction included DNase treatment (TURBO DNase, ThermoFisher Scientific) and rDNA depletion (QIAseq FastSelect, Qiagen) followed by RNA fragmentation and random priming.
 cDNA synthesis (NEBNext Ultra II, New England Biolabs) was followed by end repair, 5 phosphorylation and dA-tailing before.
 Libraries were sequenced on a partial lane of Illumina HiSeq 400 with 150bp PE sequencing.
-**Though the data is paired end the pairs of reads have been merged and these files should be treated as unpaired reads.**
+**Though the data is paired end the pairs of reads have been merged. When you download datasets from SRA you should always start by opening the fastq file and checking the structure of the data.**
 
 SRA Accession Number | Experimental condition
 ---|---
@@ -64,6 +64,8 @@ Optional flags that may enhance your analysis:
 **-p** number of threads to use during the alignment<br>
 
 These are just a few of the enhanced options available there are many more available that you can (and should) read about [here](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#the-bowtie2-aligner).
+
+These options are valid for *bowite2 version 2.2.7* if you have the conda env activated you will need to deactivate `conda deactivate`. You should have the correct version of bowtie loaded as a module check with the command `module list`. If you don't see `bowtie/2.2.7` loaded you can load it with the command `module load bowtie/2.2.7`. Now have a look at all the available options for running *Bowtie* `bowtie2 --help`. 
 
 ### Challenge exercises
 
