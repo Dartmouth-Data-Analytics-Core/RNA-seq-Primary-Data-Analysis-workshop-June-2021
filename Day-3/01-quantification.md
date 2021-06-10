@@ -19,7 +19,7 @@ cd results/quant
 If you get lost and need to catch up quickly you can copy the files needed for the next step with this command:
 
 ```bash
-cp /scratch/rnaseq1/data/raw-fastq/htseq-count/* results/quant
+cp /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/htseq-count/* results/quant
 ```
 
 ## Principle of quantifying read counts for RNA-seq
@@ -70,7 +70,7 @@ htseq-count \
 	-r pos \
 	--additional-attr "gene_name" \
 	../alignment/SRR1039508.Aligned.sortedByCoord.out.bam \
-	/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > SRR1039508.htseq-counts
+	/dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > SRR1039508.htseq-counts
 ```
 
 There are numerous settings that can be tweaked and turned on/off in htseq-count. I strongly recommend you **read the manual** before running htseq-count so that you understand all the default options and available settings.
@@ -110,7 +110,7 @@ ls ../alignment/*.Aligned.sortedByCoord.out.bam | while read x; do
 	-r pos \
 	--additional-attr "gene_name" \
 	../alignment/${sample}.Aligned.sortedByCoord.out.bam \
-	/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > ${sample}.htseq-counts
+	/dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > ${sample}.htseq-counts
 done
 ```
 
@@ -190,18 +190,18 @@ Remove all the tmp files
 rm -f *tmp*
 ```
 
-In practice, you would have generated the `.htseq.counts` files using all genes accross the entire genome, and using all of the samples in the dataset, instead of the four samples we used in these examples. So that we have the complete set of counts available for day 2, we have made a complete raw counts matrix for you to use. You can find this in `/scratch/rnaseq1/data/htseq-counts/`. It is also is the GitHub repository that you downloaded in the `Day-2` folder, as we will be loading it into `R` tomorrow for the differential expression analysis.
+In practice, you would have generated the `.htseq.counts` files using all genes accross the entire genome, and using all of the samples in the dataset, instead of the four samples we used in these examples. So that we have the complete set of counts available for day 2, we have made a complete raw counts matrix for you to use. You can find this in `/dartfs-hpc/scratch/rnaseq1/data/htseq-counts/`. It is also is the GitHub repository that you downloaded in the `Day-2` folder, as we will be loading it into `R` tomorrow for the differential expression analysis.
 
 Have a quick look at it:
 ```bash
-head /scratch/rnaseq1/data/htseq-count/all_counts.txt
+head /dartfs-hpc/scratch/rnaseq1/data/htseq-count/all_counts.txt
 
 # how many lines
-cat /scratch/rnaseq1/data/htseq-count/all_counts.txt | wc -l
+cat /dartfs-hpc/scratch/rnaseq1/data/htseq-count/all_counts.txt | wc -l
 
 # add it to our quant directory
-cp /scratch/rnaseq1/data/htseq-count/all_counts.txt all_counts_full.txt
+cp /dartfs-hpc/scratch/rnaseq1/data/htseq-count/all_counts.txt all_counts_full.txt
 
 # also copy the below file as we will need it in the next lesson
-cp /scratch/rnaseq1/data/htseq-count/gene-lengths-grch38.tsv gene-lengths-grch38.tsv
+cp /dartfs-hpc/scratch/rnaseq1/data/htseq-count/gene-lengths-grch38.tsv gene-lengths-grch38.tsv
 ```
