@@ -87,7 +87,7 @@ mkdir -p .conda/pkgs/cache .conda/envs
 Now create the conda environment that we will be using for the workshop. This takes about 15 minutes to complete. As you will see, many packages are being installed or updated, all managed for you by conda.
 
 ```bash
-conda env create -f /scratch/rnaseq1/environment.yml
+conda env create -f /dartfs-hpc/scratch/rnaseq1/environment.yml
 ```
 
 When you are ready activate the conda environment, use the following command:
@@ -114,9 +114,9 @@ That's it! This conda environment contains all the software you will need during
 
 We've created a folder on the scratch space for this workshop where everyone can write 'Hello' once they've completed these welcome and setup instructions.  To write your own file, use the following code, replacing 'xyz' and 'your_name' with your own.  The quotation marks and spaces are important!  This will create a record of how many of us have successfully logged in to Discovery and finished the welcome and setup tasks:  
 ```bash
-echo "Hello from xyz" > /scratch/rnaseq1/welcome/your_name.txt
+echo "Hello from xyz" > /dartfs-hpc/scratch/rnaseq1/welcome/your_name.txt
 ```
 So, for example, Tim would write:  
 ```bash
-echo "Hello from Tim" > /scratch/rnaseq1/welcome/tim_sullivan.txt
+echo "Hello from Tim" > /dartfs-hpc/scratch/rnaseq1/welcome/tim_sullivan.txt
 ```
