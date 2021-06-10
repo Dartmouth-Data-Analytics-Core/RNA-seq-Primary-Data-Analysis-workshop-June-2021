@@ -282,7 +282,7 @@ cd rnaseq_wrksp/
 
 # download the file using secure copy (scp)
 ##### modify this for your discovery ID, AND the directory your in
-scp d41294d@discovery7.dartmouth.edu:scratch/omw/results/alignment/SRR1039508.Aligned.sortedByCoord.out.bam* .
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpcscratch/omw/results/alignment/SRR1039508.Aligned.sortedByCoord.out.bam* .
 ##### you will be promoted for your password for discovery
 
 # you may also need to modify the permissions
