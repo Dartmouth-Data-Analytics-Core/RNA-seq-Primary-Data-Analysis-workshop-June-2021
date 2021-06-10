@@ -37,16 +37,42 @@ or
 P = 10^-Q/10
 ```
 
-Intuitively, this means that a base with a Phred score of `10` has a `1 in 10` chance of being an incorrectly called base, or *90%*. Likewise, a score of `20` has a `1 in 100` chance (99% accuracy), `30` a `1 in 1000` chance (99.9%) and `40` a `1 in 10,000` chance (99.99%).
+Intuitively, this means that a base with a Phred score of `10` has a `1 in 10` chance of being an incorrectly called base, or *90%*, as in the table below:
 
-However, we can clearly see that these are not probabilities. Instead, quality scores are encoded by a character that is associated with an *ASCII (American Standard Code for Information Interchange)* characters. *ASCII* codes provide a convenient way of representing a number with a character. In FASTQ files, Q-score is linked to a specific ASCII character by **adding 33 to the Phred-score**, and matching the resulting number with its *ASCII* character according to the standard code. You can see the full table used for ASCII character to Phred-score conversion [here](https://support.illumina.com/help/BaseSpace_OLH_009008/Content/Source/Informatics/BS/QualityScoreEncoding_swBS.htm). The reason for doing it this way is so that quality scores only take up **1 byte per value** in the FASTQ file.
+Phred Score | Probability of incorrect call | Accuracy
+-------|-------|-------
+10 | 1 in 10 | 90%
+20 | 1 in 100 | 99%
+30 | 1 in 1000 | 99.9%
+40 | 1 in 10,000 | 99.99%
+50 | 1 in 100,000 | 99.999%
+60 | 1 in 1,000,000 | 99.9999%
 
-For example, the first base call in our sequence example above, the `C` has a quality score encoded by an `H`, which corresponds to a Q-score of 39, meaning this is a good quality base call.
 
-Generally, you can see this would be a good quality read if not for the stretch of `#`s indicating a Q-score of 2. Looking at the FASTQ record, you can see these correspond to a string of `N` calls, which are bases that the sequencer was not able to make a base call for. Stretches of Ns' are generally not useful for your analysis.
+However, we can clearly see that these are not probabilities. Instead, quality scores are encoded by a character that is associated with an **ASCII (American Standard Code for Information Interchange)** characters. ASCII codes provide a convenient way of representing a number with a character.
+
+In FASTQ files, Q-score is linked to a specific ASCII character by **adding 33 to the Phred-score**, and matching the resulting number with its *ASCII* character according to the standard code.
+
+| Symbol | ASCII Code | Q-Score |
+|--------|------------|---------|
+| !      | 33         | 0       |
+| "      | 34         | 1       |
+| #      | 35         | 2       |
+| $      | 36         | 3       |
+| …      | …          | …       |
+| ?      | 63         | 30      |
+| @      | 64         | 31      |
+| A      | 65         | 32      |
+| …      | …          | …       |
+
+ You can see the full table [here](https://support.illumina.com/help/BaseSpace_OLH_009008/Content/Source/Informatics/BS/QualityScoreEncoding_swBS.htm). This encoding means that quality scores only take up **1 byte per value** in the FASTQ file (saves disk space).
+
+For example, the first base call in our sequence example above, the `C` has a quality score encoded by an `H`, which corresponds to a Q-score of 34, meaning this is a good quality base call.
+
+
+In contrast, you can a stretch of `#`s indicating a Q-score of 2. Looking at the FASTQ record (line 2), these correspond to a string of `N` calls, which are bases that the sequencer was not able to make a base call for.
 
 **Paired-end reads:**  
-
 If you sequenced paired-end reads, you will have two FASTQ files:  
 **..._R1.fastq** - contains the forward reads  
 **..._R2.fastq**- contains the reverse reads  
@@ -59,9 +85,11 @@ It is critical that the R1 and R2 files have **the same number of records in bot
 
 ### Basic operations
 
-While you don't normally need to go looking within an individual FASTQ file, it is very important to be able to manipulate FASTQ files if you are going to be doing more involved bioinformatics. There are a lot of operations we can do with a FASTQ file to gain more information about our experiment, and being able to interact with FASTQ files can be useful for troubleshooting problems that might come up in your analyses.
+While you don't normally need to go looking within an individual FASTQ file, it is useful to be able to manipulate FASTQ files if you are going to be doing lots of bioinformatics.
 
-Due to their large size, we often perform gzip copmpression of FASTQ files so that they take up less space, however this means we have to unzip them if we want to look inside them and perform operations on them. We can do this with the `zcat` command and a pipe (|). Remember, the pipe command is a way of linking commands, the pipe sends the output from the first command to the second command. `zcat` lists the contents of a zipped file to your screen, and head limits the output to the first ten lines.
+Due to their large size, we often perform `gzip` compression of FASTQ file. However this means we have to unzip them if we want to look inside them and perform operations on them. We can do this with the `zcat` command and a pipe (|).
+
+Remember, the pipe command is a way of linking commands, the pipe sends the output from the first command to the second command. `zcat` lists the contents of a zipped file to your screen, and head limits the output to the first ten lines.
 
 Lets use `zcat` and `head` to have a look at the first few records in our FASTQ file.
 ```bash
@@ -77,14 +105,16 @@ zcat SRR1039508_2.chr20.fastq.gz | wc -l
 ```
 Paired-end reads should have the same number of records!
 
-What if we want to count how many unique barcodes exist in the FASTQ file. To do this, we would need to print all the sequence lines of each FASTQ entry, then search those for the barcode by specifying a regular expression. To print all the sequence lines (2nd line) of each FASTQ entry, we can use a command called ***sed***, short for ***stream editor*** which allows you to streamline edits to text that are redirected to the command. You can find a tutorial on using **sed** [here](https://www.digitalocean.com/community/tutorials/the-basics-of-using-the-sed-stream-editor-to-manipulate-text-in-linux).
+What if we want to count how many unique barcodes exist in the FASTQ file. To do this, we would need to print all the sequence lines of each FASTQ entry, then search those for the barcode by specifying a regular expression.
 
-First we can use sed with with the `'p'` argument to tell it that we want the output to be printed, and the `-n` option to tell sed we want to suppress automatic printing (so we don't get the results printed 2x). Piping this to `head` we can get the first line of the first 10 options in the FASTQ file (the header line). We specify `'1-4p'` as we want sed tp *print 1 line, then skip forward 4*.
+To print all the sequence lines (2nd line) of each FASTQ entry, we can use a command called ***sed***, short for ***stream editor*** which allows you to streamline edits to text that are redirected to the command. You can find a tutorial on using **sed** [here](https://www.digitalocean.com/community/tutorials/the-basics-of-using-the-sed-stream-editor-to-manipulate-text-in-linux).
+
+`sed`'s' `'p'` argument tells the program we want the output to be printed, and the `-n` option to tell sed we want to suppress automatic printing (so we don't get the results printed 2x). Piping this to `head` we can get the first line of the first 10 options in the FASTQ file (the header line). We specify `'1-4p'` as we want sed tp *print 1 line, then skip forward 4*.
 ```bash
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '1~4p' | head -10
 ```
 
-Using this same approach, we can print the second line for the first 10000 entires of the FASTQ file, and use the ***grep*** command to search for regular expressions in the output. Using the `-o` option for grep, we tell the command that we want it to print lines that match the character string.
+We can print the second line for the first 10,000 entires of the FASTQ file, and use the ***grep*** command to search for regular expressions in the output. Using the `-o` option for grep, we tell the command that we want it to print lines that match a character string.
 ```bash
 # print the first 10 lines to confirm we are getting the sequence lines
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '2~4p' | head -10
@@ -93,17 +123,17 @@ zcat SRR1039508_1.chr20.fastq.gz | sed -n '2~4p' | head -10
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '2~4p' | head -10000 | grep -o "ATGGGA"
 ```
 
-This is a bit much to count by each, so lets count the how many lines were printed by grep using the ***wc*** (word count) command with the `-l` option specified for lines.
+This is a bit much to count one by one, so lets count how many lines were printed by grep using the ***wc*** (word count) command with the `-l` option specified for 'lines'.
 ```bash
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '2~4p' | head -10000 | grep -o "ATGGGA" | wc -l
 ```
 
-Using a similar approach, we could count up all of the instances of individual DNA bases (C,G) called by the sequencer in this sample. Here we use the ***sort*** command to sort the bases printed by grep, grep again to just get the bases we are interested in, then using the ***uniq*** command with the `-c` option to count up the unique elements.
+We could also count up all of the instances of individual DNA bases (C,G) called by the sequencer in this sample. Here we use the ***sort*** command to sort the bases printed by grep, grep again to just get the bases we are interested in, then using the ***uniq*** command with the `-c` option to count up the unique elements.
 ```bash
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '2~4p' | head -10000 | grep -o . | sort | grep 'C\|G' | uniq -c
 ```
 
-Now we have the number of Gs and Cs across the reads from the first 10000 records. A quick and easy program to get GC content. GC content is used in basic quality control of sequence from FASTQs to check for potential contamination of the sequencing library. We just used this code to check 1 sample, but what if we want to know for our 4 samples?
+Now we have the number of Gs and Cs across the reads from the first 10,000 records. A quick and easy program to get GC content! GC content is used in basic quality control of sequence from FASTQs to check for potential contamination of the sequencing library. We just used this code to check 1 sample, but what if we want to know for our 4 samples?
 
 ## For & while loops
 
@@ -151,7 +181,7 @@ done
 
 ## Scripting in bash
 
-So loops are pretty useful, but what if we wanted to make it even simpler to run. Maybe we even want to share the program we just wrote with other lab members so that they can execute it on their own FASTQ files. One way to do this would be to write this series of commands into a Bash script, that can be executed at the command line, passing the files you would like to be operated on to the script.
+So loops are pretty useful, but what if we wanted to make it even simpler to run. Maybe we even want to share the program we just wrote with other lab members so that they can execute it on their own FASTQ files. One way to do this would be to write this series of commands into a `Bash script`, that can be executed at the command line, passing the files you would like to be operated on to the script.
 
 To generate the script (suffix `.sh`) we could use the `nano` editor:
 ```bash
@@ -194,7 +224,9 @@ done
 cat stout.txt
 ```
 
-These example programs run fairly quickly, but stringing together mutiple commands in a bash script is common and these programs take much longer to run. In these cases we might want to close our computer and go and do some other stuff while our program is running. We can do this using `nohup` which allows us to run a series of commands in the background, but disconnects the process from the shell you initially submit it through, so you are free to close this shell and the process will continue to run until completion. e.g.
+These example programs run quickly, but stringing together multiple commands in a bash script is common and these programs may take much longer to run. In these cases we might want to close our computer and go and do some other stuff while our program is running.
+
+We can achieve this using `nohup` which allows us to run a series of commands in the background, but disconnects the process from the shell you initially submit it through, so you are free to close this shell and the process will continue to run until completion. e.g.
 ```bash
 nohup bash count_GC_content.sh SRR1039508_1.chr20.fastq.gz &
 
@@ -204,18 +236,33 @@ cat nohup.out
 
 ## Quality control of FASTQ files
 
-While the value of these sorts of tasks may not be immediately clear, you can imagine that if we wrote some nice programs like we did above, and grouped them together with other programs doing complimentary tasks, we would make a nice bioinformatics software package. Fortunately, people have already started doing this, and there are various collections of tools that perform specific tasks on FASTQ files.
+While the value of these sorts of tasks may not be immediately clear, ]if we wrote some nice programs like we did above, and grouped them together with other programs doing complimentary tasks, we could make a nice bioinformatics software package. Fortunately, people have already started doing this, and there are various collections of tools that perform specific tasks on FASTQ files.
 
 One excellent tool that is specifically designed assess quality of FASTQ file is [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). FastQC is composed of a number of analysis modules that calculate various QC metrics from FASTQ files (such as GC content, distribution of base quality, etc.) and summarizes this all into a nice QC report in HTML format, that can be opened in a web browser.
 
-Lets have a look at some example QC reports from the FastQC documentation:
+For example, consider the example report below, which shows a boxplot of per base quality scores across the length of sequencing reads. Q-scores remain high across the read, suggesting this sample is of good quality.  
+
+<p align="center">
+<img src="../figures/fastqc-good.png" alt="lib-composition"
+	title="" width="90%" height="85%" />
+</p>
+
+Alternatively, consider the example below, where Q-scores rapidly deteriorate as the position in the read increases. We can also see several other FastQC analysis modules failed for this sample.
+
+<p align="center">
+<img src="../figures/fastqc-bad.png" alt="lib-composition"
+	title="" width="90%" height="85%" />
+</p>
+
+Lets have a look at some complete example QC reports from the FastQC documentation (above examples are from these reports from FastQC documentation):
 
 [Good Illumina Data FastQC Report](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html)
+
 [Bad Illumina Data FastQC Report](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html)
 
 Lets run FASTQC on our data and move the results to a new directory.
 ```bash
-# specify the -t option for mulit threading to make it run faster, here we are using one because our files are small
+# specify the -t option for muliti threading to make it run faster, here we are using one because our files are small
 fastqc -t 1 *.fastq.gz
 
 # move results to a new folder
@@ -229,7 +276,9 @@ ls -lah
 
 **Note**: FastQC does not use the entire dataset, just the first few thousand reads in the FASTQ file, therefore there could be some bias introduced by this, although we assume there isn't since entires are placed into FASTQ files randomly.
 
-Opening and evaluating an individual .html file for each FASTQ file is obviously going to be tedious and slow. Luckily, someone built a tool to speed this up. [MultiQC](https://multiqc.info/) *MultiQC* searches a specified directory (and subdirectories) for log files that it recognizes and synthesizes these into its own browsable, sharable, interactive .html report that can be opened in a web-browser. *MultiQC* recognizes files from a very wide range of bioinformatics tools (includeing FastQC), and allows us to compare QC metrics generated by various tools across samples and analyze our experiment as a whole.
+Opening and evaluating an individual `.html` file for each FASTQ file is obviously going to be tedious and slow. Luckily, someone built a tool to speed this up. [MultiQC](https://multiqc.info/)
+
+*MultiQC* searches a specified directory (and subdirectories) for log files from multiple common bioinformatics tools that it recognizes and synthesizes these into its own browsable, sharable, interactive `.html` report that can be opened in a web-browser.
 
 Lets run MultiQC on our FastQC files:
 ```bash
@@ -258,14 +307,18 @@ Another reason this step is optional is that many aligners can account for misma
 
 ### Principles of read trimming: Downstream steps are more efficient
 
-Several algorithms exist for trimming reads in FASTQ format. Generally, these algorithms work by looking for matches to the sequence you specify at the 5' and 3' end of a read. You can specify the minimum number of bases you would like to be considered a match, as the algorithm will trim partial matches to the sequence you specify. Examples of sequences you might want to remove include: adapter sequences, polyA tails, or low quality bases.
+Several algorithms exist for trimming reads in FASTQ format. Generally, these algorithms work by searching for matches to specified sequences at  5' and 3' ends of reads. Examples of sequences you might want to remove include:
+- adapter sequences
+- polyA tails
+- low quality bases
 
 ![Read alignment](../figures/read_processing.png)
 
 
+
 ### Read trimming with cutadapt
 
-[Cutadapt](https://cutadapt.readthedocs.io/en/stable/) is a useful tool for cleaning up sequencing reads, and allows for multiple adapters to be specified simulatenously, and has numerous options that can be tweaked to control its behaviour.
+[Cutadapt](https://cutadapt.readthedocs.io/en/stable/) is a useful tool for cleaning up sequencing reads, and allows for multiple adapters to be specified simultaneously, and has numerous options that can be tweaked to control its behavior.
 
 Basic usage of cutadapt:
 ```bash
@@ -299,9 +352,13 @@ cutadapt \
    -m 1 -q 20 -j 1 > SRR1039508.cutadapt.report
 ```
 
-- `-m` removes reads that are samller than the minimum threshold
+- `-m` removes reads that are smaller than the minimum threshold
 - `-q` quality threshold for trimming bases - remember a score of 20 means 1 in 100 chance the base call is incorrect
 - `-j` number of cores/threads to use
+
+Cutadapt will identify full matches to the sequences you provide, as well as partial matches. The minimum number of base matches required for Cutadapt to trim a sequence can be controlled using the `-o` option (for overlap) which is set to 5 by default.
+
+![](../figures/trimming-overlap.png)
 
 Now lets run this on all of our samples:
 ```bash
