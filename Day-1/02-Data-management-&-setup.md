@@ -26,7 +26,7 @@ Although we won't be performing a differential expression analysis of these data
 ## Raw data
 
 Raw sequence data was obtained from the [*Sequence Read Archive*](https://www.ncbi.nlm.nih.gov/sra)
-[SRA toolkit](https://github.com/ncbi/sra-tools) (SRA) under project accession [SRP033351](https://www.ncbi.nlm.nih.gov/sra?term=SRP033351). The raw FASTQ files are locted in `/scratch/rnaseq1/data`. Each sample is named according to their **SRR** identifier from the SRA. SRR (SRA run accession) identifiers are used to denote objects containing actual sequencing data from a sequencing run.
+[SRA toolkit](https://github.com/ncbi/sra-tools) (SRA) under project accession [SRP033351](https://www.ncbi.nlm.nih.gov/sra?term=SRP033351). The raw FASTQ files are locted in `/dartfs-hpc/scratch/rnaseq1/data`. Each sample is named according to their **SRR** identifier from the SRA. SRR (SRA run accession) identifiers are used to denote objects containing actual sequencing data from a sequencing run.
 
 If you would like to learn more about how to obtain publicly available data from the SRA, you should consult the [NCBI download guide](https://www.ncbi.nlm.nih.gov/books/NBK242621/).
 
@@ -98,7 +98,7 @@ Lets make the subdirectories:
 mkdir raw_data results scripts
 ```
 
-We will use Symbolic links (sym links) to link the raw data in `/scratch/rnaseq1/data/raw-fastq` to the directory we created for ourselves in scratch. Sym links provide a way of linking to distant files from within a directory that they do not actually exist inside. Since most genomics data is very large, it is impractical to move it around and copy it, so we use Sym links to point to files as if they were in our current directroy.
+We will use Symbolic links (sym links) to link the raw data in `/dartfs-hpc/scratch/rnaseq1/data/raw-fastq` to the directory we created for ourselves in scratch. Sym links provide a way of linking to distant files from within a directory that they do not actually exist inside. Since most genomics data is very large, it is impractical to move it around and copy it, so we use Sym links to point to files as if they were in our current directroy.
 
 Look in `/dartfs-hpc/scratch/rnaseq1/data/raw-fastq`
 ```bash
@@ -107,7 +107,7 @@ ls -lah /dartfs-hpc/scratch/rnaseq1/data/raw-fastq
 
 You can see that the raw data for all samples is there, although, as we mentioned, it is very large, and each step in processing individual files can take a long time, so we will only use a subset of these data during the pre-processing of the data.
 
-Specifically, we will be using 8 FASTQs from 4 samples (2 controls, 2 Dex) that only contain reads aligning to chromosome 20. These files are located in `/scratch/rnaseq1/data/raw-fastq/subset` and are much smaller so that we will be able to complete time consuming steps like read alignment to the reference genome, in a practical time period.
+Specifically, we will be using 8 FASTQs from 4 samples (2 controls, 2 Dex) that only contain reads aligning to chromosome 20. These files are located in `/dartfs-hpc/scratch/rnaseq1/data/raw-fastq/subset` and are much smaller so that we will be able to complete time consuming steps like read alignment to the reference genome, in a practical time period.
 
 Set up sym links to the raw FASTQs:
 ```bash
