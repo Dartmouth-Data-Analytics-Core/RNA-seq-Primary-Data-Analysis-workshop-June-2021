@@ -36,7 +36,7 @@ Although we won't use it for this project, if pre-processed data is available (e
 
 ```bash
 # lets have a look at the project directory containing the raw FASTQs
-ls -lah /scratch/rnaseq1/data/raw-fastq/
+ls -lah /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/
 ```
 
 Since these are paired-end reads (we will talk more about this) each sample has a file for read 1 (SRRXXX_1) and a file for read 2 (SRRXXX_2). All of the files are `gzipped` in order to reduce the disk space they require, which is important as you can see that they are all generally at least **1GB** (you need a lot of space to process RNA-seq, or other-NGS data).
@@ -75,14 +75,14 @@ As we move through the analysis, we will be generating intermediate files for ea
 
 ```bash
 # navigate to scratch
-cd /scratch/
+cd /dartfs-hpc/scratch/
 
 # go into it
 # remember to use your own initials - this is Owen's directory
 cd omw
 
 # set an alias so we can get here quickly
-alias rnaw='cd /scratch/omw/'
+alias rnaw='cd /dartfs-hpc/scratch/omw/'
 ```
 
 We need to set up some sub-directories where we will conduct each step. The desired directory structure for the workshop looks like this:
@@ -100,9 +100,9 @@ mkdir raw_data results scripts
 
 We will use Symbolic links (sym links) to link the raw data in `/scratch/rnaseq1/data/raw-fastq` to the directory we created for ourselves in scratch. Sym links provide a way of linking to distant files from within a directory that they do not actually exist inside. Since most genomics data is very large, it is impractical to move it around and copy it, so we use Sym links to point to files as if they were in our current directroy.
 
-Look in `/scratch/rnaseq1/data/raw-fastq`
+Look in `/dartfs-hpc/scratch/rnaseq1/data/raw-fastq`
 ```bash
-ls -lah /scratch/rnaseq1/data/raw-fastq
+ls -lah /dartfs-hpc/scratch/rnaseq1/data/raw-fastq
 ```
 
 You can see that the raw data for all samples is there, although, as we mentioned, it is very large, and each step in processing individual files can take a long time, so we will only use a subset of these data during the pre-processing of the data.
@@ -112,17 +112,17 @@ Specifically, we will be using 8 FASTQs from 4 samples (2 controls, 2 Dex) that 
 Set up sym links to the raw FASTQs:
 ```bash
 # have a look at the files
-ls -lah /scratch/rnaseq1/data/raw-fastq/subset/
+ls -lah /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/subset/
 
 # set up the sym link in your raw_data directory
 cd raw_data/
-ln -s /scratch/rnaseq1/data/raw-fastq/subset/*fastq.gz ./
+ln -s /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/subset/*fastq.gz ./
 
 # have a lok at the links in your directory
 ls -lah
 ```
 
-For each step of the analysis in day 1, you can see we have included all of the files generated at each step for each sample in `/scratch/rnaseq1/data/`. While we will only use some of this data during day 1 of the workshop, we've made the entire processed dataset available if you want to practice with it, or try to replicate it yourself. We will leave this on `scratch` for about 1 month before removing it.
+For each step of the analysis in day 1, you can see we have included all of the files generated at each step for each sample in `/dartfs-hpc/scratch/rnaseq1/data/`. While we will only use some of this data during day 1 of the workshop, we've made the entire processed dataset available if you want to practice with it, or try to replicate it yourself. We will leave this on `scratch` for about 1 month before removing it.
 
 You should have also created a `conda` environment called `rnaseq1` by following the guidance in the workshop setup. `conda` is an excellent way to manage software versions, especially on high performance computing systems. It is critical you **know AND track** which version of software you use for an analysis. Not only do you need to report this when you publish your work, but is also important for anyone trying to reproduce your work.
 
@@ -142,7 +142,3 @@ Although not required since the workshop materials will remain available on the 
 ```bash
 git clone https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq-Primary-Data-Analysis-workshop-June-2021/
 ```
-
-If it is unclear how to do this, it should become more clear after our 'Shell' lesson on day 1.
-
-**NOTE:** We will be updating the materials in the week proceeding the workshop to get everything ready, therefore if you choose to download the workshop materials, please make sure to do this again after the workshop has started to get the most up-to-date version.
