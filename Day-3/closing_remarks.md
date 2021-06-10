@@ -24,11 +24,38 @@
 - Edit the code, run sub-sections, read the `man` pages for commands, etc. to build a solid understanding of how everything works
 - Practice with the complete dataset (all chromosomes), that is available to you for approx. 1 month on discovery in `/scratch/rnaseq1/data/`. This will give you experience running data from the entire genome, and an appreciation for the computational resources and required time to complete these tasks.
 - Read the methods sections of published papers that perform RNA-seq, to gain an appreciation for the range of approaches used in practice and how they are implemented
-- Read reviews like (this one)[https://pubmed.ncbi.nlm.nih.gov/31341269/] from Stark *et al*, 2019, *Nat. Rev. Genetics*, `RNA Sequencing: The Teenage Years`.
 - Ask us questions! (Bioinformatics office hours: https://dartmouth.zoom.us/s/96998379866, fridays at 1-2 pm, password: bioinfo)
+
+## Suggested reading:
+
+Reading manuscripts that use RNA-seq, or reviews specifically focused on RNA-seq are excellent ways to further consolidate your learning. Additionally, reading the original manuscripts behind common tools will improve your understanding of how that tool works, and allow you to leverage more complicated options and implementations of that tool when required.
+
+Below we provide some suggested reading to help get you on your way:
+
+#### Review articles
+- (Stark *et al*, 2019, *Nat. Rev. Genetics*). `RNA Sequencing: The Teenage Years`[https://pubmed.ncbi.nlm.nih.gov/31341269/] from Stark *et al*, 2019, *Nat. Rev. Genetics*, `RNA Sequencing: The Teenage Years`.
+
 
 ### What next?
 
+While multiple downstream applications of RNA-seq exist, differential expression analysis is the most common. As discussed in the last lesson, standard normalization does not provide a statistical assessment of the data which is needed to make inferences (e.g. gene X is differentially expressed between treatment groups).
+
+If you are interested in learning how to perform a DE analysis, sign up for Part 2 in our series of RNA-seq data analysis workshops. You should all have received an email containing the [sign up link](https://sites.dartmouth.edu/cqb/workshops/rnaseq-differential-gene-expression-analysis-workshop/).
+
+#### Differential expression analysis  workshop - July 2020
+##### Workshop goals:
+
+- Develop a working understanding of fundamental bioinformatics and statistical concepts for a typical bulk RNA-seq DE analysis
+- Learn how to leverage the R/Bioconductor framework to perform DE analysis  
+- Learn how to use unsupervised data analysis methods (e.g. principal components analysis) to explore RNA-seq datasets  
+- Perform a complete DE analysis on a real RNA-seq dataset  
+
+Monday, July 12, 2021
+Wednesday, July 14, 2021
+Friday, July 16, 2021
+
+Registration Close Date: July 5, 2021
+Registration Limit: 40
 
 ### Feedback:
 
