@@ -7,7 +7,7 @@
 If you get lost, or do not have enough time to finish the commands before we move to the next session you can copy the files needed for the next step with the following command from the scratch directory you have created for yourself.
 
 ```bash
-cp /scratch/rnaseq1/data/trimmed-fastq/* results/trim/
+cp /dartfs-hpc/scratch/rnaseq1/data/trimmed-fastq/* results/trim/
 ```
 
 ## FASTQ file format
