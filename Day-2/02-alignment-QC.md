@@ -18,7 +18,7 @@ cd results/alignment.qc
 If you get lost, or do not have enough time to finish the commands before we move to the next session you can copy the files needed for the next step with the following command from the scratch directory you have created for yourself.
 
 ```bash
-cp /scratch/rnaseq1/data/qc/alignment/* results/alignment.qc/
+cp /dartfs-hpc/scratch/rnaseq1/data/qc/alignment/* results/alignment.qc/
 ```
 
 ## Principles of post-alignment QC
@@ -70,9 +70,9 @@ To run CollectRNASeqMetrics on this dataset, we would run:
 picard CollectRnaSeqMetrics \
   I=../alignment/SRR1039508.Aligned.sortedByCoord.out.bam \
   O=SRR1039508.output.RNA_Metrics \
-  REF_FLAT=/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.refFlat.txt \
+  REF_FLAT=/dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.refFlat.txt \
   STRAND=NONE \
-  RIBOSOMAL_INTERVALS=/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.rRNA.chr20.interval_list
+  RIBOSOMAL_INTERVALS=/dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.rRNA.chr20.interval_list
 ```
 **Option descriptions:**  
 `I`=input aligned bam file  
@@ -141,9 +141,9 @@ ls ../alignment/*.Aligned.sortedByCoord.out.bam | while read x; do
   picard CollectRnaSeqMetrics \
     I=../alignment/${sample}.Aligned.sortedByCoord.out.bam \
     O=${sample}.output.RNA_Metrics \
-    REF_FLAT=/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.refFlat.txt \
+    REF_FLAT=/dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.refFlat.txt \
     STRAND=NONE \
-    RIBOSOMAL_INTERVALS=/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.rRNA.chr20.interval_list
+    RIBOSOMAL_INTERVALS=/dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.rRNA.chr20.interval_list
 
   # run MarkDuplicates
    picard MarkDuplicates \
@@ -172,7 +172,7 @@ multiqc . --filename "multiqc.alignment.qc"
 Now go to your local machine and use secure copy (scp) to download the report
 ```bash
 ### Make sure to change the netID to your own and the initials to the ones for your own scratch drive!!
-scp d41294d@discovery7.dartmouth.edu:/scratch/omw/results/alignment.qc/multiqc* .
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/omw/results/alignment.qc/multiqc* .
 ```
 
 Open this report and have a look at it, but also open the report for post-alignment QC in the GitHub repo you download, located in `Bulk-RNA-seq_workshop_Part-1_June-2021/QC-reports/`. The report we generated is only for samples mapped to chr20, so the QC metrics will look a little spotty and are less representative of what you would see in a standard experiment. The QC report in the GitHub repo has been generated using **all samples with reads mapping to all chromosomes**. We will have a look through this together now.
