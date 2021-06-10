@@ -244,14 +244,14 @@ For example, consider the example report below, which shows a boxplot of per bas
 
 <p align="center">
 <img src="../figures/fastqc-good.png" alt="lib-composition"
-	title="" width="90%" height="85%" />
+	title="" width="80%" height="80%" />
 </p>
 
 Alternatively, consider the example below, where Q-scores rapidly deteriorate as the position in the read increases. We can also see several other FastQC analysis modules failed for this sample.
 
 <p align="center">
 <img src="../figures/fastqc-bad.png" alt="lib-composition"
-	title="" width="90%" height="85%" />
+	title="" width="80%" height="80%" />
 </p>
 
 Lets have a look at some complete example QC reports from the FastQC documentation (above examples are from these reports from FastQC documentation):
