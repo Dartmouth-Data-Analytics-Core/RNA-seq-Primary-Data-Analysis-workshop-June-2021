@@ -24,16 +24,30 @@
 - Edit the code, run sub-sections, read the `man` pages for commands, etc. to build a solid understanding of how everything works
 - Practice with the complete dataset (all chromosomes), that is available to you for approx. 1 month on discovery in `/scratch/rnaseq1/data/`. This will give you experience running data from the entire genome, and an appreciation for the computational resources and required time to complete these tasks.
 - Read the methods sections of published papers that perform RNA-seq, to gain an appreciation for the range of approaches used in practice and how they are implemented
-- Ask us questions! (Bioinformatics office hours: https://dartmouth.zoom.us/s/96998379866, fridays at 1-2 pm, password: bioinfo)
+- Ask us questions! (Bioinformatics office hours: https://dartmouth.zoom.us/s/96998379866, every other Friday at 1-2 pm, password: bioinfo, check calender [here](https://sites.dartmouth.edu/cqb/upcoming-events/calendar/).
 
 ## Suggested reading:
 
-Reading manuscripts that use RNA-seq, or reviews specifically focused on RNA-seq are excellent ways to further consolidate your learning. Additionally, reading the original manuscripts behind common tools will improve your understanding of how that tool works, and allow you to leverage more complicated options and implementations of that tool when required.
+Reading manuscripts that use RNA-seq, or reviews specifically focused on RNA-seq are excellent ways to further consolidate your learning.
+
+In addition, reading the original manuscripts behind common tools will improve your understanding of how that tool works, and allow you to leverage more complicated options and implementations of that tool when required.
 
 Below we provide some suggested reading to help get you on your way:
 
 #### Review articles
-- (Stark *et al*, 2019, *Nat. Rev. Genetics*). `RNA Sequencing: The Teenage Years`[https://pubmed.ncbi.nlm.nih.gov/31341269/] from Stark *et al*, 2019, *Nat. Rev. Genetics*, `RNA Sequencing: The Teenage Years`.
+- [Stark *et al*, 2019, *Nat. Rev. Genetics*.](https://pubmed.ncbi.nlm.nih.gov/31341269/) `RNA Sequencing: The Teenage Years`
+- [Conesa *et al*, 2016, *Genome Biology*.](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8) `A survey of best practices for RNA-seq data analysis`
+- [Wang, *et al*, 2009, *Nat. Rev. Genetics*.](https://www.nature.com/articles/nrg2484) `RNA-Seq: a revolutionary tool for transcriptomics`
+- [Cresko Lab, Univeristy of Oregon.](https://rnaseq.uoregon.edu/) `RNA-seqlopedia
+: provides an overview of RNA-seq and of the choices necessary to carry out a successful RNA-seq experiment.`
+
+
+#### Original manuscripts: Popular RNA-seq tools
+- [Cutadapt:](http://journal.embnet.org/index.php/embnetjournal/article/view/200) `Cutadapt Removes Adapter Sequences From High-Throughput Sequencing Reads`.
+- [STAR:](https://academic.oup.com/bioinformatics/article/29/1/15/272537) `STAR: ultrafast universal RNA-seq aligner`
+- [HISAT2:](https://www.nature.com/articles/s41587-019-0201-4) `Graph-based genome alignment and genotyping with HISAT2 and HISAT-genotype`
+- [Bowtie2:](https://www.nature.com/articles/nmeth.1923)`Fast gapped-read alignment with Bowtie 2`
+- [HTSeq-count:](https://academic.oup.com/bioinformatics/article/31/2/166/2366196)`HTSeq—a Python framework to work with high-throughput sequencing data `
 
 
 ### What next?
@@ -65,6 +79,6 @@ We ask that you all complete the survey that will be sent out over email so that
 
 We plan to offer this workshop again, as well as workshops covering other types of genomic data analysis and bioinformatics. If you have suggestions for workshops you would like to see, please let us know!
 
-Please feel free to reach out to us with questions about concepts discussed in the workshop, or for a analysis consultations. Our **bioinformatics office hours** on **Fridays 1-2pm** are a great place to do this! (currently on zoom: https://dartmouth.zoom.us/s/96998379866, pword: *bioinfo*)
+Please feel free to reach out to us with questions about concepts discussed in the workshop, or for a analysis consultations. Our **bioinformatics office hours** on **Fridays 1-2pm** are a great place to do this! (currently on zoom: https://dartmouth.zoom.us/s/96998379866, pword: *bioinfo*, check calender [here.](https://sites.dartmouth.edu/cqb/upcoming-events/calendar/)
 
 ### Now.. Final questions?
