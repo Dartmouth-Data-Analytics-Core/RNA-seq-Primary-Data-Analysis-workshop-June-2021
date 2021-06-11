@@ -23,15 +23,17 @@ cp /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/htseq-count/* results/quant
 ```
 
 ## Principle of quantifying read counts for RNA-seq
-For most downstream analyses in RNA-seq, especially differential expression, we care about how many reads aligned to a specific gene, as this tells us about the genes expression level, which we can then compare to other samples. Inherently, this means that we want to make these data *count-based*, so that we can use statistical models to compare these counts between experimental conditions of interest.
+In RNA-seq data analysis, we use the number of reads as a proxy for gene expression. Genes with many reads mapped to them are highly expressed in the original sample, while genes with few or no reads were lowly expressed. Therefore, in order to quantify expression levels in an RNA-seq dataset, we need some way of efficiently counting reads that are mapped to each gene.
 
 ![](../figures/quant_principle.png)
 
-There are a number of methods that one can use to quantify reads overlapping specific features ( in this case, exons). These methods require a .bam file as input, in addition to a list of the genomic features that we wish to count reads over. The most simplistic methods (e.g. [htseq-count](https://htseq.readthedocs.io/en/release_0.11.1/count.html), [featureCounts](http://subread.sourceforge.net/)) use a specific set of rules to count the number of reads overlapping specific features. These are a good choice if your data is less complex, e.g. 3'-end data.
+A number of methods quantify expression levels by counting reads exist. These methods require a alignments (`.bam` file) and a genomic annotation (`GTF/GFF` file) that contains the coordinates of the features (genes) that we want to count over.
 
-Other methods leverage probablistic modeling in order to quantify the alignments (e.g. [RSEM](https://deweylab.github.io/RSEM/)), which ascibes reads to features with a probability of this being the correct location for a given read. Generally, these methods are used on more complex data (e.g. full-length transcript and/or paired-end data) where transcript estimates are of interest.
+The most simplistic methods (e.g. [htseq-count](https://htseq.readthedocs.io/en/release_0.11.1/count.html), [featureCounts](http://subread.sourceforge.net/)) use a specific set of rules to count the number of reads overlapping specific features. These are a good choice if you wish to quantify gene expression levels, and are not interested in transcript abundances.
 
-## htseq-count
+Other, more complex methods, leverage probabilistic modeling in order to quantify the alignments (e.g. [RSEM](https://deweylab.github.io/RSEM/)), which ascribes reads to features with a probability of this being the correct location for a given read. Generally, these methods are used if you wish to quantify transcript abundances, although can provide gene- and transcript-level estimates.
+
+## HTSeq-count
 
 For our analysis, we will used `htseq-count`. The `htseq-count`algorithm follows a specific set of rules to count reads overlapping genomic features, in order to quantify expression over those features (genes). As input, `htseq-count` requires:  
 - Aligned sequencing reads (`SAM/BAM` file)
@@ -47,7 +49,11 @@ For our analysis, we will used `htseq-count`. The `htseq-count`algorithm follows
 </p>
 
 **Strandedness:**  
-One of the most important options in htseq-count is `strandedness`. It is critical to select the correct option for `strandedness` (`-s`) for your dataset, otherwise you may incorrectly use, or throw away, a lot of information. The default setting in htseq-count for `strandedness` is `yes`. This means reads will only be counted as overlapping a feature provided they map to the same strand as the feature. If your data was generated using an unstranded library preparation protocol, as in this experiment, we must set this option to `no`. Failure to do so would mean you would throw away ~50% of all your reads, as they will be distributed equally across both strands for each feature in an unstranded library.  
+One of the most important options in htseq-count is `strandedness`. It is critical to select the correct option for `strandedness` (`-s`) for your dataset, otherwise you may incorrectly use, or throw away, a lot of information.
+
+The default setting in htseq-count for `strandedness` is `yes`, meaning reads will only be counted as overlapping a feature (exon of a gene) provided they map to the same strand as the feature.
+
+If your data was generated using an unstranded library preparation protocol, as in this experiment, we must set this option to `no`. Failure to do so would mean you would throw away ~50% of all your reads, as they will be distributed equally across both strands for each feature in an unstranded library.  
 
 <p align="center">
 <img src="../figures/strandedness.png" alt="strand"
@@ -60,7 +66,7 @@ Another important option in htseq-count is `t` or `type` which specifies which f
 ![](../figures/gtf.png)
 
 **Specifying BAM sorting:**  
-When counting paired-end data (such as in this experiemnt) your .bam files should be sorted before running htseq-count, and you can specify how your .bam is sorted using the `-r` option. `name` indicates they are sorted by read name, `pos` indicates they are sorted by genomic position.
+When counting paired-end data (such as in this experiemnt) your `.bam` files should be sorted before running `htseq-count`, and you can specify how your `.bam` is sorted using the `-r` option. `name` indicates they are sorted by read name, `pos` indicates they are sorted by genomic position.
 
 ## Run htseq-count on your .bam file
 ```bash
@@ -116,11 +122,11 @@ done
 
 ## Generate the gene expression matrix of raw read counts
 
-The final step in the pre-processing of RNA-seq data for differential expression analysis is to concatenate your read counts into a gene expression matrix that contains the counts from all your samples. We will do this at the command line, however there are also ways to directly read the output of programs like `htseq-count` and `RSEM` directly into R without concatenating them into a matrix before hand (discussed on Day-2).
+The final step in the pre-processing of RNA-seq data for differential expression analysis is to concatenate your read counts into a gene expression matrix that contains the counts from all your samples. We will do this at the command line, however there are also ways to directly read the output of programs like `htseq-count` and `RSEM` directly into R without concatenating them into a matrix before hand.
 
 ![](../figures/ge-matrix.png)
 
-Loop over htseq-count output files and extract the read count column
+Loop over `htseq-count` output files and extract the read count column
 ```bash
 # set up an array that we will fill with shorthand sample names
 myarray=()
@@ -205,3 +211,30 @@ cp /dartfs-hpc/scratch/rnaseq1/data/htseq-count/all_counts.txt all_counts_full.t
 # also copy the below file as we will need it in the next lesson
 cp /dartfs-hpc/scratch/rnaseq1/data/htseq-count/gene-lengths-grch38.tsv gene-lengths-grch38.tsv
 ```
+
+### Quantification of transcript abundance
+
+Above we discussed calculating abundances at the gene-level, however depending on your experiment, you may also be interested in determining individual transcript abundances. Calculating transcript abundances is more complex than gene-level counting, as not all reads span splice-junctions, therefore we cannot be sure which transcript they originated from.
+
+<p align="center">
+<img src="../figures/isoforms.png" alt="strand"
+	title="" width="85%" height="55%" />
+</p>
+
+
+Figure from [Stark *et al*, 2019, *Nature Rev. Gen.*](https://www.nature.com/articles/nprot.2013.084)
+
+
+Methods that generate transcript abundances use an estimation step in order to probabilistically estimate expression levels. [RSEM](https://deweylab.github.io/RSEM/) is a commonly used method for isoform abundance estimation, and uses an iterative process (expectation-maximization) to fractionally assign reads to individual isoforms.
+
+Consider the example below from [Haas *et al*, 2013, *Nature Protocols.*](https://www.nature.com/articles/nprot.2013.084). Two isoforms for the same gene are shown, along with mapped reads (short bars). Reads unambiguously mapped to each isoform are in red & yellow, while blue reads are mapped to regions shared by both isoforms. The expectation-maximization algorithm uses the red and yellow reads to fractionally assign reads to each isoform (hollow vs filled-in reads on right).  
+
+<p align="center">
+<img src="../figures/rsem.png" alt="strand"
+	title="" width="85%" height="55%" />
+</p>
+
+Figure from [Haas *et al*, 2013, *Nature Protocols.*](https://www.nature.com/articles/nprot.2013.084)
+
+
+> Although transcript abundance estimation is generally more time consuming than gene-level counting, methods such as RSEM can collapse transcript estimates into gene-level abundances, [which has been shown to improve gene-level inferences](https://f1000research.com/articles/4-1521/v2).

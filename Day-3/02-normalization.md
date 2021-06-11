@@ -31,7 +31,7 @@ Below we will discuss the major sources of variation that need to be accounted f
 
 ### Gene length
 
-Gene length typically varies a great deal across transcriptomes.
+Gene length varies a great deal across transcriptomes.
 In the example below, we see two genes, X and Y. If we were to simply compare the number of reads successfully mapped to gene X and gene Y, we would conclude gene X is expressed ~2x that of gene Y.
 
 However, since gene X is ~2x longer than gene Y, gene X contributed ~2x as many RNA fragments to the original sequencing library. Gene X therefore only has more reads mapped to it because it is longer, **NOT** because it is truly expressed at greater level than gene Y.  
@@ -105,7 +105,7 @@ cpm <- function(counts) {
 	cpm
 }
 
-# apply function to the columns of raw counts data 
+# apply function to the columns of raw counts data
 # we start at the third column because the first two columns have the ensemble IDs and gene names
 all_counts_cpm <- apply(all_counts[3:5], 2, cpm)
 ## NOTE: we are calculating cpm for first 3 samples only to save time..

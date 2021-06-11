@@ -71,6 +71,18 @@ Friday, July 16, 2021
 Registration Close Date: July 5, 2021
 Registration Limit: 40
 
+#### High performance computing (HPC)
+
+
+During the workshop, we all logged onto Discovery and ran our workflow interactively. Generally, this type of 'interactive' work is not encouraged on Discovery, and is better performed using other servers such as Andes & polaris (see article [here](https://rc.dartmouth.edu/index.php/hrf_faq/how-do-i-run-interactive-jobs/) on this topic from research computing).
+
+However, working interactively with genomics data can be quite slow since many operations will need to be run in sequence across multiple samples. As an alternative, you can use the scheduler system on discovery, that controls how jobs are submitted and managed on the Discovery cluster.
+
+Using the scheduler will allow you to make use of specific resources (such as high memory nodes etc.) and streamline your workflows more efficiently. Dartmouth just transitioned to using [Slurm](https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=132625).
+
+We encourage you to get comfortable using the scheduler and submitting jobs using an HPC system. [Research Computing](https://rc.dartmouth.edu/) has a lot of great material regarding using Discovery on their website.
+
+
 ### Feedback:
 
 We ask that you all complete the survey that will be sent out over email so that we can gauge what worked well and what we need to improve for our next workshop. If you have additional thoughts that were not addressed in the survey, please feel free to contact any one of us, or reach out to the DAC email directly (*DataAnalyticsCore@groups.dartmouth.edu*).
