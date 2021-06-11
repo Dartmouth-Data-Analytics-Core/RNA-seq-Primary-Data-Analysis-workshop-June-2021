@@ -40,14 +40,29 @@ Numerous aligners exist that strike a balance of various features to address the
 
 If your dataset is prokaryotic (non-splicosomal) you would **not** want to use a splice-aware aligner, and instead using an aligner that is not designed to map across intronic regions such as `bwa-mem` or `bowtie2` (more on this later).
 
+### What if no reference genome is available?
+
+If you are working with an organism for which no high quality reference genome or genome annotation exists, or you wish to identify novel transcripts, you will need to perform a **transcriptome assembly**. Fundamentally, assembly tools use alignment gaps to infer presence of transcript isoforms.  
+
+Multiple approaches for transcriptome assembly exist, and generally fall into 1 of 3 categories:
+- Reference-based assembly
+- *De novo* assembly
+- Hybrid approach (depicted in figure below below)
+
+<p align="center">
+<img src="../figures/assembly.png" alt="lib-composition"
+	title="" width="85%" height="85%" />
+</p>
+
+Figure from [Martin & Wang, 2011, *Nat. Rev. Gen*](https://www.nature.com/articles/nrg3068): `Next-generation transcriptome assembly`.
+
+Although we won't go into assembly methods in detail during this workshop, it is useful to have a general understanding of what these methods entail. Examples of specific tools designed for transcriptome assembly include:
+- [StringTie](https://ccb.jhu.edu/software/stringtie/)
+- [SOAPdenovo-Trans](https://github.com/aquaskyline/SOAPdenovo-Trans)
+- [Cufflinks](https://github.com/cole-trapnell-lab/cufflinks)
 
 
-
-# What if no reference genome is available?
-
-
-
-
+Early approaches for transcriptome assembly are reviewed in [Martin & Wang, 2011, *Nat. Rev. Gen*](https://www.nature.com/articles/nrg3068).
 
 
 
@@ -383,4 +398,4 @@ done
 Now we can move on to do a comprehensive QC analysis of our alignments.
 
 
-> Generating alignments is the most time consuming step of the analytical pipeline for most NGS analyses. For RNA-seq, *'lightweight'* alignment and quantification tools have been developed that are extremely fast, e.g. [Kallisto](https://pachterlab.github.io/kallisto/about), [Salfish](https://www.nature.com/articles/nbt.2862), and [Salmon](https://combine-lab.github.io/salmon/). These algorithms avoid generation of typical base-by-base alignments, and instead generate psuedo-alignments, which have been shown to produce accurate estimates of transcript abundances in RNA-seq data.
+> Generating alignments is the most time consuming step of the analytical pipeline for most NGS analyses. For RNA-seq, *'lightweight'* alignment and quantification tools have been developed that are extremely fast, e.g. [Kallisto](https://pachterlab.github.io/kallisto/about), [Salfish](https://www.nature.com/articles/nbt.2862), and [Salmon](https://combine-lab.github.io/salmon/). These algorithms avoid generation of typical base-by-base alignments, and instead generate psuedo-alignments, which have been shown to produce accurate estimates of transcript abundances in RNA-seq data, although can be inaccurate for low-abundance or short transcript (discussed in [Wu *et al*, 2018.](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-4869-5))
