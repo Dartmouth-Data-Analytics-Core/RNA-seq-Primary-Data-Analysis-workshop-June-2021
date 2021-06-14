@@ -114,7 +114,7 @@ To print all the sequence lines (2nd line) of each FASTQ entry, we can use a com
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '1~4p' | head -10
 ```
 
-We can print the second line for the first 10,000 entires of the FASTQ file, and use the ***grep*** command to search for regular expressions in the output. Using the `-o` option for grep, we tell the command that we want it to print lines that match a character string.
+We can print the second line for the first 10,000 entries of the FASTQ file, and use the ***grep*** command to search for regular expressions in the output. Using the `-o` option for grep, we tell the command that we want it to print lines that match a character string.
 ```bash
 # print the first 10 lines to confirm we are getting the sequence lines
 zcat SRR1039508_1.chr20.fastq.gz | sed -n '2~4p' | head -10
@@ -236,7 +236,7 @@ cat nohup.out
 
 ## Quality control of FASTQ files
 
-While the value of these sorts of tasks may not be immediately clear, ]if we wrote some nice programs like we did above, and grouped them together with other programs doing complimentary tasks, we could make a nice bioinformatics software package. Fortunately, people have already started doing this, and there are various collections of tools that perform specific tasks on FASTQ files.
+While the value of these sorts of tasks may not be immediately clear, if we wrote some nice programs like we did above, and grouped them together with other programs doing complimentary tasks, we could make a nice bioinformatics software package. Fortunately, people have already started doing this, and there are various collections of tools that perform specific tasks on FASTQ files.
 
 One excellent tool that is specifically designed assess quality of FASTQ file is [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). FastQC is composed of a number of analysis modules that calculate various QC metrics from FASTQ files (such as GC content, distribution of base quality, etc.) and summarizes this all into a nice QC report in HTML format, that can be opened in a web browser.
 
@@ -262,7 +262,7 @@ Lets have a look at some complete example QC reports from the FastQC documentati
 
 Lets run FASTQC on our data and move the results to a new directory.
 ```bash
-# specify the -t option for muliti threading to make it run faster, here we are using one because our files are small
+# specify the -t option for multi threading to make it run faster, here we are using one because our files are small
 fastqc -t 1 *.fastq.gz
 
 # move results to a new folder
