@@ -125,7 +125,7 @@ ln -s /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/subset/*fastq.gz ./
 ls -lah
 ```
 
-For each step of the analysis in day 1, you can see we have included all of the files generated at each step for each sample in `/dartfs-hpc/scratch/rnaseq1/data/`. While we will only use some of this data during day 1 of the workshop, we've made the entire processed dataset available if you want to practice with it, or try to replicate it yourself. We will leave this on `scratch` for about 1 month before removing it.
+For each step of the analysis, you can see we have included all of the files generated at each step for each sample in `/dartfs-hpc/scratch/rnaseq1/data/`. We've also made the entire processed dataset available if you want to practice with it, or try to replicate it yourself. We will leave this on `/dartfs-hpc/scratch` for 1 month before removing it.
 
 You should have also created a `conda` environment called `rnaseq_w` by following the guidance in the workshop setup. `conda` is an excellent way to manage software versions, especially on high performance computing systems. It is critical you **know AND track** which version of software you use for an analysis. Not only do you need to report this when you publish your work, but is also important for anyone trying to reproduce your work.
 
