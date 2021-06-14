@@ -26,7 +26,7 @@ There are different types of Unix shells, however the most common is Bash (the *
 
 Accessing the (bash) shell:  
 - On a mac or linux system, the *Terminal* application provides access to the shell. There are also applications that you can download that provide customizations not present in the Terminal application, such as [iTerm2](https://iterm2.com/).
-- On a Windows system, you can use an applicatrion such as [MobaXterm](https://mobaxterm.mobatek.net/).
+- On a Windows system, you can use an application such as [MobaXterm](https://mobaxterm.mobatek.net/).
 
 <p align="center">
   <img src="../figures/shell.png" height="80%" width="80%"/>
@@ -39,7 +39,7 @@ When the prompt is shown, you can enter commands by typing them in after the pro
 - any flags or options you wish to run the command with (not always required)
 - and an argument
 
-In the above example, we are asking the Shell to pass the `mkdir` command to the operating system (for making directories) with the `-p` option (which just lets us make parent and sub directroies at the same time) and the argument detailing what directories we want the command to make.
+In the above example, we are asking the Shell to pass the `mkdir` command to the operating system (for making directories) with the `-p` option (which just lets us make parent and sub directories at the same time) and the argument detailing what directories we want the command to make.
 
 Manual pages for specific commands can be accessed using the `man` command.
 ```bash
@@ -153,7 +153,7 @@ ls
 ```
 As expected the new directory that you created is empty there are no files. Below we will copy a file to this directory that has been provided for you to use in this section of the workshop. This file (`all_counts.txt`) contains raw read counts for an RNA-seq experiment.
 
-WeBelow we will use `all_counts.txt` for a number of exercises to familiarize you with standard UNIX commands.
+Below we will use `all_counts.txt` for a number of exercises to familiarize you with standard UNIX commands.
 
 ```bash
 # copy the file from the scratch drive to the rnaseq_workshp directory you just created
@@ -188,7 +188,7 @@ wc -l all_counts.txt
 
 ### Renaming and removing files
 
-Sometimes you will need to reorganize your directories or rename a file, which can be achieved wuith the `mv` command. Let's start by copying the all_counts.txt file from the `rnaseq_workshp` directory to your home directory.
+Sometimes you will need to reorganize your directories or rename a file, which can be achieved with the `mv` command. Let's start by copying the all_counts.txt file from the `rnaseq_workshp` directory to your home directory.
 
 ```bash
 # Copy the all_counts.txt file to your home directory
@@ -204,7 +204,7 @@ You can also use the `mv` command to move a file to a new location. Let's move t
 
 ```bash
 # Move the all_counts.copy.txt into your rnaseq_workshp directory
-# use pwd to check that you are in the fundamentals_of_bioinformaitcs directory first
+# use pwd to check that you are in your own directory first
 mv ~/all_counts.copy.txt ./
 
 #check the contents of your rnaseq_workshp directory
@@ -222,7 +222,7 @@ You will notice that before the file was deleted you were asked if you were sure
 
 ### Manipulating file contents
 
-Some commands enable you to maniuplate and subset files based on specific paramters. One useful example is the `cut` command, which allows you to 'cut' a file based on the options you select, such as the `-f` option, which corresponds to fields (columns). We could use `cut` to obtain read counts for only the first 5 samples in `all_counts.txt`.
+Some commands enable you to manipulate and subset files based on specific parameters. One useful example is the `cut` command, which allows you to 'cut' a file based on the options you select, such as the `-f` option, which corresponds to fields (columns). We could use `cut` to obtain read counts for only the first 5 samples in `all_counts.txt`.
 ```bash
 # Look at only the counts from the first four samples
 cut -f 1,2,3,4,5 all_counts.txt
@@ -288,6 +288,7 @@ X{*m*,*n*} | between *m* and *n* instances of X
 Now lets use some of these regular expressions in a `grep` command  to see their utility. Let's use regular expressions to see how many genes have no reads expressed for the first four samples.  
 
 ```bash
+# *Some grep versions require grep -P to match tab characters
 # Count the number of genes with no reads in the first four samples
 grep "^ENSG[0-9]*\t0\t0\t0\t0\t" all_counts.txt| wc -l
 
@@ -297,7 +298,7 @@ grep "^ENSG[0-9]*\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0$" all_counts.t
 
 ### Shell environment variables
 
-The command line *environment* essentially describes a collection of variables that have been set to provide context for the commands that you run. These variable are referred to as *environment variables*. A number of environment variables are set automatically every time you log into the bash shell. The `env` command will show all environment variables available in the current shell. Try that now:
+The command line *environment* essentially describes a collection of variables that have been set to provide context for the commands that you run. These variables are referred to as *environment variables*. A number of environment variables are set automatically every time you log into the bash shell. The `env` command will show all environment variables available in the current shell. Try that now:
 ```bash
 env
 ```
