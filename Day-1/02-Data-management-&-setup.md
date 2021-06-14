@@ -98,7 +98,7 @@ Lets make the subdirectories:
 mkdir raw_data results scripts
 ```
 
-We will use Symbolic links (sym links) to link the raw data in `/dartfs-hpc/scratch/rnaseq1/data/raw-fastq` to the directory we created for ourselves in scratch. Sym links provide a way of linking to distant files from within a directory that they do not actually exist inside. Since most genomics data is very large, it is impractical to move it around and copy it, so we use Sym links to point to files as if they were in our current directroy.
+We will use Symbolic links (sym links) to link the raw data in `/dartfs-hpc/scratch/rnaseq1/data/raw-fastq` to the directory we created for ourselves in scratch. Sym links provide a way of linking to distant files from within a directory that they do not actually exist inside. Since most genomics data is very large, it is impractical to move it around and copy it, so we use Sym links to point to files as if they were in our current directory.
 
 Look in `/dartfs-hpc/scratch/rnaseq1/data/raw-fastq`
 ```bash
@@ -124,13 +124,13 @@ ls -lah
 
 For each step of the analysis in day 1, you can see we have included all of the files generated at each step for each sample in `/dartfs-hpc/scratch/rnaseq1/data/`. While we will only use some of this data during day 1 of the workshop, we've made the entire processed dataset available if you want to practice with it, or try to replicate it yourself. We will leave this on `scratch` for about 1 month before removing it.
 
-You should have also created a `conda` environment called `rnaseq1` by following the guidance in the workshop setup. `conda` is an excellent way to manage software versions, especially on high performance computing systems. It is critical you **know AND track** which version of software you use for an analysis. Not only do you need to report this when you publish your work, but is also important for anyone trying to reproduce your work.
+You should have also created a `conda` environment called `rnaseq_w` by following the guidance in the workshop setup. `conda` is an excellent way to manage software versions, especially on high performance computing systems. It is critical you **know AND track** which version of software you use for an analysis. Not only do you need to report this when you publish your work, but is also important for anyone trying to reproduce your work.
 
 Activate the conda environment:
 ```bash
-conda activate rnaseq1
+conda activate rnaseq_w
 ```
-If you don't know what rnaseq1 is, please visit [here](https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq_workshop_July2020/blob/master/welcome-%26-setup.md).
+If you don't know what rnaseq_w is, please visit [here](https://github.com/Dartmouth-Data-Analytics-Core/RNA-seq-Primary-Data-Analysis-workshop-June-2021/blob/main/welcome-%26-setup.md).
 
 We are now ready to start working with the data and processing the raw FASTQ files.
 
