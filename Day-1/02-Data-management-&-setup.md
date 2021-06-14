@@ -69,7 +69,10 @@ You can find the complete file in the GitHub repo: `misc/sample_metadata.csv`
 
 We will pre-process the raw sequence data, assess its quality, and reduce it to a matrix of raw read counts that can be used for downstream analyses, such as differential expression.
 
-![](../figures/analysis_overview.png)
+<p align="center">
+<img src="../figures/analysis_overview.png" alt="lib-composition"
+	title="" width="65%" height="65%" />
+</p>
 
 As we move through the analysis, we will be generating intermediate files for each of these steps. You will use the directory you created in `/scratch/` to run your analyses and store you results. Navigate to that directory from wherever you are now.
 
