@@ -192,6 +192,8 @@ N | skipping
 
 So for example, alignment in row 3 of our SAM file example above (`5S6M`) would describe an alignment where 5 bases are soft-clipped, followed by 6 matching bases.
 
+---
+
 ### STAR (Spliced Transcripts Alignment to a Reference)
 STAR is a very flexible, efficient, and quick read aligner. It uses a method of seed searching, clustering, stitching, and scoring to find the most probable match in the reference sequence for each read.
 
