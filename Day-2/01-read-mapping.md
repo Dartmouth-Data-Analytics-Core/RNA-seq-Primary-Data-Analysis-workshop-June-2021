@@ -371,8 +371,8 @@ mkdir rnaseq_wrksp/˘
 cd rnaseq_wrksp/
 
 # download the file using secure copy (scp)
-##### modify this for your discovery ID, AND the directory your in
-scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/omw/results/alignment/SRR1039508.Aligned.sorted.out.bam* .
+##### modify this for your discovery ID.  This points to a common directory of the aligned files, for viewing purposes.  You may specify the directory with your own alignments if you wish.
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/rnaseq1/data/bam/*.chr20.bam* .
 ##### you will be promoted for your password for discovery
 
 # you may also need to modify the permissions
