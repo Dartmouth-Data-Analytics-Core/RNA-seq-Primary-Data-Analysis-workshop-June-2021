@@ -236,5 +236,72 @@ Consider the example below from [Haas *et al*, 2013, *Nature Protocols.*](https:
 
 Figure from [Haas *et al*, 2013, *Nature Protocols.*](https://www.nature.com/articles/nprot.2013.084)
 
+In order to generate transcript abundances, tools like RSEM require **transcriptome alignments**, which contains read alignments based on transcript coordinates (compared to genome coordinates).
+
+Previously we used STAR to generate a genome mapping, therefore to use RSEM to quantify transcript abundance, we would need to re-map our reads using additional setting in STAR. Transcriptome alignments can be output from STAR using the `quantmode` argument.
 
 > Although transcript abundance estimation is generally more time consuming than gene-level counting, methods such as RSEM can collapse transcript estimates into gene-level abundances, [which has been shown to improve gene-level inferences](https://f1000research.com/articles/4-1521/v2).
+
+### Additional exercise
+
+Complete and run the code below to generate transcript quantification estimates using RSEM on one sample from our dataset.The majority of the code has been provided for you, however you should look at the documentation from STAR and RSEM to better understand the options used.
+
+In addition, RSEM has not been included in your original conda environment (intentionally), so you must install it before completling the example below. Go to [the conda page for RSEM](https://anaconda.org/bioconda/rsem) to obtain the code needed to add RSEM to your conda environment. Note that this command may take a few minutes to run.
+
+
+```bash
+# set your current working directory to your own results/alignment directory
+ADD CODE HERE
+
+# run STAR again on the sample 'SRR1039508'
+### NOTE the new option: '--quantMode'
+STAR --genomeDir /dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index \
+  --readFilesIn ../trim/SRR1039508_1.trim.chr20.fastq.gz ../trim/SRR1039508_2.trim.chr20.fastq.gz \
+  --readFilesCommand zcat \
+  --sjdbGTFfile /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf \
+  --runThreadN 1 \
+  --outSAMtype SAM \
+  --outFilterType BySJout \
+  --quantMode TranscriptomeSAM \
+  --outFileNamePrefix SRR1039508.
+```
+
+You should now have a file called `SRR1039508.Aligned.toTranscriptome.out.bam` in your `alignments` directory. This file contains the transcriptome alignments of our reads to GRCh38.
+
+Similarly to STAR, RSEM requires a specifically formatted version of the reference genome. The RSEM reference can be geneeated using teh RSEM command `rsem-prepare-reference`. **Do not run this command during the workshop** as it is time consuming. An RSEM formatted reference has been provided for you in `/dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index_RSEM/`. Below is an example of the command used to generate this reference.
+
+```bash
+rsem-prepare-reference --gtf /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.gtf \
+                        -p 1 \
+                        /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.dna.primary_assembly.chr20.fa \
+                        hg38_chr20_index_RSEM/ref
+```
+
+Now navigate to your quantification directory (`quant`) and run RSEM on your transcriptome alignments, using the RSEM reference provided for you. `rsem-calculate-expression` is the command used by RSEM to quantify transcript expression.
+```bash
+# naigate to your quant directory
+ADD CODE HERE
+
+# run RSEM
+rsem-calculate-expression --paired-end \
+                          --alignments \
+                          --strandedness none \
+                          -p 1 \
+                          ../alignments/SRR1039508.Aligned.toTranscriptome.out.bam \
+                          /dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index_RSEM/ref \
+                          SRR1039508
+```
+
+Now have a look at the results:
+```bash
+# list files
+ls
+
+# print isoform quantification estimates
+head SRR1039508.isoforms.results
+
+# print gene quantification estimates
+head SRR1039508.genes.results
+```
+
+RSEM provides both gene-level, and transcript/isoform-level quantification estimates. Use the [RSEM documentation](https://deweylab.github.io/RSEM/rsem-calculate-expression.html) to understand the fields in output files.
