@@ -1,6 +1,6 @@
 # Prokaryotic Alignment
 
-Earlier today we used STAR to align human genomes to the hg38 reference genome using a splice aware aligner. In some cases a splice aware aligner is not approprate for the dataset. One example of this are prokaryotic datasets. In these cases you will want to use an aligner like *Bowtie* or *BWA*. *Bowtie* is a gapped aligner so reads will map across small gaps that represent indels. *Bowtie* alone cannot map across larger gaps from introns but in combination with *Tophat* can be used to map to references that have introns. 
+Earlier today we used STAR to align human genomes to the hg38 reference genome using a splice aware aligner. In some cases a splice aware aligner is not appropriate for the dataset. One example of this are prokaryotic datasets. In these cases you will want to use an aligner like *Bowtie* or *BWA*. *Bowtie* is a gapped aligner so reads will map across small gaps that represent indels. *Bowtie* alone cannot map across larger gaps from introns but in combination with *Tophat* can be used to map to references that have introns. 
 
 To practice with non-splice aware aligners we will use transcriptome data from six replicates of *Staphylococcus aureus* MRSA 1369 exposed to human urine.
 
@@ -24,7 +24,7 @@ SRA Accession Number | Experimental condition
 ## Bowtie
 
 Before you use any tool it is a good idea to look at the [manual](http://bowtie-bio.sourceforge.net/manual.shtml#the-bowtie-aligner) to get a feel for the options available in the tool that you're using and figure out which of the options are the most appropriate for your dataset.
-There are two main ways that bowtie can align a transcriptome to a reference genome, an end-to-end alignment (which is the default) or a local alignment. The local alignment enables soft clipping of reads to improve the alignment score, while the end-to-end alignment uses all of the bases in the read but this may result in a poorer alignment score. The type of alignment you chose depends on the experiment that you run. For example if the reference that you were aligning to is very distantly realted than a local alignment that accomodates genomic differences expected between distantly related genomes. End-to-end alignment will be more appropriate for aligning reads to reference genomes that are closely related.
+There are two main ways that bowtie can align a transcriptome to a reference genome, an end-to-end alignment (which is the default) or a local alignment. The local alignment enables soft clipping of reads to improve the alignment score, while the end-to-end alignment uses all of the bases in the read but this may result in a poorer alignment score. The type of alignment you chose depends on the experiment that you run. For example, if the reference that you were aligning to is very distantly related, then a local alignment that accommodates genomic differences will perform better. End-to-end alignment will be more appropriate for aligning reads to reference genomes that are closely related.
 
 ### Bowtie Index
 
