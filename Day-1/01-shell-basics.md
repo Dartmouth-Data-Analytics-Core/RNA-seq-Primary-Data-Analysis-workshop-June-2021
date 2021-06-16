@@ -290,10 +290,10 @@ Now lets use some of these regular expressions in a `grep` command  to see their
 ```bash
 # *Some grep versions require grep -P to match tab characters
 # Count the number of genes with no reads in the first four samples
-grep "^ENSG[0-9]*\t0\t0\t0\t0\t" all_counts.txt| wc -l
+grep -P "^ENSG[0-9]*\t0\t0\t0\t0\t" all_counts.txt| wc -l
 
 # Count the number of genes with no reads expressed in any of the samples
-grep "^ENSG[0-9]*\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0$" all_counts.txt| wc -l
+grep -P "^ENSG[0-9]*\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0$" all_counts.txt| wc -l
 ```
 
 ### Customizing your environment
