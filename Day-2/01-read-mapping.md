@@ -9,7 +9,7 @@
 
 Make a new directory to work in:
 ```bash
-# go to our home dir for the wrkshop
+# go to our home dir for the workshop
 rnaw
 
 # make the directory and cd into it
@@ -37,7 +37,7 @@ New versions of reference genomes are provided to the research community through
 	title="" width="90%" height="90%" />
 </p>
 
-Unfortunately, reference genomes are a concept, not a reality, as they fail to represent genetic variation between individual. GRCh38/hg38 differs substantially from the previous release (GRCh37/hg19)due to its use of **alternate loci** to represent population-level genetic variation.
+Unfortunately, reference genomes are a concept, not a reality, as they fail to represent genetic variation between individuals. GRCh38/hg38 differs substantially from the previous release (GRCh37/hg19)due to its use of **alternate loci** to represent population-level genetic variation.
 
 Alternate loci are provided in addition to the **primary assembly** which refers to a non-redundant representation of a haploid genome, including chromosomes 1-22, plus chromosomes X, Y and MT (mitochondrial). For read mapping in RNA-seq, we usually want to use the primary assembly only, since alternate loci complicate the read mapping procedure.  
 
@@ -121,7 +121,7 @@ Types of clipping:
 	title="" width="40%" height="40%" />
 </p>
 
-Such clipping is commonly used by aligners to get rid of sequence contamination, e.g. ***adapter sequences*** or ***polyA tails*** from mRNAs, so that it does not affect the alignment. At least for RNA-seq, this is why you do not necessairily need to be very aggressive in read trimming and pre-processing steps.
+Such clipping is commonly used by aligners to get rid of sequence contamination, e.g. ***adapter sequences*** or ***polyA tails*** from mRNAs, so that it does not affect the alignment. At least for RNA-seq, this is why you do not necessarily need to be very aggressive in read trimming and pre-processing steps.
 
 Clipping can be very advantageous, but also can potentially cause some issues, read more [here](https://sequencing.qcfail.com/articles/soft-clipping-of-reads-may-add-potentially-unwanted-alignments-to-repetitive-regions/).
 
@@ -140,7 +140,7 @@ While there are times when one may want to map to a transcriptome, there are iss
 - You cannot identify novel transcripts this way.
 
 #### What input do I need for an alignment?
-At miniumum:  
+At minimum:  
 - `FASTQ` file(s)
 - A reference genome (`.fasta`)
 
@@ -165,13 +165,13 @@ The image for the example BAM file is adapted from the [SAM/BAM file format docu
 **FLAG**:  
 Encodes important information about the read, for example, is it a ***primary***, ***secondary***, or ***supplementary*** alignment. Since a single read will likely have a number of properties that we want to ***'flag'***, SAM files use a special way of encoding the FLAG field to pack as much information as possible into a single number. While we won't go into detail on this here, SAM/BAM file use a *bit-wise* system to combine information across flags into a **single integer**. I encourage you to go read more about FLAGs and how they are specified in the SAM/BAM documentation.
 
-The Broad institute provides an [excellent tool](https://broadinstitute.github.io/picard/explain-flags.html) for decomposing SAM flags into the proprties of the read that make up a specific `FLAG` value.
+The Broad institute provides an [excellent tool](https://broadinstitute.github.io/picard/explain-flags.html) for decomposing SAM flags into the properties of the read that make up a specific `FLAG` value.
 
 This command will provide basic information on FLAGs from samtools.
 ```bash
 samtools flags
 ```
-The values shown here relate the the [hexadecimal system](https://www.electronics-tutorials.ws/binary/bin_3.html)
+The values shown here relate to the [hexadecimal system](https://www.electronics-tutorials.ws/binary/bin_3.html)
 
 #### MAPQ:   
 Corresponds to the quality of the mapping. These are calculated in the same way as the Phred scores `Q = -10 x log10(P)`, although are generally considered to be a best guess from the aligner. A MAPQ of 255 is used where mapping quality is not available. Some aligners also use specific values to represent certain types of alignments, which may affect use of downstream tools.
@@ -197,7 +197,7 @@ So for example, alignment in row 3 of our SAM file example above (`5S6M`) would 
 ### STAR (Spliced Transcripts Alignment to a Reference)
 STAR is a very flexible, efficient, and quick read aligner. It uses a method of seed searching, clustering, stitching, and scoring to find the most probable match in the reference sequence for each read.
 
-STAR is a gapped aligner that is capable of generating alignments spanning introns but can allow for shorter mistmatches such as SNPs, INDELs, or incorrect base calls. Read contamination, adapter sequences, or low quality bases can all be removed from alignments by soft-clipping.
+STAR is a gapped aligner that is capable of generating alignments spanning introns but can allow for shorter mismatches such as SNPs, INDELs, or incorrect base calls. Read contamination, adapter sequences, or low quality bases can all be removed from alignments by soft-clipping.
 
 You can find the STAR user manual [here](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf) and the original manuscript [here](https://academic.oup.com/bioinformatics/article/29/1/15/272537).
 
@@ -247,7 +247,7 @@ STAR --genomeDir /dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index \
 
 Option details:
 - `--genomeDir`: the path to the directory with genome indices
-- `--sjdbGTFfile`: the path to the annotation file that includes cooordinates of splice-junctions
+- `--sjdbGTFfile`: the path to the annotation file that includes coordinates of splice-junctions
 - `sjdbOverhang`: length of the sequence around the splice junction to be used in constructing the splice junctions database
 - `--runThreadN`: number of threads to use in the run
 - `--outFilterType`: how mapped reads will be filtered (normal/BySJout)
@@ -347,7 +347,7 @@ Some of the main UI features include:
 
 * **Zoom bar** - Zoom in and out of the currently shown region
 
-* **Schematic of currently loaded chromosome or contig** - Red box indcates location of the region you are currently viewing. Full width of current region is shown below, with a scale bar indicating specific coordinates. Both can be used to navigate directly.
+* **Schematic of currently loaded chromosome or contig** - Red box indicates location of the region you are currently viewing. Full width of current region is shown below, with a scale bar indicating specific coordinates. Both can be used to navigate directly.
 
 * **Gene track** - Shows gene included in currently loaded annotation (Refseq genes in example). Right click track for additional formatting options. Features included in annotation are indicated by thickness (introns, exons, UTRs). Gene orientation is shown with arrows pointing right for FWD/+, left for REV/- strand.
 
@@ -389,7 +389,7 @@ Open IGV, and follow the below steps:
 Discussion points:
 - What do you notice about the orientation of the aligning reads?
 - Do you think this gene is expressed in this sample? What about relative to nearby genes?
-- Is there potentially going to be any ambiguity in read quantification for `SAMHD1`, given that our library was generared using a **unstranded** protocol?
+- Is there potentially going to be any ambiguity in read quantification for `SAMHD1`, given that our library was generated using a **unstranded** protocol?
 - How does `IGV` know where to put these reads, set their orientations, show if they are in a pair, etc.
 
 ## Run the alignment for all samples
@@ -421,7 +421,7 @@ done
 # index the BAMs
 samtools index *sortedByCoord.out.bam
 ```
-Note that I change `--outSAMtype` to `BAM sortedByCoord` so that we dont have to convert SAM to BAM and run `sort`.
+Note that I change `--outSAMtype` to `BAM sortedByCoord` so that we don't have to convert SAM to BAM and run `sort`.
 
 View the reports quickly:
 ```bash
