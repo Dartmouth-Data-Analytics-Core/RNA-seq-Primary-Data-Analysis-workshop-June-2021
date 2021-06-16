@@ -52,7 +52,7 @@ However, there are several other valuable QC metrics that allow us to identify p
 	width="80%" height="80%" />
 </p>
 
-***Fig. 2.*** Comparison of gene-body coverage for KAPA & Lexogen RNA-seq libaries. Image from: Ma *et al*, 2019, *BMC Genomics*.*
+***Fig. 2.*** Comparison of gene-body coverage for KAPA & Lexogen RNA-seq libraries. Image from: Ma *et al*, 2019, *BMC Genomics*.*
 
 - **Strand specificity**: For stranded library-preparation protocols, we expect almost all the reads to come from the expected strand (e.g. *REV* for KAPA libraries, *FWD* for QuantSeq 3' libraries. For non-stranded protocols, the distribution of reads should be equally split between *FWD* and *REV*.
 
@@ -202,7 +202,7 @@ Open this report and have a look at it, but also open the report for post-alignm
 ### Do you think there is cause for concern for any samples?
 
 **General notes:**
-- **Overall, the quality of these samples looks great.** Most samples have at least 20 million aligned reads, with > 90% of the inital read successfully aligned in all samples.   
+- **Overall, the quality of these samples looks great.** Most samples have at least 20 million aligned reads, with > 90% of the initial read successfully aligned in all samples.   
 
 - Additionally, **>90% of reads map to mRNA features,** confirming that our annotation is likely of good quality, and we don't have much contamination from genomic DNA, PCR artifacts, or other species. In the `RnaSeqMetrics` section, you can hover over individual samples and see the proportion of reads mapping to intronic or intergenic sequences is very small.   
 
@@ -212,7 +212,7 @@ Open this report and have a look at it, but also open the report for post-alignm
 
 - The only possible issue I would note is that one sample seems to have slightly fewer total aligned reads than the others, with ~15 million. This isn't necessarily a problem, and is likely related to the amount of input material and/or its quality, and if I have done a good job of tracking sample metadata, such as the the RNA QC scores, I could test this hypothesis. I might also be careful not to make any inferences from this sample that would need to be based off deeper sequencing (e.g. identifying a novel splice junction).  
 
-**Note:** Since we set the `STRAND` option in `CollectRNASeqMetrics` to `NONE` (as this is an unstranded dataset) there is no section in the report for strand specificity. If you library is stranded, and you told `CollectRNASeqMetrics` the correct strand that you expect your reads to be on, you should see that >99% of your reads are on the expected strand. If they are not, you either specified the wrong strand, or there was a problem in library prep. and your strand-synthesis was not very effective. An example from a good dataset is shown below:
+**Note:** Since we set the `STRAND` option in `CollectRNASeqMetrics` to `NONE` (as this is an unstranded dataset) there is no section in the report for strand specificity. If your library is stranded, and you told `CollectRNASeqMetrics` the correct strand that you expect your reads to be on, you should see that >99% of your reads are on the expected strand. If they are not, you either specified the wrong strand, or there was a problem in library prep. and your strand-synthesis was not very effective. An example from a good dataset is shown below:
 
 <p align="center">
 <img src="../figures/collectrnaseqmetrics.png" title="xxxx" alt="strand-ori"
