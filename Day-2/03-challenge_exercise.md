@@ -70,6 +70,6 @@ These options are valid for *bowite2 version 2.2.7* if you have the conda env ac
 ### Challenge exercises
 
 1. Write your own code to align the reads in SRR14057225 to the reference genome (remember that the paired ends here have been merged and these files should be treated as unpaired reads).
-2. You will notice that with the end-to-end alignment there are no reads mapped, but with the --local alignment most of the reads map to the reference. Why do you think this is?  (hint what step did we leave out?)
+2. You will notice that with the end-to-end alignment there are no reads mapped, but with the --local alignment most of the reads map to the reference. Why do you think this is?  (hint: What is different about these pairs of reads?)
 3. Write a loop that aligns each of the samples to the reference genome and writes each sample to its own SAM output file.
 4. Write a script that runs bowtie alignments on samples that are handed to the script.
