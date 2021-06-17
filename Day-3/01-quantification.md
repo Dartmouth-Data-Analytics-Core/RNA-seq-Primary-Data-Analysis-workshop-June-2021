@@ -103,20 +103,20 @@ Additional exercise:
 ls ../alignment/*.Aligned.sortedByCoord.out.bam | while read x; do
 
   # save the file name
-  sample=`echo "$x"`
+  sample=`echo "../alignment/SRR1039508.Aligned.sortedByCoord.out.bam"`
   # get everything in file name before "/" (to remove '../alignment/')
   sample=`echo "$sample" | cut -d"/" -f3`
-  # get everything in file name before "_" e.g. "SRR1039508"
+  # get everything in file name before "_"
   sample=`echo "$sample" | cut -d"." -f1`
   echo processing "$sample"
 
   htseq-count \
-	-f bam \
-	-s no \
-	-r pos \
-	--additional-attr "gene_name" \
-	../alignment/${sample}.Aligned.sortedByCoord.out.bam \
-	/dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > ${sample}.htseq-counts
+    -f bam \
+    -s no \
+    -r pos \
+    --additional-attr "gene_name" \
+    ../alignment/${sample}.Aligned.sortedByCoord.out.bam \
+    /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > ${sample}.htseq-counts
 done
 ```
 
