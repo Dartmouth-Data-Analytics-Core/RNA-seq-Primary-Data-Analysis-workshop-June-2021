@@ -38,7 +38,7 @@ bowtie2-build <reference_genome.fasta> <bt2-base>
 
 ```
 
-The reference genome in this case has already been indexed for you and can be accessed at `/dartfs-hpc/scratch/data/prok_mapping/indexed_ref/S_aureus`.
+The reference genome in this case has already been indexed for you and can be accessed at `/dartfs-hpc/scratch/rnaseq1/data/prok_mapping/indexed_ref/S_aureus`.
 
 ### Bowtie Alignment
 
