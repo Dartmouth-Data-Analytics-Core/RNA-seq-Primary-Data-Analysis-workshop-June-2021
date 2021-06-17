@@ -372,11 +372,22 @@ cd rnaseq_wrksp/
 
 # download the file using secure copy (scp)
 ##### modify this for your discovery ID.  This points to a common directory of the aligned files, for viewing purposes.  You may specify the directory with your own alignments if you wish.
-scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/rnaseq1/data/bam/*.chr20.bam* .
+
+# download the BAM file 
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/omw/results/alignment/SRR1039508.Aligned.out.sorted.bam ./
 ##### you will be promoted for your password for discovery
 
+# download the index for the BAM (.bai file) 
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/omw/results/alignment/SRR1039508.Aligned.out.sorted.bam.bai ./
+
 # you may also need to modify the permissions
-chmod a+rwx chr20*
+chmod a+rwx *.bam*
+```
+
+If you were not able to generate the above files, you can download a public versions below: 
+```bash
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/rnaseq1/data/bam/SRR1039508.Aligned.out.sorted.bam ..
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/rnaseq1/data/bam/SRR1039508.Aligned.out.sorted.bam.bai ..
 ```
 
 Open IGV, and follow the below steps:  
