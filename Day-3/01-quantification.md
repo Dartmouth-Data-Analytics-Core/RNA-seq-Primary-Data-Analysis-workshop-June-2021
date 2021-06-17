@@ -271,6 +271,7 @@ You should now have a file called `SRR1039508.Aligned.toTranscriptome.out.bam` i
 Similarly to STAR, RSEM requires a specifically formatted version of the reference genome. The RSEM reference can be geneeated using teh RSEM command `rsem-prepare-reference`. **Do not run this command during the workshop** as it is time consuming. An RSEM formatted reference has been provided for you in `/dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index_RSEM/`. Below is an example of the command used to generate this reference.
 
 ```bash
+#### DO NOT RUN DURING WORKSHOP ####
 rsem-prepare-reference --gtf /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.gtf \
                         -p 1 \
                         /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.dna.primary_assembly.chr20.fa \
