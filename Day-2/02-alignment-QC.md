@@ -188,9 +188,19 @@ multiqc . --filename "multiqc.alignment.qc"
 
 Now go to your local machine and use secure copy (scp) to download the report
 ```bash
+#### ON YOUR LOCAL MACHINE ####
+cd ~/rnaseq_wrksp
+
 ### Make sure to change the netID to your own and the initials to the ones for your own scratch drive!!
-scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/omw/results/alignment.qc/multiqc* .
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/omw/results/alignment.qc/multiqc.alignment.qc.html ./
 ```
+
+If you were unable to generate your own report, you can download a public version of the file here:  
+```bash
+### Make sure to change the netID to your own and the initials to the ones for your own scratch drive!!
+scp d41294d@discovery7.dartmouth.edu:/dartfs-hpc/scratch/rnaseq1/data/qc/alignment/multiqc.alignment.qc.html ./
+```
+
 
 Open this report and have a look at it, but also open the report for post-alignment QC in the GitHub repo you download, located in `Bulk-RNA-seq_workshop_Part-1_June-2021/QC-reports/`. The report we generated is only for samples mapped to chr20, so the QC metrics will look a little spotty and are less representative of what you would see in a standard experiment. The QC report in the GitHub repo has been generated using **all samples with reads mapping to all chromosomes**. We will have a look through this together now.
 
