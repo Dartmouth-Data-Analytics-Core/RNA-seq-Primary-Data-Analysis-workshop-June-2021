@@ -66,14 +66,14 @@ for i in $sample_list; do echo $i; done
 echo "Checking file existence..."
 for i in $sample_list
 do
-if [ -f data/${i}_1.chr20.fastq.gz ]
-then
-    echo $i "exists."
-else
-    echo $i "does not exist!!!"
-    echo "Exiting pipeline."
-    exit
-fi
+    if [ -f data/${i}_1.chr20.fastq.gz ]
+    then
+        echo $i "exists."
+    else
+       echo $i "does not exist!!!"
+      echo "Exiting pipeline."
+      exit
+    fi
 done
 echo "File checking complete."
 
