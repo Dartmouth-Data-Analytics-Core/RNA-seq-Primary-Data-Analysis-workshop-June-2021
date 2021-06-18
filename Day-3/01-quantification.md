@@ -75,8 +75,13 @@ htseq-count \
 	-s no \
 	-r pos \
 	--additional-attr "gene_name" \
-	../alignment/SRR1039508.Aligned.sortedByCoord.out.bam \
+	../alignment/SRR1039508_1.Aligned.sortedByCoord.out.chr20.bam \
 	/dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > SRR1039508.htseq-counts
+	
+	
+# same command as above but without the newlines to separate the flags - only run one of these	
+htseq-count -f bam -s no -r pos --additional-attr "gene_name" ../alignment/SRR1039508_1.Aligned.sortedByCoord.out.chr20.bam /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > SRR1039508.htseq-counts
+
 ```
 
 There are numerous settings that can be tweaked and turned on/off in htseq-count. I strongly recommend you **read the manual** before running htseq-count so that you understand all the default options and available settings.
@@ -100,10 +105,10 @@ Additional exercise:
 
 ## Run htseq-count on the rest of our samples
 ```bash
-ls ../alignment/*.Aligned.sortedByCoord.out.bam | while read x; do
+ls ../alignment/*.Aligned.sortedByCoord.out.chr20.bam | while read x; do
 
   # save the file name
-  sample=`echo "../alignment/SRR1039508.Aligned.sortedByCoord.out.bam"`
+  sample=`echo "$x"`
   # get everything in file name before "/" (to remove '../alignment/')
   sample=`echo "$sample" | cut -d"/" -f3`
   # get everything in file name before "_"
@@ -115,7 +120,7 @@ ls ../alignment/*.Aligned.sortedByCoord.out.bam | while read x; do
     -s no \
     -r pos \
     --additional-attr "gene_name" \
-    ../alignment/${sample}.Aligned.sortedByCoord.out.bam \
+    ../alignment/${sample}.Aligned.sortedByCoord.out.chr20.bam \
     /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf > ${sample}.htseq-counts
 done
 ```
