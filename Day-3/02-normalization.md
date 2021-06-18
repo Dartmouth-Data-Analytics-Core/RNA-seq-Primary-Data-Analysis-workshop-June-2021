@@ -8,7 +8,7 @@
 
 For this lesson we will work in the `quant/` directory we made previously:
 ```bash
-# go to our home worksp dir
+# go to our home workshop dir
 rnaw
 
 # move into folder for quantification analysis
@@ -58,7 +58,7 @@ If we don't account for variation in sequencing depth, we might conclude some ge
 	title="" width="85%" height="85%" />
 </p>
 
-In the above example, sample 1 (left) is sequenced to twice the depth of sample 2 (right), with 30 million reads vs 15 million reads. None of the genes are truly differentially expressed between the samples, and all 3 genes have approximately twice as many reads as those in sample 1 simply due to the excess sequecing depth.
+In the above example, sample 1 (left) is sequenced to twice the depth of sample 2 (right), with 30 million reads vs 15 million reads. None of the genes are truly differentially expressed between the samples, and all 3 genes have approximately twice as many reads as those in sample 1 simply due to the excess sequencing depth.
 
 ### Library composition
 
@@ -208,7 +208,7 @@ RPKM and FPKM have been used for many years as normalization strategies in RNA-s
 	title="" width="90%" height="85%" />
 </p>
 
-The difference between RPKM and FPKM is very simple: RPKM is used for single-end experiments, whereas FPKM is used in paired-end experiments. This is because in single-end experiments we only measure one end of the DNA fragments in our library, however in paired-end experiments we measure the same DNA molecule 2x (once from each end), therefore we only need to count that fragment once during normaliation, despite having 2 reads for it.
+The difference between RPKM and FPKM is very simple: RPKM is used for single-end experiments, whereas FPKM is used in paired-end experiments. This is because in single-end experiments we only measure one end of the DNA fragments in our library, however in paired-end experiments we measure the same DNA molecule 2x (once from each end), therefore we only need to count that fragment once during normalization, despite having 2 reads for it.
 
 Since our dataset is paired-end and we counted the number of fragments in the quantification step, we are calculating FPKM. Calculate FPKM from our raw read counts:
 ```r
