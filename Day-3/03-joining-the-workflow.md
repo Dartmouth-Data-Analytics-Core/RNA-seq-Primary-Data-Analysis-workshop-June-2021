@@ -9,7 +9,7 @@ One of the benefits of writing your code this way is the same code can be used o
 
 ## If/Else statements
 
-A useful way to control operations in a script is with if/else statements.  These allow commands to be run only if certain conditions are true.
+A useful way to control operations in a script is with if/else statements.  These allow commands to be run only if certain conditions are true.  
 if statement example:
 ```bash
 #Just an if statement, without an else statement
@@ -21,7 +21,7 @@ fi
 #Try setting a to 6, and observe there is no output.
 ```
 
-if/else statement example
+if/else statement example:
 ```bash
 a=5
 if [ $a == 5 ]
