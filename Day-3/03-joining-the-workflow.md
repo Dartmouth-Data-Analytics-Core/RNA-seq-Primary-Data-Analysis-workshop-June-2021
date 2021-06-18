@@ -70,9 +70,9 @@ do
     then
         echo $i "exists."
     else
-       echo $i "does not exist!!!"
-      echo "Exiting pipeline."
-      exit
+        echo $i "does not exist!!!"
+        echo "Exiting pipeline."
+        exit
     fi
 done
 echo "File checking complete."
