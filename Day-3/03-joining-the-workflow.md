@@ -130,3 +130,11 @@ cd ..
 echo -n "RNA-Seq Pipeline finished at: "; date
 
 ```
+
+## Workflow management software
+
+Writing a shell script-based pipeline like the one above is useful for custom projects, and as a learning tool.  However, robust workflow management tools exist, which contain features such as parallelization, checking of expected inputs and outputs, cluster submission, conditional job execution, and restarting from checkpoints.  Writing all of these into one's own shell script would be time consuming.  Two widely-used workflow management tools for bioinformatics are [Snakemake](https://snakemake.readthedocs.io/en/stable/) and [Nextflow](https://www.nextflow.io/).  The DAC maintains a [Snakemake pipeline](https://github.com/Dartmouth-Data-Analytics-Core/DAC-rnaseq-pipeline/tree/snakemake-dev-tim) with steps very similar to those used in this workshop.  
+
+### Snakemake job graph example for these samples:
+<img src="../figures/dag.svg" width="1024" height="300" >
+
