@@ -19,7 +19,7 @@ cd results/quant
 If you get lost and need to catch up quickly you can copy the files needed for the next step with this command:
 
 ```bash
-cp /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/htseq-count/* results/quant
+cp /dartfs-hpc/scratch/rnaseq1/data/htseq-count/* results/quant
 ```
 
 ## Principle of quantifying read counts for RNA-seq
