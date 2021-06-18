@@ -12,13 +12,18 @@ ls /dartfs-hpc/scratch/rnaseq1/data/prok_mapping/*.fastq|while read x; do \
 	echo $x is being aligned... \;
 	bowtie2 -x /dartfs-hpc/scratch/rnaseq1/data/prok_mapping/indexed_ref/S_aureus \
 	-q /dartfs-hpc/scratch/rnaseq1/data/prok_mapping/$x.fastq \
-	-S $x.sam
-	--very-fast-local
+	-S $x.sam \
+	--very-fast-local;
+	done
 
 
 # sort and convert sam file to bam file 
 
 samtools sort -O bam -o SSRR14057225.sort.bam -T temp SRR14057225.sam
+
+-O output format
+-o output file name
+-T prefix for temp files created
 
 # index bam file 
 
