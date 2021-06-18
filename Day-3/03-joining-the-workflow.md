@@ -23,6 +23,7 @@ echo -n "RNA-Seq Pipeline beginning at: "; date
 
 ###################################
 ### Data Gathering ###
+
 echo "Symlinking Raw Data"
 mkdir data
 cd data
@@ -33,6 +34,21 @@ cd ..
 sample_list="SRR1039508 SRR1039509 SRR1039512 SRR1039513"
 echo "The pipeline will be run for the following samples:"
 for i in $sample_list; do echo $i; done
+
+echo "Checking file existence..."
+for i in $sample_list
+do
+if [ -f data/${i}_1.chr20.fastq.gz ]
+then
+    echo $i "exists."
+else
+    echo $i "does not exist!!!"
+    echo "Exiting pipeline."
+    exit
+fi
+done
+echo "File checking complete."
+
 
 ###################################
 ### FastQC ###
@@ -70,13 +86,11 @@ echo "STAR complete."
 cd ..
 
 
-
+###################################
+### Run MarkDuplicates ###
 
 ###################################
 ### Run CollectRNASeqMetrics ###
-
-###################################
-### Run MarkDuplicates ###
 
 ###################################
 ### Move alignment and metrics into a single directory and run multiqc ###
