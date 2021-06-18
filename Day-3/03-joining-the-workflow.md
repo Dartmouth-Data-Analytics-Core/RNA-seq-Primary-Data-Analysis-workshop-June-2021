@@ -7,6 +7,34 @@ One of the benefits of writing your code this way is the same code can be used o
 
 ![](../figures/terminal_commands3.png)
 
+## If/Else statements
+
+A useful way to control operations in a script is with if/else statements.  These allow commands to be run only if certain conditions are true.
+if statement example:
+```bash
+#Just an if statement, without an else statement
+a=5
+if [ $a == 5 ]
+    then
+    echo "a is equal to 5"
+fi
+#Try setting a to 6, and observe there is no output.
+```
+
+if/else statement example
+```bash
+a=5
+if [ $a == 5 ]
+    then
+    echo "a is equal to 5"
+    else
+    echo "a is not equal to 5"
+fi
+```
+
+There are many possible conditions to check for variables and files in Bash.  [Here is a link](https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html) to a reference containing the syntax for some available conditional tests.
+
+
 ## Exercise: complete the workflow
 
 After you have completed the previous lessons & exercises (or as 'homework' after the workshop), we have provided the foundations of a simple script that links together commands from each part of the RNA-seq analysis we performed. Try filling in the rest of the commands to complete the workflow, and run it on the full dataset.
@@ -48,6 +76,7 @@ else
 fi
 done
 echo "File checking complete."
+
 
 
 ###################################
