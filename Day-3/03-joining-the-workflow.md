@@ -19,62 +19,58 @@ Then we will use the array to write several for loops that iterate over the elem
 ```bash
 #!/bin/bash
 
-### Build an array of sample names ###
-
-array=("SRR1039508" "SRR1039509" "SRR1039512" "SRR1039513")
+echo -n "RNA-Seq Pipeline beginning at: "; date
 
 ###################################
-### Check Raw Sample Quality ###
-
-## create sym links for the raw files
+### Data Gathering ###
+echo "Symlinking Raw Data"
+mkdir data
+cd data
 ln -s /dartfs-hpc/scratch/rnaseq1/data/raw-fastq/subset/*.gz ./
+echo -n "Symlinks created in: "; pwd
+cd ..
 
-## perform the fastq analysis on read pairs
-for x in "${array[@]}"; do \
-  fastqc -t 4 ../"$x"_1.chr20.fastq.gz
-  fastqc -t 4 ../"$x"_2.chr20.fastq.gz
-done
-
- ## consolidate the fastq reports into their own directory and a single QC file with multiqc
- mkdir fastq_results/
- mv *fastqc*
- cd fastq_results/
- multiqc .
+sample_list="SRR1039508 SRR1039509 SRR1039512 SRR1039513"
+echo "The pipeline will be run for the following samples:"
+for i in $sample_list; do echo $i; done
 
 ###################################
- ### Read Trimming ###
+### FastQC ###
 
- ## create a directory for trimmed reads
- mkdir trim/
- cd trim/
+echo "Running FastQC..."
+for i in $sample_list; do fastqc data/${i}_1.chr20.fastq.gz; fastqc data/${i}_2.chr20.fastq.gz;done
+echo "FastQC complete."
 
- ## run the cutadapt command to trim reads
-for x in "${array[@]}"; do \
- cutadapt \
-  -o "$x"_1.trim.chr20.fastq.gz \
-  -p "$x"_2.trim.chr20.fastq.gz \
-  ../"$x"_1.chr20.fastq.gz ../"$x"_2.chr20.fastq.gz \
-  -m 1 -q 20 -j 4 > "$x".cutadapt.report
-done
+echo "Moving FastQC reports..."
+mkdir fastqc_reports
+mv data/*fastqc.html fastqc_reports/
+mv data/*fastqc.zip fastqc_reports/
+echo "Moving reports complete."
 
 ###################################
-### Read Alignment ###
+### Cutadapt ###
 
-## create a directory for aligned reads
-mkdir alignment/
+echo "Running Cutadapt..."
+mkdir trim
+cd trim
+for i in $sample_list; do cutadapt -o ${i}_1.trim.chr20.fastq.gz -p ${i}_2.trim.chr20.fastq.gz ../data/${i}_1.chr20.fastq.gz ../data/${i}_2.chr20.fastq.gz -m1 -q 20 -j4 > ${i}_cutadapt.report; done
+echo "Cutadapt complete."
+cd ..
+
+
+###################################
+### STAR Alignment ###
+
+mkdir alignment
 cd alignment
 
-## run the STAR command to align reads (in this case the index has been built if you are using a different reference file you will need to add a command for building the reference
-for x in "${array[@]}"; do \
-    STAR --genomeDir /dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index \
-    --readFilesIn ../trim/"$x"_1.trim.chr20.fastq.gz ../trim/"$x"_2.trim.chr20.fastq.gz \
-    --readFilesCommand zcat \
-    --sjdbGTFfile /dartfs-hpc/scratch/rnaseq1/refs/Homo_sapiens.GRCh38.97.chr20.gtf \
-    --runThreadN 4 \
-    --outSAMtype BAM SortedByCoordinate \
-    --outFilterType BySJout \
-    --outFileNamePrefix "$x".
-done
+echo "Running STAR alignment..."
+for i in $sample_list; do STAR --genomeDir /dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index --readFilesIn ../trim/${i}_1.trim.chr20.fastq.gz ../trim/${i}_2.trim.chr20.fastq.gz --readFilesCommand zcat --runThreadN 4 --outSAMtype BAM SortedByCoordinate --outFilterType BySJout --outFileNamePrefix ${i}_; done
+echo "STAR complete."
+cd ..
+
+
+
 
 ###################################
 ### Run CollectRNASeqMetrics ###
@@ -87,5 +83,7 @@ done
 
 ###################################
 ### Run htseq-count ###
+
+echo -n "RNA-Seq Pipeline finished at: "; date
 
 ```
