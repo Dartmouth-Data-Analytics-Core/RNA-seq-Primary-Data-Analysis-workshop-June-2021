@@ -1,3 +1,19 @@
+
+# command to look for adapter contamination
+
+### from your directory in scratch/
+cd results/trim
+
+cutadapt \
+   -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA \
+   -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT \
+   -o SRR1039508_1.trim.chr20.fastq.gz \
+   -p SRR1039508_2.trim.chr20.fastq.gz \
+   ../../raw_data/SRR1039508_1.chr20.fastq.gz ../../raw_data/SRR1039508_2.chr20.fastq.gz \
+   -j 1 > SRR1039508.cutadapt.report
+   
+   
+   
 # command to align SRR14057225 to reference genome
 
 bowtie2 -x /dartfs-hpc/scratch/rnaseq1/data/prok_mapping/indexed_ref/S_aureus \
