@@ -8,7 +8,7 @@
 
 Make a new directory:
 ```bash
-# go to our home worksp dir
+# go to our home workshop dir
 rnaw
 
 # make folder for quantification
@@ -35,11 +35,11 @@ Other, more complex methods, leverage probabilistic modeling in order to quantif
 
 ## HTSeq-count
 
-For our analysis, we will used `htseq-count`. The `htseq-count`algorithm follows a specific set of rules to count reads overlapping genomic features, in order to quantify expression over those features (genes). As input, `htseq-count` requires:  
+For our analysis, we will used `htseq-count`. The `htseq-count` algorithm follows a specific set of rules to count reads overlapping genomic features, in order to quantify expression over those features (genes). As input, `htseq-count` requires:  
 - Aligned sequencing reads (`SAM/BAM` file)
 - List of genomic features (`GTF` file)
 
-`htseq-count` has numerous options that can be specified to control its behaviour. One important feature that can be controlled is how `htseq-count` will count reads that overlap multiple features, for which it has three distinct modes: `union` (default), `intersection_strict`, and `intersection_nonempty`. You change change these using the `mode` option.
+`htseq-count` has numerous options that can be specified to control its behaviour. One important feature that can be controlled is how `htseq-count` will count reads that overlap multiple features, for which it has three distinct modes: `union` (default), `intersection_strict`, and `intersection_nonempty`. You can change these using the `mode` option.
 
 #### Counting modes (from the htseq-count documentation, found [here](https://htseq.readthedocs.io/en/release_0.11.1/count.html))
 
@@ -66,7 +66,7 @@ Another important option in htseq-count is `t` or `type` which specifies which f
 ![](../figures/gtf.png)
 
 **Specifying BAM sorting:**  
-When counting paired-end data (such as in this experiemnt) your `.bam` files should be sorted before running `htseq-count`, and you can specify how your `.bam` is sorted using the `-r` option. `name` indicates they are sorted by read name, `pos` indicates they are sorted by genomic position.
+When counting paired-end data (such as in this experiment) your `.bam` files should be sorted before running `htseq-count`, and you can specify how your `.bam` is sorted using the `-r` option. `name` indicates they are sorted by read name, `pos` indicates they are sorted by genomic position.
 
 ## Run htseq-count on your .bam file
 ```bash
@@ -201,7 +201,7 @@ Remove all the tmp files
 rm -f *tmp*
 ```
 
-In practice, you would have generated the `.htseq.counts` files using all genes accross the entire genome, and using all of the samples in the dataset, instead of the four samples we used in these examples. So that we have the complete set of counts available for day 2, we have made a complete raw counts matrix for you to use. You can find this in `/dartfs-hpc/scratch/rnaseq1/data/htseq-counts/`. It is also is the GitHub repository that you downloaded in the `Day-2` folder, as we will be loading it into `R` tomorrow for the differential expression analysis.
+In practice, you would have generated the `.htseq.counts` files using all genes across the entire genome, and using all of the samples in the dataset, instead of the four samples we used in these examples. So that we have the complete set of counts available for day 2, we have made a complete raw counts matrix for you to use. You can find this in `/dartfs-hpc/scratch/rnaseq1/data/htseq-counts/`. It is also in the GitHub repository that you downloaded in the `Day-2` folder, as we will be loading it into `R` tomorrow for the differential expression analysis.
 
 Have a quick look at it:
 ```bash
@@ -249,9 +249,9 @@ Previously we used STAR to generate a genome mapping, therefore to use RSEM to q
 
 ### Additional exercise
 
-Complete and run the code below to generate transcript quantification estimates using RSEM on one sample from our dataset.The majority of the code has been provided for you, however you should look at the documentation from STAR and RSEM to better understand the options used.
+Complete and run the code below to generate transcript quantification estimates using RSEM on one sample from our dataset. The majority of the code has been provided for you, however you should look at the documentation from STAR and RSEM to better understand the options used.
 
-In addition, RSEM has not been included in your original conda environment (intentionally), so you must install it before completling the example below. Go to [the conda page for RSEM](https://anaconda.org/bioconda/rsem) to obtain the code needed to add RSEM to your conda environment. Note that this command may take a few minutes to run.
+In addition, RSEM has not been included in your original conda environment (intentionally), so you must install it before completing the example below. Go to [the conda page for RSEM](https://anaconda.org/bioconda/rsem) to obtain the code needed to add RSEM to your conda environment. Note that this command may take a few minutes to run.
 
 
 ```bash
@@ -273,7 +273,7 @@ STAR --genomeDir /dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index \
 
 You should now have a file called `SRR1039508.Aligned.toTranscriptome.out.bam` in your `alignments` directory. This file contains the transcriptome alignments of our reads to GRCh38.
 
-Similarly to STAR, RSEM requires a specifically formatted version of the reference genome. The RSEM reference can be geneeated using teh RSEM command `rsem-prepare-reference`. **Do not run this command during the workshop** as it is time consuming. An RSEM formatted reference has been provided for you in `/dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index_RSEM/`. Below is an example of the command used to generate this reference.
+Similarly to STAR, RSEM requires a specifically formatted version of the reference genome. The RSEM reference can be generated using the RSEM command `rsem-prepare-reference`. **Do not run this command during the workshop** as it is time consuming. An RSEM formatted reference has been provided for you in `/dartfs-hpc/scratch/rnaseq1/refs/hg38_chr20_index_RSEM/`. Below is an example of the command used to generate this reference.
 
 ```bash
 #### DO NOT RUN DURING WORKSHOP ####
