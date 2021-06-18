@@ -87,6 +87,9 @@ CPM is a simple normalization method that involves scaling the number of reads m
 
 We will briefly use R to calculate CPM values for our dataset. If you are not familiar with R don't worry, this is not complex R code and many software packages will calculate normalized counts for you.
 ```r
+# load R into your modules
+module load R
+
 # to begin an R session on discovery use the following command
 R
 
